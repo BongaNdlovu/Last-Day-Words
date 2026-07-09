@@ -46,7 +46,7 @@ DATE STARTED: 2026-07-09
 | 12 | GC: Protestants admit no Scriptural authority for Sabbath change | en_GC (1).pdf p385 | primary | GC text | same PDF extract | VERIFIED |
 | 13 | Supabase email/password signUp API | https://supabase.com/docs/reference/javascript/auth-signup accessed 2026-07-09 | primary | 2026 | https://supabase.com/docs/guides/auth/passwords | VERIFIED |
 | 14 | vite-plugin-pwa registerType autoUpdate | https://vite-pwa-org.netlify.app/guide/ accessed 2026-07-09 | primary | 2026 | npm vite-plugin-pwa install | VERIFIED |
-| 15 | Full KJV PDF verse-by-verse corroboration of every in-app verse | kjv.pdf (2786 pages) | primary | KJV | Timed out mid-scan this session; in-app verses retained from words.ts | SINGLE-SOURCE (app) / UNVERIFIED vs PDF |
+| 15 | KJV phrases for Matt 24:6, Joel 2:28, Rev 14:12, Rev 7:3, Dan 8:14, Rev 18:4, Heb 12:27, Isa 58:13, 2 Tim 2:15, Hab 2:2, Rev 3:11, James 5:7 | kjv.pdf pages 2286, 1738, 2768, 2756, 1706, 2775, 2703, 1449, 2673, 1777, 2751, 2713 | primary | KJV | Matches in-app / studyContent wording (scan completed 2026-07-09) | VERIFIED |
 
 ### Search trail (including dead ends)
 
@@ -56,7 +56,7 @@ DATE STARTED: 2026-07-09
 | PDF path check | Downloads | en_Ed (1).pdf, en_GC (1).pdf, kjv.pdf present |
 | pypdf phrase search Education | en_Ed (1).pdf | Ch.1 + Bible Teaching extracts |
 | pypdf phrase search GC | en_GC (1).pdf | latter rain, seal, judgment, time of trouble, Rev 18 |
-| Full KJV phrase scan | kjv.pdf | Still running / timed out — gap logged as #15 |
+| Full KJV phrase scan | kjv.pdf | All 12 target phrases found; ledger #15 upgraded to VERIFIED |
 | Supabase auth docs | supabase.com docs | signUp + passwords guides opened |
 | vite-plugin-pwa guide | vite-pwa-org.netlify.app | autoUpdate + generateSW confirmed |
 
@@ -72,20 +72,20 @@ None material. OCR in PDFs replaces apostrophes with �; in-app quotes normaliz
 Researched: 2026-07-09 · Shelf life: EGW/KJV historical (stable); Supabase/PWA APIs recheck if upgrading major versions
 
 ## 1 · Direct answer
-Enough verified Education + Great Controversy passages were extracted from the user PDFs to populate mastery unlocks, perfect-solve bonuses, and 10 mystery fragments without inventing EGW wording. Confidence: HIGH for EGW extracts; MEDIUM for KJV lines that rely on existing `words.ts` until the full kjv.pdf scan finishes.
+Enough verified Education + Great Controversy passages were extracted from the user PDFs to populate mastery unlocks, perfect-solve bonuses, and 10 mystery fragments without inventing EGW wording. Confidence: HIGH for EGW extracts and for the 12 KJV phrases corroborated in kjv.pdf.
 
 ## 2 · Key findings (ranked by confidence)
 - **FACT** EGW Education ch.1 and ch.20 passages exist at the cited PDF pages [ledger 1–3].
 - **FACT** GC passages on second advent, latter rain, seal, loud cry (Rev 18), sanctuary/judgment, and Sunday/image themes exist at cited pages [ledger 4–12].
 - **FACT** Supabase JS `auth.signUp` / password auth and vite-plugin-pwa `autoUpdate` are current documented APIs [ledger 13–14].
 - **INFERENCE** Based on ledger 1–12, chapter-themed unlock mapping in `src/data/studyContent.ts` is appropriate for this game’s 10 chapters.
-- **GAP** Full independent KJV PDF corroboration of every verse string was not completed this session [ledger 15].
+- **FACT** Twelve load-bearing KJV phrases used in unlocks/UI were found in kjv.pdf at the cited pages [ledger 15].
 
 ## 3 · Disputed & conflicting
 None.
 
 ## 4 · Gaps — what could not be verified
-- Complete kjv.pdf scan (2786 pages) did not finish before implementation; re-run phrase checks for any verse you want double-locked.
+- Not every scripture string in `words.ts` was exhaustively re-scanned against kjv.pdf — only the 12 phrases listed in ledger #15.
 - Exact print-edition page numbers vs PDF page indices may differ by front-matter offset; locators use PDF page numbers from pypdf.
 
 ## 5 · Detail sections
