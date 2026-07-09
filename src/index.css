@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Cinzel", serif;
+  --font-scripture: "Cormorant Garamond", "Georgia", serif;
+}
+
+/* ============================================================
+   Candlelit parchment theme tokens
+   Text colors are chosen to meet WCAG AA (>= 4.5:1) on the
+   parchment surfaces below.
+   ============================================================ */
+:root {
+  --page: #e9dcbf;
+  --card: #fbf5e9;
+  --card-alt: #f6edda;
+  --sunken: #efe4cd;
+  --line: #e2d2ac;
+  --line-soft: #ecdfc2;
+
+  --ink: #2a2018;        /* primary text */
+  --ink-soft: #52412c;   /* secondary text */
+  --muted: #6b5537;      /* muted captions (AA-safe) */
+  --brass: #b45309;      /* accent / icon */
+  --brass-deep: #92400e; /* accent text (AA-safe) */
+}
+
+/* Warm candlelit backdrop with an ambient amber glow */
+.candlelit-page {
+  background-color: var(--page);
+  background-image:
+    radial-gradient(1100px 620px at 50% -12%, rgba(251, 191, 36, 0.22), transparent 62%),
+    radial-gradient(820px 520px at 50% 115%, rgba(120, 53, 15, 0.12), transparent 60%),
+    linear-gradient(180deg, #efe3c8 0%, #e6d6b3 100%);
+  background-attachment: fixed;
+}
+
+/* Reusable candlelit surfaces */
+.pcard {
+  background: linear-gradient(180deg, var(--card) 0%, var(--card-alt) 100%);
+  border: 1px solid var(--line);
+}
+.psunken {
+  background: var(--sunken);
+  border: 1px solid var(--line);
+}
+
+/* Minimalist container shadows & borders */
+.parchment-glow {
+  box-shadow: 0 1px 3px rgba(66, 42, 12, 0.10), 0 1px 2px rgba(66, 42, 12, 0.05);
+}
+
+.amber-glow {
+  box-shadow: 0 10px 30px -12px rgba(120, 53, 15, 0.35);
+}
+
+/* Scrollbar styles for a clean appearance */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbb487;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b45309;
+}
+
+@keyframes candle-flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-1deg); opacity: 1; }
+  25% { transform: scaleY(1.08) scaleX(0.94) rotate(1deg); opacity: 0.95; }
+  50% { transform: scaleY(0.96) scaleX(1.04) rotate(-0.5deg); opacity: 1; }
+  75% { transform: scaleY(1.04) scaleX(0.97) rotate(0.5deg); opacity: 0.92; }
+}
+
+@keyframes candle-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.15); }
+}
+
+@keyframes wick-melt {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+.candle-flame-flicker {
+  animation: candle-flicker 1.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.candle-flame-glow {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%);
+  animation: candle-glow 1.4s ease-in-out infinite;
+}
+
+.candle-wick-melt {
+  animation: wick-melt 2s ease-in-out infinite;
+}
+
+@keyframes screen-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes danger-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(190, 60, 40, 0.20); }
+  50% { box-shadow: 0 0 14px 2px rgba(190, 60, 40, 0.38); }
+}
+
+.screen-shake {
+  animation: screen-shake 0.35s ease-in-out;
+}
+
+.danger-pulse {
+  animation: danger-pulse 1.2s ease-in-out infinite;
+}
+
+/* Visible focus ring for keyboard navigation (accessibility) */
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .candlelit-page {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================================
+   Ellen White animated avatar (ported) + ambient oil lamp.
+   Infinite loops below are auto-neutralized by the
+   prefers-reduced-motion rule above.
+   ============================================================ */
+.ellen-stage {
+  position: relative;
+}
+
+#ew-torso, #ew-head, #ew-eyes, #ew-smile, #ew-neutral-mouth, #ew-sad-mouth,
+#ew-eyebrow-left, #ew-eyebrow-right, #ew-hand-quill, .ew-lamp-flame,
+#ew-eye-left, #ew-eye-right {
+  transform-box: fill-box;
+}
+
+#ew-torso {
+  transform-origin: center bottom;
+  animation: ew-breathe 6.5s infinite ease-in-out;
+}
+@keyframes ew-breathe {
+  0%, 100% { transform: scaleY(1) scaleX(1) translateY(0); }
+  45% { transform: scaleY(1.012) scaleX(0.996) translateY(-0.6px); }
+}
+
+.ew-cinematic-light {
+  animation: ew-lightFlicker 6s infinite alternate ease-in-out;
+  transition: fill 1s ease, opacity 1s ease;
+}
+@keyframes ew-lightFlicker {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.85; }
+  80% { opacity: 0.65; }
+}
+
+.ew-lamp-flame {
+  transform-origin: center bottom;
+  animation: ew-flameFlicker 1.5s infinite ease-in-out;
+}
+@keyframes ew-flameFlicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+  25% { transform: scaleY(1.1) scaleX(0.9); opacity: 1; }
+  50% { transform: scaleY(0.95) scaleX(1.05); opacity: 0.85; }
+  75% { transform: scaleY(1.05) scaleX(0.95); opacity: 1; }
+}
+
+#ew-head {
+  transform-origin: center bottom;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: ew-head-sway 9s ease-in-out infinite;
+}
+@keyframes ew-head-sway {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  30% { transform: rotate(0.9deg) translateX(0.6px); }
+  65% { transform: rotate(-0.8deg) translateX(-0.5px); }
+}
+#ew-eyes {
+  transform-origin: center;
+  transition: transform 0.4s ease;
+  animation: ew-glance 11s ease-in-out infinite;
+}
+@keyframes ew-glance {
+  0%, 40%, 100% { transform: translateX(0); }
+  48%, 60% { transform: translateX(-1.4px); }
+  70%, 82% { transform: translateX(1.2px); }
+}
+#ew-smile, #ew-sad-mouth {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#ew-neutral-mouth {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+#ew-eyebrow-left, #ew-eyebrow-right {
+  transform-origin: center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#ew-hand-quill {
+  transform-origin: 85px 190px;
+  animation: ew-writing 3s infinite ease-in-out;
+}
+#ew-eye-left, #ew-eye-right {
+  animation: ew-blink 6.5s infinite ease-in-out;
+  transform-origin: center center;
+}
+#ew-eye-right {
+  animation-delay: 0.04s;
+}
+@keyframes ew-blink {
+  0%, 38%, 100% { transform: scaleY(1); }
+  41%, 43% { transform: scaleY(0.06); }
+  46% { transform: scaleY(1); }
+  90% { transform: scaleY(1); }
+  93%, 95% { transform: scaleY(0.06); }
+}
+@keyframes ew-writing {
+  0%, 100% { transform: rotate(0deg) translate(0, 0); }
+  25% { transform: rotate(4deg) translate(3px, -2px); }
+  50% { transform: rotate(-1deg) translate(-1px, 1px); }
+  75% { transform: rotate(2deg) translate(2px, -1px); }
+}
+
+.ew-aura {
+  transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Correct-answer reaction */
+.reaction-correct .ew-aura {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(217, 119, 6, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
+  transform: scale(1.4);
+  opacity: 1;
+}
+.reaction-correct .ew-cinematic-light { fill: url(#ewLightCorrect); opacity: 0.9; }
+.reaction-correct #ew-head { animation: ew-nodYes 1.5s ease-in-out forwards; }
+.reaction-correct #ew-smile { opacity: 1; }
+.reaction-correct #ew-neutral-mouth { opacity: 0; }
+.reaction-correct #ew-sad-mouth { opacity: 0; }
+.reaction-correct #ew-eyebrow-left, .reaction-correct #ew-eyebrow-right { transform: translateY(-2px); }
+@keyframes ew-nodYes {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-4px) rotate(2deg); }
+  70% { transform: translateY(3px) rotate(-2deg); }
+}
+
+/* Incorrect-answer reaction */
+.reaction-incorrect .ew-aura {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(30, 41, 59, 0.4) 50%, rgba(0, 0, 0, 0) 80%);
+  transform: scale(0.95);
+}
+.reaction-incorrect .ew-cinematic-light { fill: url(#ewLightIncorrect); opacity: 0.4; }
+.reaction-incorrect #ew-head { animation: ew-shakeNo 1.8s ease-in-out forwards; }
+.reaction-incorrect #ew-smile { opacity: 0; }
+.reaction-incorrect #ew-neutral-mouth { opacity: 0; }
+.reaction-incorrect #ew-sad-mouth { opacity: 1; }
+.reaction-incorrect #ew-eyebrow-left { transform: translateY(1.5px) rotate(8deg); }
+.reaction-incorrect #ew-eyebrow-right { transform: translateY(1.5px) rotate(-8deg); }
+@keyframes ew-shakeNo {
+  0%, 100% { transform: rotate(0deg); }
+  20%, 60% { transform: rotate(-5deg); }
+  40%, 80% { transform: rotate(5deg); }
+}
+
+/* ============================================================
+   Full-screen correct/incorrect flashes
+   ============================================================ */
+.screen-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+}
+.screen-flash.flash-correct {
+  animation: flashCorrect 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+.screen-flash.flash-incorrect {
+  animation: flashIncorrect 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+@keyframes flashCorrect {
+  0% { background: radial-gradient(circle at center, rgba(16, 185, 129, 0.45) 0%, transparent 60%); opacity: 1; }
+  100% { background: radial-gradient(circle at center, rgba(16, 185, 129, 0) 0%, transparent 60%); opacity: 0; }
+}
+@keyframes flashIncorrect {
+  0% { background: radial-gradient(circle at center, rgba(220, 38, 38, 0.40) 0%, transparent 60%); opacity: 1; }
+  100% { background: radial-gradient(circle at center, rgba(220, 38, 38, 0) 0%, transparent 60%); opacity: 0; }
+}
+
+/* ============================================================
+   Soul Lamp timer animations
+   ============================================================ */
+.soul-flame {
+  transform-origin: center bottom;
+  animation: soul-flicker 0.9s ease-in-out infinite;
+}
+.soul-flame.danger {
+  animation-duration: 0.32s;
+}
+@keyframes soul-flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  50% { transform: scaleY(1.09) scaleX(0.92); }
+}
+.soul-glow {
+  animation: soul-glow-pulse 1.6s ease-in-out infinite;
+}
+@keyframes soul-glow-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.8; }
+}

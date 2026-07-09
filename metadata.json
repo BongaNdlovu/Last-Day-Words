@@ -1,0 +1,6 @@
+{
+  "name": "Last Day Words",
+  "description": "An SDA word puzzle game where players solve end-time terms from Last Day Events using clues and Bible references.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
