@@ -54,7 +54,7 @@ export default function SpeedRoundGame({
   const [timeLeft, setTimeLeft] = useState(SPEED_ROUND_TIME);
   const [wordsSolved, setWordsSolved] = useState(0);
   const [wordStreak, setWordStreak] = useState(0);
-  const [usedWordIds, setUsedWordIds] = useState<string[]>([]);
+  const [, setUsedWordIds] = useState<string[]>([]);
   const [currentWordObj, setCurrentWordObj] = useState<WordTerm | null>(null);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [mistakes, setMistakes] = useState(0);
@@ -70,6 +70,8 @@ export default function SpeedRoundGame({
   const gameStartedRef = useRef(false);
   const feedbackTimer = useRef<NodeJS.Timeout | null>(null);
   const eventMultRef = useRef(1);
+  const speedEventRef = useRef<SpeedEvent>("none");
+  speedEventRef.current = speedEvent;
 
   const difficulty = currentWordObj ? getWordDifficulty(currentWordObj) : "medium";
   const maxMistakes = getMaxMistakes(difficulty);
@@ -88,29 +90,35 @@ export default function SpeedRoundGame({
   }, []);
 
   const loadNextWord = useCallback(() => {
-    let available = allWordsList.filter((w) => !usedWordIds.includes(w.id));
-    if (available.length === 0) {
-      available = shuffleArray(allWordsList);
-      setUsedWordIds([]);
-    }
-    const selected = pickWeightedWord(available, allWordsList);
-    const evt = rollSpeedEvent();
-    setSpeedEvent(evt);
-    eventMultRef.current = evt === "golden-word" ? GOLDEN_WORD_SCORE_MULT : 1;
-    if (evt === "double-time") {
-      setTimeLeft((t) => t + DOUBLE_TIME_BONUS);
-      setTimeBonusFeedback(`Double Time +${DOUBLE_TIME_BONUS}s!`);
-      setTimeout(() => setTimeBonusFeedback(null), 1400);
-    } else if (evt === "golden-word") {
-      setTimeBonusFeedback("Golden Word ×2!");
-      setTimeout(() => setTimeBonusFeedback(null), 1400);
-    }
-    setCurrentWordObj(selected);
-    setUsedWordIds((prev) => [...prev, selected.id]);
-    setGuessedLetters([]);
-    setMistakes(0);
-    solvedRef.current = false;
-  }, [allWordsList, usedWordIds]);
+    setUsedWordIds((prevUsed) => {
+      let available = allWordsList.filter((w) => !prevUsed.includes(w.id));
+      let nextUsed = prevUsed;
+      if (available.length === 0) {
+        available = shuffleArray(allWordsList);
+        nextUsed = [];
+      }
+      const selected = pickWeightedWord(available, allWordsList);
+      const evt = rollSpeedEvent();
+      setSpeedEvent(evt);
+      eventMultRef.current = evt === "golden-word" ? GOLDEN_WORD_SCORE_MULT : 1;
+      if (evt === "double-time") {
+        setTimeLeft((t) => t + DOUBLE_TIME_BONUS);
+        setTimeBonusFeedback(`Double Time +${DOUBLE_TIME_BONUS}s!`);
+        setTimeout(() => setTimeBonusFeedback(null), 1400);
+      } else if (evt === "golden-word") {
+        setTimeBonusFeedback("Golden Word ×2!");
+        setTimeout(() => setTimeBonusFeedback(null), 1400);
+      }
+      setCurrentWordObj(selected);
+      setGuessedLetters([]);
+      setMistakes(0);
+      solvedRef.current = false;
+      return [...nextUsed, selected.id];
+    });
+  }, [allWordsList]);
+
+  const loadNextWordRef = useRef(loadNextWord);
+  loadNextWordRef.current = loadNextWord;
 
   useEffect(() => {
     if (startCountdown > 0) {
@@ -183,27 +191,41 @@ export default function SpeedRoundGame({
     [isPlaying, isGameOver, currentWordObj, guessedLetters, wordText, loadNextWord, maxMistakes, comboMult, flashReaction, timeLeft]
   );
 
+  // Credit a full solve once. Keep deps minimal: broader deps re-ran this effect,
+  // cleared the "load next word" timeout, and left solvedRef stuck true (timer ran out).
   useEffect(() => {
-    if (solved && currentWordObj && !solvedRef.current) {
-      solvedRef.current = true;
-      const nextStreak = wordStreak + 1;
+    if (!solved || !currentWordObj || solvedRef.current) return;
+    solvedRef.current = true;
+
+    const evt = speedEventRef.current;
+    const multAtSolve = eventMultRef.current;
+    setWordStreak((prevStreak) => {
+      const nextStreak = prevStreak + 1;
       const mult = getSpeedComboMultiplier(nextStreak);
-      setWordStreak(nextStreak);
       setWordsSolved((p) => p + 1);
-      const solveBonus = Math.round((1000 + (maxMistakes - mistakes) * 200) * mult * eventMultRef.current);
-      setScore((p) => p + solveBonus);
+      setMistakes((m) => {
+        const solveBonus = Math.round((1000 + (maxMistakes - m) * 200) * mult * multAtSolve);
+        setScore((p) => p + solveBonus);
+        return m;
+      });
       setTimeLeft((p) => p + SPEED_SOLVE_BONUS);
       const label = getStreakLabel(nextStreak);
-      const golden = speedEvent === "golden-word" ? " ★GOLDEN" : "";
+      const golden = evt === "golden-word" ? " ★GOLDEN" : "";
       setTimeBonusFeedback(label ? `${label} +${SPEED_SOLVE_BONUS}s${golden}` : `+${SPEED_SOLVE_BONUS}s ×${mult}${golden}!`);
       if (label) showFeedback(label, "combo");
-      eventMultRef.current = 1;
-      setSpeedEvent("none");
-      const fb = setTimeout(() => setTimeBonusFeedback(null), 1200);
-      const next = setTimeout(() => loadNextWord(), 700);
-      return () => { clearTimeout(fb); clearTimeout(next); };
-    }
-  }, [solved, currentWordObj, mistakes, loadNextWord, wordStreak, maxMistakes, showFeedback, speedEvent]);
+      return nextStreak;
+    });
+    eventMultRef.current = 1;
+    setSpeedEvent("none");
+
+    const fb = window.setTimeout(() => setTimeBonusFeedback(null), 1200);
+    // Do not clear this in effect cleanup — prior deps thrash cancelled advance and stuck the board.
+    window.setTimeout(() => loadNextWordRef.current(), 700);
+    return () => {
+      window.clearTimeout(fb);
+    };
+    // Only re-fire when the solved flag or active word changes — not on score/streak updates.
+  }, [solved, currentWordObj, maxMistakes, showFeedback]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

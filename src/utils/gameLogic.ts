@@ -5,8 +5,9 @@ export const ALPHABET = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
 export const MAX_MISTAKES = 5;
 export const MAX_HINTS_PER_WORD = 2;
 export const HINT_MISTAKE_PENALTY = 1;
-export const MAX_DEPTH_HINT_TIERS = 3;
-export type DepthHintTier = 1 | 2 | 3;
+/** Mid-game depth only (summary + expert). Scripture is revealed after solve/fail. */
+export const MAX_DEPTH_HINT_TIERS = 2;
+export type DepthHintTier = 1 | 2;
 export const TEAMS_QUESTIONS_PER_SIDE = 10;
 export const SPEED_ROUND_TIME = 30;
 export const SPEED_SOLVE_BONUS = 8;
@@ -124,8 +125,7 @@ export function getDepthHint(word: WordTerm, mistakes: number, difficulty?: Diff
   const max = difficulty ? getMaxMistakes(difficulty) : MAX_MISTAKES;
   const summaryAt = Math.max(2, Math.ceil(max * 0.6));
   const expertAt = max - 2;
-  const scriptureAt = max - 1;
-  if (mistakes >= scriptureAt) return `Scripture: ${word.verse}`;
+  // Never expose verse mid-game — scripture is post-answer only.
   if (word.expertClue && mistakes >= expertAt) return `Expert clue: ${word.expertClue}`;
   if (mistakes >= summaryAt) return word.summary.slice(0, 100) + (word.summary.length > 100 ? "…" : "");
   return null;
@@ -133,26 +133,22 @@ export function getDepthHint(word: WordTerm, mistakes: number, difficulty?: Diff
 
 export function getDepthHintTierLabel(tier: DepthHintTier): string {
   if (tier === 1) return "Summary";
-  if (tier === 2) return "Expert Clue";
-  return "Scripture Reference";
+  return "Expert Clue";
 }
 
 export function getDepthHintTierText(word: WordTerm, tier: DepthHintTier): string | null {
   if (tier === 1) {
     return word.summary.slice(0, 100) + (word.summary.length > 100 ? "…" : "");
   }
-  if (tier === 2) {
-    return word.expertClue ? `Expert clue: ${word.expertClue}` : null;
-  }
-  return `Scripture: ${word.verse}`;
+  return word.expertClue ? `Expert clue: ${word.expertClue}` : null;
 }
 
 /** Next opt-in depth tier after `depthTier` (0 = none revealed yet). Skips expert when absent. */
 export function getNextDepthHintTier(word: WordTerm, depthTier: number): DepthHintTier | null {
   if (depthTier >= MAX_DEPTH_HINT_TIERS) return null;
-  const next = (depthTier + 1) as DepthHintTier;
-  if (next === 2 && !word.expertClue) return depthTier >= 2 ? null : 3;
-  return next;
+  if (depthTier < 1) return 1;
+  if (depthTier < 2 && word.expertClue) return 2;
+  return null;
 }
 
 export function pickRandomHintLetter(wordText: string, guessedLetters: string[]): string | null {

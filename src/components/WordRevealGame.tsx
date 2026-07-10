@@ -55,7 +55,6 @@ export default function WordRevealGame({
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [mistakes, setMistakes] = useState(0);
   const [hintsUsed, setHintsUsed] = useState(0);
-  const [clueRevealed, setClueRevealed] = useState(false);
   const [depthTier, setDepthTier] = useState(0);
   const [letterStreak, setLetterStreak] = useState(0);
   const [showConfirmBack, setShowConfirmBack] = useState(false);
@@ -72,7 +71,8 @@ export default function WordRevealGame({
   const starsCount = calcStars(mistakes, assistanceUsed);
   const streakLabel = getStreakLabel(letterStreak);
   const clueText = expertMode ? getExpertModeClue(currentWordObj) : currentWordObj.clue;
-  const nextDepthTier = clueRevealed && !expertMode ? getNextDepthHintTier(currentWordObj, depthTier) : null;
+  /** Optional deeper study (summary / expert) — never the verse mid-game. */
+  const nextDepthTier = !expertMode ? getNextDepthHintTier(currentWordObj, depthTier) : null;
 
   const showFeedback = useCallback((text: string, tone: FeedbackTone) => {
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);
@@ -138,7 +138,6 @@ export default function WordRevealGame({
     setGuessedLetters([]);
     setMistakes(0);
     setHintsUsed(0);
-    setClueRevealed(false);
     setDepthTier(0);
     setLetterStreak(0);
     setShowConfirmBack(false);
@@ -174,15 +173,8 @@ export default function WordRevealGame({
     setLetterStreak(0);
   };
 
-  const handleRevealClue = () => {
-    if (expertMode || clueRevealed || solved || mistakes >= maxMistakes) return;
-    setClueRevealed(true);
-    payAssistanceCost();
-    showFeedback("Clue costs a lamp!", "danger");
-  };
-
   const handleRevealDepthHint = () => {
-    if (expertMode || !clueRevealed || solved || mistakes >= maxMistakes || !nextDepthTier) return;
+    if (expertMode || solved || mistakes >= maxMistakes || !nextDepthTier) return;
     setDepthTier(nextDepthTier);
     payAssistanceCost();
     showFeedback("Deeper study costs a lamp!", "danger");
@@ -202,7 +194,6 @@ export default function WordRevealGame({
     setGuessedLetters([]);
     setMistakes(0);
     setHintsUsed(0);
-    setClueRevealed(false);
     setDepthTier(0);
     setLetterStreak(0);
   };
@@ -273,26 +264,19 @@ export default function WordRevealGame({
       <motion.div initial={rm ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         className="pcard rounded-2xl p-6 md:p-8 text-center space-y-4 parchment-glow relative">
         <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-[0.15em] font-bold text-[#6b5537] psunken px-2 py-0.5 rounded">
-          {expertMode ? "expert clue" : clueRevealed ? "clue" : "scripture reference"}
+          {expertMode ? "expert clue" : "clue"}
         </div>
-        {expertMode || clueRevealed ? (
-          <p className="text-xl md:text-2xl font-light text-[#2a2018] leading-relaxed pt-2">"{clueText}"</p>
-        ) : (
-          <div className="pt-2 space-y-3">
-            <p className="text-lg md:text-xl font-scripture italic text-[#5c4a33] leading-relaxed">— {currentWordObj.verse}</p>
-            <button
-              onClick={handleRevealClue}
-              disabled={mistakes >= maxMistakes || solved}
-              className="inline-flex items-center gap-1.5 py-2 px-4 bg-[#f0e3c8] hover:bg-[#e8d7b3] disabled:opacity-50 rounded-lg text-xs font-semibold border border-[#e2d2ac] text-[#3a2c1e] cursor-pointer"
-            >
-              <Lightbulb className="w-3.5 h-3.5" aria-hidden="true" /> Reveal Clue (costs 1 lamp)
-            </button>
-          </div>
+        <p className="text-xl md:text-2xl font-light text-[#2a2018] leading-relaxed pt-2">"{clueText}"</p>
+        {/* Scripture reference only after the term is answered (solved or failed). */}
+        {(solved || mistakes >= maxMistakes) && (
+          <p className="text-sm md:text-base font-scripture italic text-[#5c4a33] leading-relaxed">
+            — {currentWordObj.verse}
+          </p>
         )}
         <AnimatePresence>
-          {clueRevealed && !expertMode && depthTier > 0 && (
+          {!expertMode && depthTier > 0 && (
             Array.from({ length: depthTier }, (_, i) => i + 1).map((tier) => {
-              const text = getDepthHintTierText(currentWordObj, tier as 1 | 2 | 3);
+              const text = getDepthHintTierText(currentWordObj, tier as 1 | 2);
               if (!text) return null;
               return (
                 <motion.div
@@ -303,7 +287,7 @@ export default function WordRevealGame({
                   className="text-xs text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded-lg px-4 py-2.5 leading-relaxed max-w-lg mx-auto"
                 >
                   <span className="text-[9px] uppercase font-bold tracking-wider block mb-1 text-[#b45309]">
-                    {getDepthHintTierLabel(tier as 1 | 2 | 3)}
+                    {getDepthHintTierLabel(tier as 1 | 2)}
                   </span>
                   {text}
                 </motion.div>
@@ -311,7 +295,7 @@ export default function WordRevealGame({
             })
           )}
         </AnimatePresence>
-        {nextDepthTier && (
+        {nextDepthTier && !solved && mistakes < maxMistakes && (
           <button
             onClick={handleRevealDepthHint}
             disabled={mistakes >= maxMistakes || solved}

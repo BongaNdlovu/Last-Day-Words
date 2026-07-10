@@ -7,6 +7,9 @@ import {
   recordWordAttempt,
   getNextDepthHintTier,
   getDepthHintTierText,
+  getDepthHint,
+  isWordSolved,
+  normalizeWord,
 } from "./gameLogic";
 import { chaptersData } from "../data/words";
 
@@ -49,13 +52,28 @@ describe("gameLogic", () => {
   it("getNextDepthHintTier skips expert tier when absent", () => {
     const word = { ...chaptersData[0].words[0], expertClue: undefined };
     expect(getNextDepthHintTier(word, 0)).toBe(1);
-    expect(getNextDepthHintTier(word, 1)).toBe(3);
-    expect(getNextDepthHintTier(word, 3)).toBeNull();
+    expect(getNextDepthHintTier(word, 1)).toBeNull();
   });
 
-  it("getDepthHintTierText returns tier content", () => {
+  it("getDepthHintTierText returns mid-game tiers only (no verse)", () => {
     const word = chaptersData[0].words[0];
     expect(getDepthHintTierText(word, 1)).toContain(word.summary.slice(0, 20));
-    expect(getDepthHintTierText(word, 3)).toContain(word.verse);
+    if (word.expertClue) {
+      expect(getDepthHintTierText(word, 2)).toContain("Expert clue");
+    }
+  });
+
+  it("getDepthHint never exposes verse mid-game", () => {
+    const word = chaptersData[0].words[0];
+    for (let m = 0; m <= 5; m++) {
+      const hint = getDepthHint(word, m, "medium");
+      if (hint) expect(hint).not.toMatch(/Scripture:/i);
+    }
+  });
+
+  it("isWordSolved ignores spaces and requires all letters", () => {
+    const text = normalizeWord("GOD IS LOVE");
+    expect(isWordSolved(text, ["G", "O", "D", "I", "S"])).toBe(false);
+    expect(isWordSolved(text, ["G", "O", "D", "I", "S", "L", "V", "E"])).toBe(true);
   });
 });
