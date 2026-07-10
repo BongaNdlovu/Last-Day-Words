@@ -9,7 +9,7 @@ import type { Chapter, WordTerm } from "../data/words";
 
 export type SpeedBoardMode = "mixed" | "chapter";
 
-/** Core tracks that used to power chapter hangman — now Chapter Speed. */
+/** Core prophecy tracks used for Chapter Speed (disjoint from Mixed). */
 export const CHAPTER_SPEED_IDS: readonly string[] = [
   "signs",
   "shaking",

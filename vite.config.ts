@@ -18,7 +18,7 @@ export default defineConfig(() => {
         manifest: {
           name: 'Last Day Words',
           short_name: 'Last Day Words',
-          description: 'Prophetic word study game — daily streak, chapters, speed round.',
+          description: 'Prophetic speed arcade — Mixed and Chapter boards, weekly leaderboards, streaks.',
           theme_color: '#2a2018',
           background_color: '#f8f1e3',
           display: 'standalone',

@@ -15,7 +15,7 @@ QUESTION(S):
      leaderboards (as of 2026-07).
   3) Confirm vite-plugin-pwa + Web Notification / service-worker approach
      for installable PWA + streak-at-risk reminders.
-  4) (Added) Expand and KJV-verify the hangman catalog (batch-1 + batch-2)
+  4) (Added) Expand and KJV-verify the word catalog (batch-1 + batch-2)
      without inventing verse wording.
 
 SUFFICIENT ANSWER:
@@ -169,7 +169,7 @@ DATE LAST UPDATED: 2026-07-10
       `supabase/migrations/20260710120000_seed_batch2_content.sql`
   - **Grade:** VERIFIED 2026-07-10
 
-- **28.** **Claim:** Full multi-word hangman answers (non-study terms)
+- **28.** **Claim:** Full multi-word game answers (non-study terms)
     contiguous in KJV after accuracy audit
   - **Reports:** `docs/WORD_AUDIT_REPORT.md`,
       `docs/word-audit-findings.json`
@@ -260,7 +260,7 @@ Enough verified Education + Great Controversy passages were extracted from
 the user PDFs to populate mastery unlocks, perfect-solve bonuses, and
 10 mystery fragments without inventing EGW wording.
 
-The hangman catalog later grew to **380 KJV-grounded terms / 76 chapters**
+The word catalog later grew to **380 KJV-grounded terms / 76 chapters**
 via two expansion batches plus accuracy audits.
 
 Confidence: **HIGH** for EGW extracts, core KJV phrases, and post-audit

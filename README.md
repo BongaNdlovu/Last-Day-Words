@@ -1,6 +1,6 @@
 # Last Day Words
 
-Prophetic **speed arcade** (PWA): timed word rounds from a large KJV-grounded pool, weekly leaderboard, optional teams, streaks, and Supabase auth for cloud scores.
+Prophetic **speed arcade** (PWA): timed word rounds from a large KJV-grounded pool, dual weekly boards (**Mixed** and **Chapter**), optional teams, day-lamp streaks, and Supabase auth for cloud scores.
 
 ## Stack
 
@@ -64,7 +64,7 @@ Local Supabase CLI is **not** required. Content and schema live on the remote pr
 2. For a full content snapshot matching the client catalog, run `supabase/seed_content.sql` (upserts chapters/words/seasons).
 3. See `docs/SUPABASE_REMOTE_WORKFLOW.md` for remote-only notes.
 
-Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `daily_scores`, `speed_scores`, `game_rooms`, `room_members` — all behind RLS.
+Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `speed_scores` (columns include `mode`: `mixed` | `chapter`), `game_rooms`, `room_members` — all behind RLS.
 
 ## Project layout (short)
 

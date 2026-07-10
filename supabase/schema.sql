@@ -113,34 +113,6 @@ create policy "Users update own speed scores"
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
 
--- Daily challenge scores (async "beat my score")
-create table if not exists public.daily_scores (
-  id bigserial primary key,
-  user_id uuid not null references auth.users (id) on delete cascade,
-  day_key text not null,
-  score integer not null check (score >= 0),
-  updated_at timestamptz not null default now(),
-  unique (user_id, day_key)
-);
-
-alter table public.daily_scores enable row level security;
-
-drop policy if exists "Daily scores readable by all" on public.daily_scores;
-create policy "Daily scores readable by all"
-  on public.daily_scores for select
-  using (true);
-
-drop policy if exists "Users insert own daily scores" on public.daily_scores;
-create policy "Users insert own daily scores"
-  on public.daily_scores for insert
-  with check (auth.uid() = user_id);
-
-drop policy if exists "Users update own daily scores" on public.daily_scores;
-create policy "Users update own daily scores"
-  on public.daily_scores for update
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
-
 -- Online teams rooms (room codes)
 create table if not exists public.game_rooms (
   id uuid primary key default gen_random_uuid(),
@@ -225,7 +197,6 @@ create policy "Users leave rooms"
 -- Helpful indexes
 create index if not exists speed_scores_week_score_idx on public.speed_scores (week_key, score desc);
 create index if not exists speed_scores_week_mode_score_idx on public.speed_scores (week_key, mode, score desc);
-create index if not exists daily_scores_day_score_idx on public.daily_scores (day_key, score desc);
 create index if not exists game_rooms_code_idx on public.game_rooms (code);
 
 -- ---------------------------------------------------------------------------

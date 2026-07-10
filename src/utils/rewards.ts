@@ -1,19 +1,3 @@
-import { allWordsList, WordTerm } from "../data/words";
-import { getTodayKey } from "./dailyChallenge";
-
-/** Deterministic daily bonus word (2× points / double fragment chance). */
-export function getDailyBonusWordId(dateKey = getTodayKey(), words: WordTerm[] = allWordsList): string {
-  let hash = 0;
-  for (let i = 0; i < dateKey.length; i++) {
-    hash = (hash * 31 + dateKey.charCodeAt(i)) >>> 0;
-  }
-  return words[hash % words.length].id;
-}
-
-export function isDailyBonusWord(wordId: string, dateKey = getTodayKey(), words: WordTerm[] = allWordsList): boolean {
-  return wordId === getDailyBonusWordId(dateKey, words);
-}
-
 /** ~12% chance of a Speed Round special event when a new word loads. */
 export type SpeedEvent = "none" | "golden-word" | "double-time";
 

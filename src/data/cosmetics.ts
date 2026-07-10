@@ -9,11 +9,11 @@ export interface CosmeticDef {
   description: string;
   /** Rank required to unlock (rank id). */
   unlockRank: RankId;
-  /** CSS-friendly style token consumed by PropheticCandles / ChapterSelect. */
+  /** CSS-friendly style token consumed by PropheticCandles. */
   styleToken: string;
 }
 
-/** 5 free unlocks: 3 candle styles + 2 chapter banners, rank-gated. */
+/** Free rank-gated unlocks: candle styles + banners. */
 export const COSMETICS: CosmeticDef[] = [
   {
     id: "candle-classic",

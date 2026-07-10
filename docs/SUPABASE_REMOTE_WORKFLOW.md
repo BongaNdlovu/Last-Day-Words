@@ -7,9 +7,11 @@ Production content and schema live on the linked remote project.
 
 - **Full catalog upsert:** `supabase/seed_content.sql` (76 chapters / 380 words; includes batch-2).
 - **Versioned migrations (DDL + seeds):** `supabase/migrations/*.sql`  
-  Latest content migrations:
+  Notable recent migrations:
   - `20260709150000_seed_expansion_content.sql`
   - `20260710120000_seed_batch2_content.sql`
+  - `20260710193000_speed_scores_mode.sql` — dual Mixed/Chapter weekly boards
+  - `20260710200000_drop_daily_scores.sql` — removes unused hangman daily board table
 
 ## Housekeeping notes
 

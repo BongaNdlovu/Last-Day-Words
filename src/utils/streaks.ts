@@ -102,17 +102,4 @@ export function applyDailyStreakComplete(progress: UserProgress, today = getToda
   };
 }
 
-/** Completing a chapter earns 1 freeze once per ISO week (if none unused). */
-export function maybeEarnStreakFreeze(progress: UserProgress, now = new Date()): UserProgress {
-  const week = getIsoWeekKey(now);
-  if (progress.lastFreezeEarnedWeek === week) return progress;
-  const current = progress.streakFreezes ?? 0;
-  if (current >= 1) {
-    return { ...progress, lastFreezeEarnedWeek: week };
-  }
-  return {
-    ...progress,
-    streakFreezes: current + 1,
-    lastFreezeEarnedWeek: week,
-  };
-}
+

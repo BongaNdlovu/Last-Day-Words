@@ -24,7 +24,7 @@ export const RANKS: RankDef[] = [
 ];
 
 export const XP_REWARDS = {
-  dailyComplete: 50,
+  /** Perfect speed solve (0 mistakes on a word). */
   perfectWord: 25,
   /** Speed score is divided by this (score/10). */
   speedScoreDivisor: 10,

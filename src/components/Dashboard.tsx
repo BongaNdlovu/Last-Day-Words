@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { UserProgress } from "../types";
 import { Chapter, WordTerm } from "../data/words";
-import { getTodayKey } from "../utils/dailyChallenge";
+import { getTodayKey } from "../utils/calendarKeys";
 import { STREAK_MILESTONES, milestoneTitle } from "../utils/streaks";
 import { progressToNextRank } from "../data/ranks";
 import { COSMETICS } from "../data/cosmetics";
@@ -225,7 +225,7 @@ export default function Dashboard({
         >
           <BookOpen className="w-6 h-6 text-[#92400e] mb-2" aria-hidden="true" />
           <h3 className="font-bold text-[#2a2018]">Word Bank</h3>
-          <p className="text-xs text-[#6b5537] mt-1">Browse clues &amp; verses offline (no hangman)</p>
+          <p className="text-xs text-[#6b5537] mt-1">Browse clues &amp; verses offline</p>
         </button>
       </div>
 

@@ -1,6 +1,5 @@
 {
   "name": "Last Day Words",
-  "description": "An SDA word puzzle game where players solve end-time terms from Last Day Events using clues and Bible references.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "description": "Prophetic speed arcade: timed KJV-grounded word rounds with Mixed and Chapter boards, weekly leaderboards, and day-lamp streaks.",
+  "requestFramePermissions": []
 }

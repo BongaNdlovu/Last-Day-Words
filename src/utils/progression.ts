@@ -1,9 +1,9 @@
 import { COSMETICS, DEFAULT_CANDLE_ID, cosmeticsForRank } from "../data/cosmetics";
 import { XP_REWARDS, rankForXp, type RankId } from "../data/ranks";
 import type { UserProgress } from "../types";
-import { getTodayKey } from "./dailyChallenge";
+import { getTodayKey } from "./calendarKeys";
 
-export type XpReason = "daily" | "perfect" | "speed" | "study";
+export type XpReason = "perfect" | "speed" | "study";
 
 export interface AwardXpResult {
   progress: UserProgress;
@@ -78,12 +78,7 @@ function applyXp(progress: UserProgress, amount: number, reason: XpReason): Awar
   };
 }
 
-/** Daily challenge run complete: +50 XP. */
-export function awardDailyCompleteXp(progress: UserProgress): AwardXpResult {
-  return applyXp(progress, XP_REWARDS.dailyComplete, "daily");
-}
-
-/** Perfect word solve: +25 XP (0 mistakes on that word in speed, or legacy 3★). */
+/** Perfect word solve: +25 XP (0 mistakes on that word in speed). */
 export function awardPerfectWordXp(progress: UserProgress): AwardXpResult {
   return applyXp(progress, XP_REWARDS.perfectWord, "perfect");
 }
