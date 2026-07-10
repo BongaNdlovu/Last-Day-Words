@@ -216,6 +216,8 @@ export default function App() {
         muted
         loop
         playsInline
+        preload="auto"
+        disablePictureInPicture
         aria-hidden="true"
       />
       <div className="bg-video-veil" aria-hidden="true" />
