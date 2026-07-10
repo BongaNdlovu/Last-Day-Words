@@ -27,6 +27,7 @@ import GameFeedback, { FeedbackTone } from "./GameFeedback";
 import SoulLamp from "./SoulLamp";
 import EllenWhiteAvatar, { AvatarReaction } from "./EllenWhiteAvatar";
 import { flashScreen } from "../utils/flash";
+import { playRoundEndSound } from "../utils/sounds";
 
 interface SpeedRoundGameProps {
   highScore: number;
@@ -240,6 +241,7 @@ export default function SpeedRoundGame({
   useEffect(() => {
     if (isGameOver && !finishedRef.current) {
       finishedRef.current = true;
+      playRoundEndSound();
       onGameFinished(score, wordsSolved);
     }
   }, [isGameOver, score, wordsSolved, onGameFinished]);

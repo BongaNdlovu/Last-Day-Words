@@ -25,6 +25,7 @@ import KeyboardGrid from "./KeyboardGrid";
 import WordSlots from "./WordSlots";
 import GameFeedback, { FeedbackTone } from "./GameFeedback";
 import { flashScreen } from "../utils/flash";
+import { playRoundEndSound } from "../utils/sounds";
 import { Chapter } from "../data/words";
 import type { OnlineTeamsPayload } from "../utils/onlineTeams";
 
@@ -232,6 +233,7 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
 
   useEffect(() => {
     if (phase !== "finished") return;
+    playRoundEndSound();
     const winner = scores.white > scores.black ? "white" : scores.black > scores.white ? "black" : "tie";
     if (winner !== "tie") {
       confetti({

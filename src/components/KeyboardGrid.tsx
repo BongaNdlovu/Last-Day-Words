@@ -50,7 +50,12 @@ function KeyButton({
 
 export default function KeyboardGrid({ guessedLetters, wordText, onGuess, disabled }: KeyboardGridProps) {
   return (
-    <div role="group" aria-label="On-screen keyboard" className="psunken p-4 rounded-xl max-w-2xl mx-auto space-y-2">
+    <div
+      role="group"
+      aria-label="On-screen keyboard"
+      data-no-button-sfx
+      className="psunken p-4 rounded-xl max-w-2xl mx-auto space-y-2"
+    >
       <div className="grid grid-cols-10 gap-1">
         {ALPHABET.slice(0, 10).map((letter) => (
           <KeyButton key={letter} letter={letter} guessedLetters={guessedLetters} wordText={wordText} onClick={onGuess} disabled={disabled} />

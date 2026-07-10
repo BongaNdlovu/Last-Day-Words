@@ -1,31 +1,39 @@
 /**
- * Answer feedback SFX (correct / wrong).
- * Files live in public/sounds/ and are gated by the app sound toggle.
+ * Game SFX. Files in public/sounds/, gated by the app sound toggle.
+ *
+ * - correct / wrong: letter guesses (via flashScreen)
+ * - round-end: speed/teams round complete
+ * - button: general UI button presses (not letter keys)
  */
 
-const CORRECT_SRC = "/sounds/correct.mp3";
-const WRONG_SRC = "/sounds/wrong.mp3";
+type SfxKind = "correct" | "wrong" | "round-end" | "button";
+
+const SOURCES: Record<SfxKind, string> = {
+  correct: "/sounds/correct.mp3",
+  wrong: "/sounds/wrong.mp3",
+  "round-end": "/sounds/round-end.mp3",
+  button: "/sounds/button.mp3",
+};
+
+const VOLUMES: Record<SfxKind, number> = {
+  correct: 0.85,
+  wrong: 0.75,
+  "round-end": 0.8,
+  button: 0.45,
+};
 
 let soundsEnabled = true;
-let correctAudio: HTMLAudioElement | null = null;
-let wrongAudio: HTMLAudioElement | null = null;
+const cache: Partial<Record<SfxKind, HTMLAudioElement>> = {};
 
-function getAudio(kind: "correct" | "wrong"): HTMLAudioElement | null {
+function getAudio(kind: SfxKind): HTMLAudioElement | null {
   if (typeof Audio === "undefined") return null;
-  if (kind === "correct") {
-    if (!correctAudio) {
-      correctAudio = new Audio(CORRECT_SRC);
-      correctAudio.preload = "auto";
-      correctAudio.volume = 0.85;
-    }
-    return correctAudio;
+  if (!cache[kind]) {
+    const audio = new Audio(SOURCES[kind]);
+    audio.preload = "auto";
+    audio.volume = VOLUMES[kind];
+    cache[kind] = audio;
   }
-  if (!wrongAudio) {
-    wrongAudio = new Audio(WRONG_SRC);
-    wrongAudio.preload = "auto";
-    wrongAudio.volume = 0.75;
-  }
-  return wrongAudio;
+  return cache[kind] ?? null;
 }
 
 /** Keep in sync with UserProgress.soundEnabled from App. */
@@ -37,7 +45,7 @@ export function areGameSoundsEnabled(): boolean {
   return soundsEnabled;
 }
 
-function play(kind: "correct" | "wrong"): void {
+function play(kind: SfxKind): void {
   if (!soundsEnabled) return;
   const audio = getAudio(kind);
   if (!audio) return;
@@ -63,8 +71,31 @@ export function playWrongSound(): void {
   play("wrong");
 }
 
+export function playRoundEndSound(): void {
+  play("round-end");
+}
+
+export function playButtonSound(): void {
+  play("button");
+}
+
 /** Convenience for letter-guess feedback. */
 export function playAnswerSfx(correct: boolean): void {
   if (correct) playCorrectSound();
   else playWrongSound();
+}
+
+/**
+ * Play UI click SFX for a click target, unless it is a letter key or opt-out.
+ */
+export function playButtonSfxForEventTarget(target: EventTarget | null): void {
+  if (!soundsEnabled || !(target instanceof Element)) return;
+  const interactive = target.closest(
+    'button, [role="button"], input[type="submit"], input[type="button"], a[href]'
+  );
+  if (!interactive) return;
+  if (interactive.closest("[data-no-button-sfx]")) return;
+  if ((interactive as HTMLButtonElement).disabled) return;
+  if (interactive.getAttribute("aria-disabled") === "true") return;
+  playButtonSound();
 }

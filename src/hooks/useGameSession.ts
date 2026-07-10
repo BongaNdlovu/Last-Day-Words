@@ -30,6 +30,7 @@ import { isValidSpeedScore } from "../utils/speedScoreLimits";
 import { computeDailyScore, isValidDailyScore } from "../utils/dailyScore";
 import { supabase, isSupabaseConfigured, upsertDailyScore } from "../lib/supabase";
 import { logError, mapUserFacingError } from "../utils/errors";
+import { playRoundEndSound } from "../utils/sounds";
 
 type SaveProgress = (p: UserProgress) => void;
 type RemoteErrorHandler = (message: string) => void;
@@ -275,6 +276,7 @@ export function useGameSession(
     clearSolveModal();
 
     if (isRunFinished) {
+      playRoundEndSound();
       confetti({
         particleCount: 120,
         spread: 80,

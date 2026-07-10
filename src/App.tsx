@@ -17,7 +17,7 @@ import { useStreakReminder } from "./hooks/useStreakReminder";
 import { useGameSession } from "./hooks/useGameSession";
 import { useAuth } from "./hooks/useAuth";
 import { useNoticeQueue } from "./hooks/useNoticeQueue";
-import { setGameSoundsEnabled } from "./utils/sounds";
+import { playButtonSfxForEventTarget, setGameSoundsEnabled } from "./utils/sounds";
 
 const Dashboard = lazy(() => import("./components/Dashboard"));
 const ChapterSelect = lazy(() => import("./components/ChapterSelect"));
@@ -81,6 +81,16 @@ export default function App() {
   useEffect(() => {
     setGameSoundsEnabled(progress.soundEnabled !== false);
   }, [progress.soundEnabled]);
+
+  // Soft click SFX for UI buttons (letter keyboard is opted out via data-no-button-sfx).
+  useEffect(() => {
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      playButtonSfxForEventTarget(e.target);
+    };
+    document.addEventListener("pointerdown", onPointerDown, true);
+    return () => document.removeEventListener("pointerdown", onPointerDown, true);
+  }, []);
 
   const handleToggleSound = () => {
     saveProgress({ ...progress, soundEnabled: !progress.soundEnabled });
