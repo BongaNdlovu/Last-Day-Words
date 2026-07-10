@@ -4,6 +4,7 @@ import { supabase, isSupabaseConfigured, LeaderboardRow } from "../lib/supabase"
 import { getIsoWeekKey } from "../utils/streaks";
 import { EmptyState, InlineAlert, LoadingBlock } from "./ErrorState";
 import { logError, mapUserFacingError } from "../utils/errors";
+import type { SpeedBoardMode } from "../utils/speedPools";
 
 interface LeaderboardScreenProps {
   onBack: () => void;
@@ -12,6 +13,7 @@ interface LeaderboardScreenProps {
 type LoadState = "loading" | "ready" | "error" | "unconfigured";
 
 export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
+  const [boardMode, setBoardMode] = useState<SpeedBoardMode>("mixed");
   const [rows, setRows] = useState<(LeaderboardRow & { rank: number })[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loadState, setLoadState] = useState<LoadState>(
@@ -31,8 +33,9 @@ export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
     try {
       const { data, error: err } = await supabase
         .from("speed_scores")
-        .select("user_id, score, words_solved, week_key")
+        .select("user_id, score, words_solved, week_key, mode")
         .eq("week_key", week)
+        .eq("mode", boardMode)
         .order("score", { ascending: false })
         .limit(25);
       if (err) throw err;
@@ -63,11 +66,13 @@ export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
       setRows([]);
       setLoadState("error");
     }
-  }, [week]);
+  }, [week, boardMode]);
 
   useEffect(() => {
     void load();
   }, [load]);
+
+  const boardLabel = boardMode === "mixed" ? "Mixed Speed" : "Chapter Speed";
 
   return (
     <div className="max-w-lg mx-auto space-y-6 py-2 px-2">
@@ -80,13 +85,40 @@ export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
           <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Back
         </button>
         <h2 className="text-lg font-display font-bold tracking-[0.1em] text-[#2a2018]">
-          WEEKLY BOARD
+          WEEKLY BOARDS
         </h2>
         <div className="w-12" />
       </div>
 
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          onClick={() => setBoardMode("mixed")}
+          aria-pressed={boardMode === "mixed"}
+          className={`py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer border ${
+            boardMode === "mixed"
+              ? "bg-[#2a2018] text-[#f8f1e3] border-[#2a2018]"
+              : "bg-[#fbf5e9] text-[#5c4a33] border-[#e2d2ac]"
+          }`}
+        >
+          Mixed Speed
+        </button>
+        <button
+          type="button"
+          onClick={() => setBoardMode("chapter")}
+          aria-pressed={boardMode === "chapter"}
+          className={`py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer border ${
+            boardMode === "chapter"
+              ? "bg-[#2a2018] text-[#f8f1e3] border-[#2a2018]"
+              : "bg-[#fbf5e9] text-[#5c4a33] border-[#e2d2ac]"
+          }`}
+        >
+          Chapter Speed
+        </button>
+      </div>
+
       <p className="text-center text-xs text-[#6b5537] uppercase tracking-wider font-bold">
-        Speed Round · {week}
+        {boardLabel} · {week}
       </p>
 
       {loadState === "unconfigured" && (
@@ -115,7 +147,7 @@ export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
             <EmptyState
               icon="inbox"
               title="No scores yet"
-              message="Be the first this week — finish a Speed Round while signed in."
+              message={`Be the first this week — finish a ${boardLabel} run while signed in.`}
             />
           ) : (
             rows.map((r) => (
@@ -136,7 +168,7 @@ export default function LeaderboardScreen({ onBack }: LeaderboardScreenProps) {
       {loadState === "ready" && rows.length > 0 && (
         <InlineAlert
           tone="info"
-          message="Scores only appear for signed-in players with a valid cloud save."
+          message="Scores only appear for signed-in players with a valid cloud save. Mixed and Chapter are separate boards."
         />
       )}
     </div>

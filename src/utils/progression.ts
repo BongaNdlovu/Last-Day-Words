@@ -83,9 +83,24 @@ export function awardDailyCompleteXp(progress: UserProgress): AwardXpResult {
   return applyXp(progress, XP_REWARDS.dailyComplete, "daily");
 }
 
-/** Perfect (3★) word solve: +25 XP. */
+/** Perfect word solve: +25 XP (0 mistakes on that word in speed, or legacy 3★). */
 export function awardPerfectWordXp(progress: UserProgress): AwardXpResult {
   return applyXp(progress, XP_REWARDS.perfectWord, "perfect");
+}
+
+/** Award +25 XP for each perfect speed solve this round. */
+export function awardPerfectWordsXp(progress: UserProgress, perfectCount: number): AwardXpResult {
+  const n = Math.max(0, Math.floor(perfectCount));
+  if (n === 0) {
+    return {
+      progress: ensureProgressionFields(progress),
+      awarded: 0,
+      reason: "perfect",
+      rankChanged: false,
+      newUnlocks: [],
+    };
+  }
+  return applyXp(progress, XP_REWARDS.perfectWord * n, "perfect");
 }
 
 /** Speed round end: floor(score / 10) XP. */

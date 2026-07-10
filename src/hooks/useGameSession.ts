@@ -2,17 +2,24 @@ import { useCallback, useMemo } from "react";
 import type { Chapter } from "../data/words";
 import type { UserProgress } from "../types";
 import { applyDailyStreakComplete, getIsoWeekKey } from "../utils/streaks";
-import { awardSpeedXp, awardStudyGuideXp } from "../utils/progression";
+import { awardPerfectWordsXp, awardSpeedXp, awardStudyGuideXp } from "../utils/progression";
 import { isValidSpeedScore } from "../utils/speedScoreLimits";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 import { logError, mapUserFacingError } from "../utils/errors";
+import type { SpeedBoardMode } from "../utils/speedPools";
 
 type SaveProgress = (p: UserProgress) => void;
 type RemoteErrorHandler = (message: string) => void;
 
+export type SpeedRoundResult = {
+  finalScore: number;
+  wordsSolved: number;
+  perfectCount: number;
+  mode: SpeedBoardMode;
+};
+
 /**
- * Speed-arcade session helpers (progress + leaderboard upsert).
- * Chapter / daily hangman flows were removed — catalog still feeds speed from chaptersData.
+ * Speed-arcade session helpers (progress + dual leaderboard upsert).
  */
 export function useGameSession(
   progress: UserProgress,
@@ -27,24 +34,38 @@ export function useGameSession(
   );
 
   const handleSpeedRoundFinished = useCallback(
-    async (finalScore: number, solvedCount: number) => {
-      let updatedHighScore = progress.speedRoundHighScore;
-      let updatedSolvedMax = progress.speedRoundHighestWordsSolved;
-      if (finalScore > progress.speedRoundHighScore) updatedHighScore = finalScore;
-      if (solvedCount > progress.speedRoundHighestWordsSolved) updatedSolvedMax = solvedCount;
+    async (result: SpeedRoundResult) => {
+      const { finalScore, wordsSolved, perfectCount, mode } = result;
+      const highKey = mode === "mixed" ? "speedMixedHighScore" : "speedChapterHighScore";
+      const wordsKey =
+        mode === "mixed" ? "speedMixedHighestWordsSolved" : "speedChapterHighestWordsSolved";
+
+      const prevHigh =
+        (progress[highKey] as number | undefined) ??
+        (mode === "mixed" ? progress.speedRoundHighScore : 0);
+      const prevWords =
+        (progress[wordsKey] as number | undefined) ??
+        (mode === "mixed" ? progress.speedRoundHighestWordsSolved : 0);
+
       let next: UserProgress = {
         ...progress,
-        speedRoundHighScore: updatedHighScore,
-        speedRoundHighestWordsSolved: updatedSolvedMax,
+        [highKey]: Math.max(prevHigh, finalScore),
+        [wordsKey]: Math.max(prevWords, wordsSolved),
+        // Keep legacy fields as overall best for share card / older UI
+        speedRoundHighScore: Math.max(progress.speedRoundHighScore, finalScore),
+        speedRoundHighestWordsSolved: Math.max(progress.speedRoundHighestWordsSolved, wordsSolved),
       };
+
+      // Perfect solves (+25 each) then round score XP
+      next = awardPerfectWordsXp(next, perfectCount).progress;
       next = awardSpeedXp(next, finalScore).progress;
-      // One speed finish per day keeps the lamp streak alive (arcade habit loop).
-      if (solvedCount > 0) {
+
+      if (wordsSolved > 0) {
         next = applyDailyStreakComplete(next, todayKey);
       }
       saveProgress(next);
 
-      if (supabase && isSupabaseConfigured && isValidSpeedScore(finalScore, solvedCount)) {
+      if (supabase && isSupabaseConfigured && isValidSpeedScore(finalScore, wordsSolved)) {
         const { data: userData } = await supabase.auth.getUser();
         if (userData.user) {
           const week = getIsoWeekKey();
@@ -52,11 +73,12 @@ export function useGameSession(
             {
               user_id: userData.user.id,
               week_key: week,
+              mode,
               score: finalScore,
-              words_solved: solvedCount,
+              words_solved: wordsSolved,
               updated_at: new Date().toISOString(),
             },
-            { onConflict: "user_id,week_key" }
+            { onConflict: "user_id,week_key,mode" }
           );
           if (error) {
             logError("speedScore.upsert", error);

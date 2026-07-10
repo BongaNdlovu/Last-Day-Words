@@ -26,7 +26,8 @@ interface DashboardProps {
   chapters: Chapter[];
   wordOfTheWeek?: WordTerm | null;
   featuredAnnouncement?: string | null;
-  onStartSpeedRound: () => void;
+  onStartMixedSpeed: () => void;
+  onStartChapterSpeed: () => void;
   onStartTeamsMode: () => void;
   onStartOnlineTeams: () => void;
   onViewStudyGuide: () => void;
@@ -47,7 +48,8 @@ export default function Dashboard({
   chapters,
   wordOfTheWeek,
   featuredAnnouncement,
-  onStartSpeedRound,
+  onStartMixedSpeed,
+  onStartChapterSpeed,
   onStartTeamsMode,
   onStartOnlineTeams,
   onViewStudyGuide,
@@ -139,21 +141,42 @@ export default function Dashboard({
           )}
         </div>
 
-        <p className="relative text-[#5c4a33] text-sm max-w-xl mx-auto leading-relaxed mb-6">
-          {totalWords} KJV-grounded terms in the pool · Best speed:{" "}
-          <strong className="font-mono">{progress.speedRoundHighScore}</strong> pts ·{" "}
-          <strong className="font-mono">{progress.speedRoundHighestWordsSolved}</strong> words
+        <p className="relative text-[#5c4a33] text-sm max-w-xl mx-auto leading-relaxed mb-4">
+          {totalWords} KJV-grounded terms · Mixed best{" "}
+          <strong className="font-mono">
+            {progress.speedMixedHighScore ?? progress.speedRoundHighScore}
+          </strong>{" "}
+          · Chapter best{" "}
+          <strong className="font-mono">{progress.speedChapterHighScore ?? 0}</strong>
         </p>
 
-        <button
-          type="button"
-          onClick={onStartSpeedRound}
-          className="relative w-full max-w-md mx-auto flex items-center justify-center gap-2 py-4 px-6 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.15em] cursor-pointer shadow-lg border border-[#b45309]/40"
-        >
-          <Play className="w-5 h-5 fill-[#fbbf24] text-[#fbbf24]" aria-hidden="true" />
-          Play Speed Round
-        </button>
-        <p className="relative text-[11px] text-[#6b5537] mt-2">30s · combos · +time on solves</p>
+        <div className="relative w-full max-w-md mx-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={onStartMixedSpeed}
+            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#b45309]/40"
+          >
+            <Play className="w-5 h-5 fill-[#fbbf24] text-[#fbbf24]" aria-hidden="true" />
+            Mixed Speed
+            <span className="text-[10px] font-medium normal-case tracking-normal text-[#cbb487]">
+              Expansion pool · own board
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={onStartChapterSpeed}
+            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-[#3d2e1f] hover:bg-[#2a2018] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#e6c98a]/50"
+          >
+            <BookOpen className="w-5 h-5 text-[#fbbf24]" aria-hidden="true" />
+            Chapter Speed
+            <span className="text-[10px] font-medium normal-case tracking-normal text-[#cbb487]">
+              Pick a core chapter · +25 XP perfect
+            </span>
+          </button>
+        </div>
+        <p className="relative text-[11px] text-[#6b5537] mt-2">
+          30s · combos · perfect word = +25 XP · disjoint pools
+        </p>
       </motion.div>
 
       {wordOfTheWeek && (
@@ -192,8 +215,8 @@ export default function Dashboard({
           className="pcard rounded-2xl p-5 text-left hover:border-[#b45309] cursor-pointer parchment-glow"
         >
           <Trophy className="w-6 h-6 text-[#b45309] mb-2" aria-hidden="true" />
-          <h3 className="font-bold text-[#2a2018]">Weekly Board</h3>
-          <p className="text-xs text-[#6b5537] mt-1">Speed scores this ISO week · sign in to post</p>
+          <h3 className="font-bold text-[#2a2018]">Weekly Boards</h3>
+          <p className="text-xs text-[#6b5537] mt-1">Mixed + Chapter boards · sign in to post</p>
         </button>
         <button
           type="button"

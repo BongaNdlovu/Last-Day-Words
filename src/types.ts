@@ -4,6 +4,7 @@ import { StudyPassage } from "./data/studyContent";
 export type GameMode =
   | "menu"
   | "speed-round"
+  | "speed-chapter-select"
   | "teams-mode"
   | "online-teams"
   | "stats-help"
@@ -31,8 +32,14 @@ export interface BadgeDef {
 export interface UserProgress {
   solvedWordIds: string[];
   chapterStars: Record<string, number>;
+  /** Legacy / overall best (max across modes). */
   speedRoundHighScore: number;
   speedRoundHighestWordsSolved: number;
+  /** Per-board local highs (Mixed vs Chapter speed). */
+  speedMixedHighScore?: number;
+  speedMixedHighestWordsSolved?: number;
+  speedChapterHighScore?: number;
+  speedChapterHighestWordsSolved?: number;
   totalTimePlayedSec: number;
   soundEnabled: boolean;
   dailyChallengeCompletedDate?: string;

@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ArrowLeft, Clock, Zap } from "lucide-react";
-import { Chapter, WordTerm } from "../data/words";
+import { WordTerm } from "../data/words";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   isLetter,
   normalizeWord,
   isWordSolved,
   getDepthHint,
-  getChapterForWordInChapters,
   getWordDifficulty,
   getMaxMistakes,
   shuffleArray,
@@ -20,6 +19,8 @@ import {
   SPEED_SKIP_PENALTY,
 } from "../utils/gameLogic";
 import { rollSpeedEvent, SpeedEvent, DOUBLE_TIME_BONUS, GOLDEN_WORD_SCORE_MULT } from "../utils/rewards";
+import type { SpeedRoundResult } from "../hooks/useGameSession";
+import type { SpeedBoardMode } from "../utils/speedPools";
 import PropheticCandles from "./PropheticCandles";
 import KeyboardGrid from "./KeyboardGrid";
 import WordSlots from "./WordSlots";
@@ -32,16 +33,22 @@ import { playRoundEndSound } from "../utils/sounds";
 interface SpeedRoundGameProps {
   highScore: number;
   highestWordsSolved: number;
-  chapters: Chapter[];
+  /** Disjoint pool for this board (mixed vs chapter). */
+  words: WordTerm[];
+  mode: SpeedBoardMode;
+  /** UI label e.g. Mixed Pool or chapter title */
+  poolLabel: string;
   candleStyle?: string;
-  onGameFinished: (finalScore: number, wordsCount: number) => void;
+  onGameFinished: (result: SpeedRoundResult) => void;
   onBack: () => void;
 }
 
 export default function SpeedRoundGame({
   highScore,
   highestWordsSolved,
-  chapters,
+  words,
+  mode,
+  poolLabel,
   candleStyle = "classic",
   onGameFinished,
   onBack,
@@ -54,11 +61,13 @@ export default function SpeedRoundGame({
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(SPEED_ROUND_TIME);
   const [wordsSolved, setWordsSolved] = useState(0);
+  const [perfectCount, setPerfectCount] = useState(0);
   const [wordStreak, setWordStreak] = useState(0);
   const [, setUsedWordIds] = useState<string[]>([]);
   const [currentWordObj, setCurrentWordObj] = useState<WordTerm | null>(null);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [mistakes, setMistakes] = useState(0);
+  const mistakesAtStartRef = useRef(0);
   const [timeBonusFeedback, setTimeBonusFeedback] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ text: string; tone: FeedbackTone } | null>(null);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -78,7 +87,7 @@ export default function SpeedRoundGame({
 
   const difficulty = currentWordObj ? getWordDifficulty(currentWordObj) : "medium";
   const maxMistakes = getMaxMistakes(difficulty);
-  const allWordsList = useMemo(() => chapters.flatMap((chapter) => chapter.words), [chapters]);
+  const allWordsList = useMemo(() => words, [words]);
 
   const showFeedback = useCallback((text: string, tone: FeedbackTone) => {
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);
@@ -115,6 +124,7 @@ export default function SpeedRoundGame({
       setCurrentWordObj(selected);
       setGuessedLetters([]);
       setMistakes(0);
+      mistakesAtStartRef.current = 0;
       solvedRef.current = false;
       return [...nextUsed, selected.id];
     });
@@ -156,7 +166,6 @@ export default function SpeedRoundGame({
   const wordText = currentWordObj ? normalizeWord(currentWordObj.word) : "";
   const solved = currentWordObj ? isWordSolved(wordText, guessedLetters) : false;
   const depthHint = currentWordObj ? getDepthHint(currentWordObj, mistakes, difficulty) : null;
-  const chapter = currentWordObj ? getChapterForWordInChapters(currentWordObj.id, chapters) : undefined;
   const comboMult = getSpeedComboMultiplier(wordStreak);
   const reviewingScripture = Boolean(solvedReveal);
 
@@ -210,6 +219,11 @@ export default function SpeedRoundGame({
       const mult = getSpeedComboMultiplier(nextStreak);
       setWordsSolved((p) => p + 1);
       setMistakes((m) => {
+        // Perfect = no wrong letters this word (0 mistakes when solved).
+        if (m === 0) {
+          setPerfectCount((pc) => pc + 1);
+          showFeedback("+25 XP Perfect!", "success");
+        }
         const solveBonus = Math.round((1000 + (maxMistakes - m) * 200) * mult * multAtSolve);
         setScore((p) => p + solveBonus);
         return m;
@@ -258,9 +272,14 @@ export default function SpeedRoundGame({
     if (isGameOver && !finishedRef.current) {
       finishedRef.current = true;
       playRoundEndSound();
-      onGameFinished(score, wordsSolved);
+      onGameFinished({
+        finalScore: score,
+        wordsSolved,
+        perfectCount,
+        mode,
+      });
     }
-  }, [isGameOver, score, wordsSolved, onGameFinished]);
+  }, [isGameOver, score, wordsSolved, perfectCount, mode, onGameFinished]);
 
   const handleRestart = () => {
     finishedRef.current = false;
@@ -268,6 +287,7 @@ export default function SpeedRoundGame({
     setScore(0);
     setTimeLeft(SPEED_ROUND_TIME);
     setWordsSolved(0);
+    setPerfectCount(0);
     setWordStreak(0);
     setUsedWordIds([]);
     setCurrentWordObj(null);
@@ -283,8 +303,12 @@ export default function SpeedRoundGame({
   if (startCountdown > 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-6">
-        <span className="text-sm font-bold tracking-[0.2em] text-[#6b5537] uppercase">Prophetic Speed Challenge</span>
-        <h2 className="text-xl font-display font-bold text-[#2a2018] max-w-sm tracking-wide leading-relaxed">{SPEED_ROUND_TIME}s on the clock. Solves +{SPEED_SOLVE_BONUS}s. Skips -{SPEED_SKIP_PENALTY}s. Build combos!</h2>
+        <span className="text-sm font-bold tracking-[0.2em] text-[#6b5537] uppercase">
+          {mode === "mixed" ? "Mixed Speed" : "Chapter Speed"} · {poolLabel}
+        </span>
+        <h2 className="text-xl font-display font-bold text-[#2a2018] max-w-sm tracking-wide leading-relaxed">
+          {SPEED_ROUND_TIME}s · +time on solves · perfect word = +25 XP · pool: {allWordsList.length} terms
+        </h2>
         <motion.div key={startCountdown} initial={rm ? false : { scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
           className="w-28 h-28 rounded-full psunken flex items-center justify-center text-4xl font-extrabold font-mono text-[#2a2018]">
           {startCountdown}
@@ -348,8 +372,11 @@ export default function SpeedRoundGame({
       {currentWordObj && (
         <motion.div key={currentWordObj.id} initial={rm ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
           className="pcard rounded-2xl p-5 text-center space-y-2 parchment-glow">
-          <div className="flex items-center justify-center gap-2">
-            {chapter && <span className="text-[9px] uppercase font-bold text-[#6b5537]">{chapter.title}</span>}
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <span className="text-[9px] uppercase font-bold text-[#6b5537]">{poolLabel}</span>
+            <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
+              mode === "mixed" ? "bg-blue-50 text-blue-800" : "bg-[#fbeccb] text-[#92400e]"
+            }`}>{mode === "mixed" ? "Mixed board" : "Chapter board"}</span>
             <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
               difficulty === "hard" ? "bg-rose-50 text-rose-800" : difficulty === "medium" ? "bg-amber-100 text-[#92400e]" : "bg-emerald-50 text-emerald-800"
             }`}>{difficulty}</span>
@@ -443,6 +470,10 @@ export default function SpeedRoundGame({
               <div className="grid grid-cols-2 gap-4 psunken p-4 rounded-xl">
                 <div><div className="text-2xl font-mono font-bold text-[#2a2018]">{score}</div><div className="text-[10px] text-[#6b5537] uppercase">Score</div></div>
                 <div><div className="text-2xl font-mono font-bold text-[#2a2018]">{wordsSolved}</div><div className="text-[10px] text-[#6b5537] uppercase">Solved</div></div>
+                <div className="col-span-2 text-xs text-[#6b5537]">
+                  Perfect (0 miss): <strong className="text-[#2a2018] font-mono">{perfectCount}</strong>
+                  {" · "}+{perfectCount * 25} XP · board: {mode}
+                </div>
               </div>
               {score > highScore ? (
                 <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg text-emerald-800 text-sm font-bold">🏆 New High Score!</div>

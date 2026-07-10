@@ -83,15 +83,16 @@ create trigger on_auth_user_created
 -- Trigger-only helper: do not expose via PostgREST RPC
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
 
--- Weekly speed leaderboard
+-- Weekly speed leaderboard (dual boards: mixed | chapter)
 create table if not exists public.speed_scores (
   id bigserial primary key,
   user_id uuid not null references auth.users (id) on delete cascade,
   week_key text not null,
+  mode text not null default 'mixed' check (mode in ('mixed', 'chapter')),
   score integer not null check (score >= 0),
   words_solved integer not null default 0 check (words_solved >= 0),
   updated_at timestamptz not null default now(),
-  unique (user_id, week_key)
+  unique (user_id, week_key, mode)
 );
 
 alter table public.speed_scores enable row level security;
@@ -223,6 +224,7 @@ create policy "Users leave rooms"
 
 -- Helpful indexes
 create index if not exists speed_scores_week_score_idx on public.speed_scores (week_key, score desc);
+create index if not exists speed_scores_week_mode_score_idx on public.speed_scores (week_key, mode, score desc);
 create index if not exists daily_scores_day_score_idx on public.daily_scores (day_key, score desc);
 create index if not exists game_rooms_code_idx on public.game_rooms (code);
 

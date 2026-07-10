@@ -1,5 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from "react";
-import { Volume2, VolumeX, Flame, BookOpen, LogIn, UserRound } from "lucide-react";
+import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { Volume2, VolumeX, Flame, BookOpen, LogIn, UserRound, ArrowLeft } from "lucide-react";
 import { DEFAULT_CANDLE_ID } from "./data/cosmetics";
 import { GameMode, UserProgress } from "./types";
 import ScreenFlash from "./components/ScreenFlash";
@@ -17,6 +17,12 @@ import { useGameSession } from "./hooks/useGameSession";
 import { useAuth } from "./hooks/useAuth";
 import { useNoticeQueue } from "./hooks/useNoticeQueue";
 import { playButtonSfxForEventTarget, setGameSoundsEnabled } from "./utils/sounds";
+import {
+  getChapterSpeedChapters,
+  getChapterSpeedWords,
+  getMixedSpeedWords,
+  type SpeedBoardMode,
+} from "./utils/speedPools";
 
 const Dashboard = lazy(() => import("./components/Dashboard"));
 const SpeedRoundGame = lazy(() => import("./components/SpeedRoundGame"));
@@ -67,12 +73,58 @@ export default function App() {
   useStreakReminder(progress, todayKey);
 
   const [currentMode, setCurrentMode] = useState<GameMode>("menu");
+  const [speedBoardMode, setSpeedBoardMode] = useState<SpeedBoardMode>("mixed");
+  const [speedChapterId, setSpeedChapterId] = useState<string | null>(null);
   const rm = useReducedMotion();
 
   const session = useGameSession(progress, saveProgress, chaptersData, todayKey, (message) => {
     notices.pushError(message, true);
   });
   const candleStyle = progress.selectedCandle ?? DEFAULT_CANDLE_ID;
+
+  const chapterSpeedChapters = useMemo(
+    () => getChapterSpeedChapters(chaptersData),
+    [chaptersData]
+  );
+
+  const speedWords = useMemo(() => {
+    if (speedBoardMode === "mixed") return getMixedSpeedWords(chaptersData);
+    if (!speedChapterId) return [];
+    return getChapterSpeedWords(chaptersData, speedChapterId);
+  }, [chaptersData, speedBoardMode, speedChapterId]);
+
+  const speedPoolLabel = useMemo(() => {
+    if (speedBoardMode === "mixed") return "Mixed expansion pool";
+    const ch = chaptersData.find((c) => c.id === speedChapterId);
+    return ch?.title ?? "Chapter";
+  }, [chaptersData, speedBoardMode, speedChapterId]);
+
+  const speedHighScore =
+    speedBoardMode === "mixed"
+      ? (progress.speedMixedHighScore ?? progress.speedRoundHighScore)
+      : (progress.speedChapterHighScore ?? 0);
+  const speedHighestWords =
+    speedBoardMode === "mixed"
+      ? (progress.speedMixedHighestWordsSolved ?? progress.speedRoundHighestWordsSolved)
+      : (progress.speedChapterHighestWordsSolved ?? 0);
+
+  const startMixedSpeed = () => {
+    setSpeedBoardMode("mixed");
+    setSpeedChapterId(null);
+    setCurrentMode("speed-round");
+  };
+
+  const startChapterSpeedSelect = () => {
+    setSpeedBoardMode("chapter");
+    setSpeedChapterId(null);
+    setCurrentMode("speed-chapter-select");
+  };
+
+  const startChapterSpeed = (chapterId: string) => {
+    setSpeedBoardMode("chapter");
+    setSpeedChapterId(chapterId);
+    setCurrentMode("speed-round");
+  };
 
   useEffect(() => {
     setGameSoundsEnabled(progress.soundEnabled !== false);
@@ -230,7 +282,8 @@ export default function App() {
                       authSignedIn={auth.isSignedIn}
                       authDisplayName={auth.user?.displayName ?? null}
                       authLoading={auth.loading}
-                      onStartSpeedRound={() => setCurrentMode("speed-round")}
+                      onStartMixedSpeed={startMixedSpeed}
+                      onStartChapterSpeed={startChapterSpeedSelect}
                       onStartTeamsMode={() => setCurrentMode("teams-mode")}
                       onStartOnlineTeams={() => setCurrentMode("online-teams")}
                       onViewStudyGuide={handleViewStudyGuide}
@@ -242,6 +295,44 @@ export default function App() {
                       onResetProgress={handleResetProgress}
                       onSelectCosmetic={handleSelectCosmetic}
                     />
+                  </motion.div>
+                )}
+
+                {currentMode === "speed-chapter-select" && (
+                  <motion.div key="speed-chapter-select" {...routeProps("y")}>
+                    <div className="max-w-lg mx-auto space-y-4 py-2 px-2">
+                      <div className="flex items-center justify-between pb-3 border-b border-[#e2d2ac]">
+                        <button
+                          type="button"
+                          onClick={() => setCurrentMode("menu")}
+                          className="flex items-center gap-1.5 text-sm text-[#5c4a33] font-medium cursor-pointer"
+                        >
+                          <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Back
+                        </button>
+                        <h2 className="text-lg font-display font-bold tracking-[0.08em] text-[#2a2018]">
+                          CHAPTER SPEED
+                        </h2>
+                        <div className="w-12" />
+                      </div>
+                      <p className="text-sm text-[#5c4a33] text-center">
+                        Core prophecy tracks only — separate from the Mixed pool.
+                      </p>
+                      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
+                        {chapterSpeedChapters.map((ch) => (
+                          <button
+                            key={ch.id}
+                            type="button"
+                            onClick={() => startChapterSpeed(ch.id)}
+                            className="w-full pcard rounded-xl px-4 py-3 text-left hover:border-[#b45309] cursor-pointer"
+                          >
+                            <div className="font-bold text-[#2a2018]">{ch.title}</div>
+                            <div className="text-xs text-[#6b5537] mt-0.5">
+                              {ch.words.length} terms · {ch.description}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </motion.div>
                 )}
 
@@ -257,12 +348,14 @@ export default function App() {
                   </motion.div>
                 )}
 
-                {currentMode === "speed-round" && (
-                  <motion.div key="speed-round" {...routeProps("scale")}>
+                {currentMode === "speed-round" && speedWords.length > 0 && (
+                  <motion.div key={`speed-round-${speedBoardMode}-${speedChapterId ?? "mixed"}`} {...routeProps("scale")}>
                     <SpeedRoundGame
-                      highScore={progress.speedRoundHighScore}
-                      highestWordsSolved={progress.speedRoundHighestWordsSolved}
-                      chapters={chaptersData}
+                      highScore={speedHighScore}
+                      highestWordsSolved={speedHighestWords}
+                      words={speedWords}
+                      mode={speedBoardMode}
+                      poolLabel={speedPoolLabel}
                       candleStyle={candleStyle}
                       onGameFinished={session.handleSpeedRoundFinished}
                       onBack={() => setCurrentMode("menu")}
