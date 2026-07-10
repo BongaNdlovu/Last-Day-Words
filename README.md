@@ -1,6 +1,6 @@
 # Last Day Words
 
-Prophetic word study game (PWA): chapter runs, daily challenge, speed round, teams, streaks, and optional Supabase auth / leaderboards / online teams.
+Prophetic **speed arcade** (PWA): timed word rounds from a large KJV-grounded pool, weekly leaderboard, optional teams, streaks, and Supabase auth for cloud scores.
 
 ## Stack
 
@@ -70,8 +70,8 @@ Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `daily_
 
 | Path | Role |
 |------|------|
-| `src/components/` | UI screens (lazy-loaded from `App.tsx`) |
-| `src/data/` | Bundled words, clues, study passages, cosmetics |
+| `src/components/` | UI screens (lazy-loaded from `App.tsx`) — speed is the main mode |
+| `src/data/` | Bundled words/clues (speed pool), word bank, cosmetics |
 | `src/hooks/` | Progress, catalog, session, streaks |
 | `src/lib/supabase.ts` | Client + progress/score helpers |
 | `supabase/migrations/` | Schema + seed migrations |

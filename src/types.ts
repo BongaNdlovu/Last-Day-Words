@@ -3,12 +3,9 @@ import { StudyPassage } from "./data/studyContent";
 
 export type GameMode =
   | "menu"
-  | "chapter-select"
-  | "gameplay"
   | "speed-round"
   | "teams-mode"
   | "online-teams"
-  | "daily-challenge"
   | "stats-help"
   | "badges"
   | "auth"

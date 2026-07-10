@@ -62,10 +62,10 @@ export default function AboutStudyGuide({ chapters = bundledChapters, onBack }: 
           <span className="hidden sm:inline">Back to Menu</span>
         </button>
         <h2 className="text-base sm:text-lg font-display font-bold text-[#2a2018] tracking-[0.08em]">
-          PROPHETIC DICTIONARY
+          WORD BANK
         </h2>
         <div className="text-[10px] text-[#6b5537] psunken px-2.5 py-1 rounded font-bold uppercase tracking-wider">
-          Study Guide
+          Clues &amp; Verses
         </div>
       </div>
 
@@ -76,7 +76,7 @@ export default function AboutStudyGuide({ chapters = bundledChapters, onBack }: 
         </div>
         <div className="space-y-1 flex-1">
           <h3 className="font-display font-bold text-[#2a2018] text-base flex items-center justify-center md:justify-start gap-1.5 tracking-wide">
-            SDA Last Day Events Companion <Sparkles className="w-4 h-4 text-[#b45309]" aria-hidden="true" />
+            Speed pool reference <Sparkles className="w-4 h-4 text-[#b45309]" aria-hidden="true" />
           </h3>
           <p className="text-xs sm:text-sm text-[#52412c] leading-relaxed">
             Browse all {allWordsList.length} prophetic terms across {chaptersData.length} chapters. Each entry includes a clue, expert clue, scripture, and significance summary.

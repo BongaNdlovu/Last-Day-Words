@@ -64,6 +64,8 @@ export default function SpeedRoundGame({
   const [isGameOver, setIsGameOver] = useState(false);
   const [showConfirmExit, setShowConfirmExit] = useState(false);
   const [speedEvent, setSpeedEvent] = useState<SpeedEvent>("none");
+  /** Brief post-solve teach moment: show verse/scripture before next word. */
+  const [solvedReveal, setSolvedReveal] = useState<WordTerm | null>(null);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const solvedRef = useRef(false);
@@ -218,10 +220,14 @@ export default function SpeedRoundGame({
     });
     eventMultRef.current = 1;
     setSpeedEvent("none");
+    setSolvedReveal(currentWordObj);
 
     const fb = window.setTimeout(() => setTimeBonusFeedback(null), 1200);
-    // Do not clear this in effect cleanup — prior deps thrash cancelled advance and stuck the board.
-    window.setTimeout(() => loadNextWordRef.current(), 700);
+    // Longer pause so players can read the verse salvaged from the study catalog.
+    window.setTimeout(() => {
+      setSolvedReveal(null);
+      loadNextWordRef.current();
+    }, 1600);
     return () => {
       window.clearTimeout(fb);
     };
@@ -337,8 +343,25 @@ export default function SpeedRoundGame({
               difficulty === "hard" ? "bg-rose-50 text-rose-800" : difficulty === "medium" ? "bg-amber-100 text-[#92400e]" : "bg-emerald-50 text-emerald-800"
             }`}>{difficulty}</span>
           </div>
+          <p className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#6b5537]">Clue</p>
           <p className="text-lg sm:text-xl font-light leading-relaxed text-[#2a2018]">"{currentWordObj.clue}"</p>
-          {depthHint && <p className="text-xs text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded px-3 py-2">{depthHint}</p>}
+          {depthHint && !solvedReveal && (
+            <p className="text-xs text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded px-3 py-2">{depthHint}</p>
+          )}
+          {solvedReveal && solvedReveal.id === currentWordObj.id && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-2 pt-3 border-t border-[#e2d2ac] space-y-1"
+            >
+              <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-800">Solved — Scripture</p>
+              <p className="text-sm font-semibold text-[#2a2018] font-mono tracking-wide">{solvedReveal.word}</p>
+              <p className="text-xs font-scripture italic text-[#5c4a33] leading-relaxed line-clamp-3">
+                "{solvedReveal.scripture}"
+              </p>
+              <p className="text-[11px] text-[#6b5537] font-semibold">— {solvedReveal.verse}</p>
+            </motion.div>
+          )}
         </motion.div>
       )}
 

@@ -9,7 +9,6 @@ import { LoadingBlock } from "./components/ErrorState";
 import { requestNotificationPermission } from "./utils/notifications";
 import { selectCosmetic } from "./utils/progression";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { isDailyBonusWord } from "./utils/rewards";
 import { useTodayKey } from "./hooks/useTodayKey";
 import { useUserProgress } from "./hooks/useUserProgress";
 import { useContentCatalog } from "./hooks/useContentCatalog";
@@ -20,9 +19,6 @@ import { useNoticeQueue } from "./hooks/useNoticeQueue";
 import { playButtonSfxForEventTarget, setGameSoundsEnabled } from "./utils/sounds";
 
 const Dashboard = lazy(() => import("./components/Dashboard"));
-const ChapterSelect = lazy(() => import("./components/ChapterSelect"));
-const WordRevealGame = lazy(() => import("./components/WordRevealGame"));
-const VerseLinkBonusModal = lazy(() => import("./components/VerseLinkBonusModal"));
 const SpeedRoundGame = lazy(() => import("./components/SpeedRoundGame"));
 const TeamsModeGame = lazy(() => import("./components/TeamsModeGame"));
 const AboutStudyGuide = lazy(() => import("./components/AboutStudyGuide"));
@@ -66,7 +62,7 @@ export default function App() {
       autoDismissMs: n.sticky === false ? 7000 : n.tone === "error" ? 0 : 8000,
     });
   });
-  const { chaptersData, seasons, wordOfTheWeek, featuredAnnouncement } = useContentCatalog();
+  const { chaptersData, wordOfTheWeek, featuredAnnouncement } = useContentCatalog();
   const auth = useAuth();
   useStreakReminder(progress, todayKey);
 
@@ -82,7 +78,6 @@ export default function App() {
     setGameSoundsEnabled(progress.soundEnabled !== false);
   }, [progress.soundEnabled]);
 
-  // Soft click SFX for UI buttons (letter keyboard is opted out via data-no-button-sfx).
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
       if (e.button !== 0) return;
@@ -104,32 +99,11 @@ export default function App() {
   const handleResetProgress = () => {
     if (
       window.confirm(
-        "Are you absolutely sure you want to reset all solved words, star ratings, and high scores? This cannot be undone."
+        "Are you absolutely sure you want to reset all high scores, streak, and progress? This cannot be undone."
       )
     ) {
       saveProgress(DEFAULT_PROGRESS);
       setCurrentMode("menu");
-    }
-  };
-
-  const handleSelectChapter = (chapterId: string) => {
-    session.handleSelectChapter(chapterId);
-    setCurrentMode("gameplay");
-  };
-
-  const handleStartDailyChallenge = () => {
-    session.handleStartDailyChallenge();
-    setCurrentMode("gameplay");
-  };
-
-  const handleStartReview = () => {
-    if (session.handleStartReview()) setCurrentMode("gameplay");
-  };
-
-  const handleProceedAfterSolve = () => {
-    const result = session.handleProceedAfterSolve();
-    if (result.finished) {
-      setCurrentMode(result.toMenu ? "menu" : "chapter-select");
     }
   };
 
@@ -189,8 +163,12 @@ export default function App() {
               <Flame className="w-4 h-4 text-[#fbbf24]" aria-hidden="true" />
             </div>
             <div>
-              <span className="text-lg font-display font-bold tracking-[0.12em] text-[#2a2018]">LAST DAY WORDS</span>
-              <p className="text-[9px] text-[#6b5537] uppercase tracking-[0.2em] font-semibold leading-none">SDA Prophetic Puzzle</p>
+              <span className="text-lg font-display font-bold tracking-[0.12em] text-[#2a2018]">
+                LAST DAY WORDS
+              </span>
+              <p className="text-[9px] text-[#6b5537] uppercase tracking-[0.2em] font-semibold leading-none">
+                Prophetic Speed Arcade
+              </p>
             </div>
           </div>
 
@@ -198,7 +176,9 @@ export default function App() {
             <button
               type="button"
               onClick={() => setCurrentMode("auth")}
-              aria-label={auth.isSignedIn ? `Account: ${auth.user?.displayName}` : "Sign in or create account"}
+              aria-label={
+                auth.isSignedIn ? `Account: ${auth.user?.displayName}` : "Sign in or create account"
+              }
               className="flex items-center gap-1.5 text-xs font-semibold py-2 px-2.5 sm:px-3.5 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors max-w-[10rem] sm:max-w-none"
             >
               {auth.isSignedIn ? (
@@ -212,11 +192,17 @@ export default function App() {
             </button>
             <button
               onClick={handleToggleSound}
-              aria-label={progress.soundEnabled ? "Mute interactive signals" : "Unmute interactive signals"}
+              aria-label={
+                progress.soundEnabled ? "Mute interactive signals" : "Unmute interactive signals"
+              }
               aria-pressed={progress.soundEnabled}
               className="p-2 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors"
             >
-              {progress.soundEnabled ? <Volume2 className="w-4 h-4" aria-hidden="true" /> : <VolumeX className="w-4 h-4 text-[#6b5537]" aria-hidden="true" />}
+              {progress.soundEnabled ? (
+                <Volume2 className="w-4 h-4" aria-hidden="true" />
+              ) : (
+                <VolumeX className="w-4 h-4 text-[#6b5537]" aria-hidden="true" />
+              )}
             </button>
             {currentMode !== "stats-help" && (
               <button
@@ -224,7 +210,7 @@ export default function App() {
                 className="flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline">Study Guide</span>
+                <span className="hidden sm:inline">Word Bank</span>
               </button>
             )}
           </div>
@@ -232,166 +218,107 @@ export default function App() {
 
         <main className="flex-1 flex flex-col justify-center">
           <ErrorBoundary name="screen">
-          <Suspense fallback={<ScreenFallback />}>
-          <AnimatePresence mode="wait">
-            {currentMode === "menu" && (
-              <motion.div key="menu" {...routeProps("y")}>
-                <Dashboard
-                  progress={progress}
-                  chapters={chaptersData}
-                  dailyBonusWordId={session.dailyBonusId}
-                  wordOfTheWeek={wordOfTheWeek}
-                  featuredAnnouncement={featuredAnnouncement}
-                  seasons={seasons}
-                  authSignedIn={auth.isSignedIn}
-                  authDisplayName={auth.user?.displayName ?? null}
-                  authLoading={auth.loading}
-                  onStartChapters={() => setCurrentMode("chapter-select")}
-                  onStartDailyChallenge={handleStartDailyChallenge}
-                  onStartSpeedRound={() => setCurrentMode("speed-round")}
-                  onStartTeamsMode={() => setCurrentMode("teams-mode")}
-                  onStartOnlineTeams={() => setCurrentMode("online-teams")}
-                  onStartReview={handleStartReview}
-                  onViewStudyGuide={handleViewStudyGuide}
-                  onViewBadges={() => setCurrentMode("badges")}
-                  onViewAuth={() => setCurrentMode("auth")}
-                  onViewLeaderboard={() => setCurrentMode("leaderboard")}
-                  onViewShareCard={() => setCurrentMode("share-card")}
-                  onEnableNotifications={handleEnableNotifications}
-                  onResetProgress={handleResetProgress}
-                  onSelectCosmetic={handleSelectCosmetic}
-                />
-              </motion.div>
-            )}
+            <Suspense fallback={<ScreenFallback />}>
+              <AnimatePresence mode="wait">
+                {currentMode === "menu" && (
+                  <motion.div key="menu" {...routeProps("y")}>
+                    <Dashboard
+                      progress={progress}
+                      chapters={chaptersData}
+                      wordOfTheWeek={wordOfTheWeek}
+                      featuredAnnouncement={featuredAnnouncement}
+                      authSignedIn={auth.isSignedIn}
+                      authDisplayName={auth.user?.displayName ?? null}
+                      authLoading={auth.loading}
+                      onStartSpeedRound={() => setCurrentMode("speed-round")}
+                      onStartTeamsMode={() => setCurrentMode("teams-mode")}
+                      onStartOnlineTeams={() => setCurrentMode("online-teams")}
+                      onViewStudyGuide={handleViewStudyGuide}
+                      onViewBadges={() => setCurrentMode("badges")}
+                      onViewAuth={() => setCurrentMode("auth")}
+                      onViewLeaderboard={() => setCurrentMode("leaderboard")}
+                      onViewShareCard={() => setCurrentMode("share-card")}
+                      onEnableNotifications={handleEnableNotifications}
+                      onResetProgress={handleResetProgress}
+                      onSelectCosmetic={handleSelectCosmetic}
+                    />
+                  </motion.div>
+                )}
 
-            {currentMode === "chapter-select" && (
-              <motion.div key="chapters" {...routeProps("y")}>
-                <ChapterSelect
-                  progress={progress}
-                  chapters={chaptersData}
-                  seasons={seasons}
-                  expertMode={session.expertMode}
-                  onExpertModeChange={session.setExpertMode}
-                  onSelectChapter={handleSelectChapter}
-                  onBack={() => setCurrentMode("menu")}
-                />
-              </motion.div>
-            )}
+                {currentMode === "teams-mode" && (
+                  <motion.div key="teams-mode" {...routeProps("scale")}>
+                    <TeamsModeGame chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
+                  </motion.div>
+                )}
 
-            {currentMode === "gameplay" && session.activeChapterObj && (
-              <motion.div key="gameplay" {...routeProps("scale")}>
-                <WordRevealGame
-                  chapter={session.activeChapterObj}
-                  wordIndex={session.currentWordIndex}
-                  expertMode={session.expertMode && !session.isDailyMode && !session.isReviewMode}
-                  candleStyle={candleStyle}
-                  onBack={() => {
-                    if (session.isDailyMode || session.isReviewMode) {
-                      setCurrentMode("menu");
-                      session.exitGameplay(true);
-                    } else {
-                      setCurrentMode("chapter-select");
-                      session.exitGameplay(false);
-                    }
-                  }}
-                  onSolveComplete={session.handleWordSolveComplete}
-                />
-              </motion.div>
-            )}
+                {currentMode === "online-teams" && (
+                  <motion.div key="online-teams" {...routeProps("y")}>
+                    <OnlineTeamsScreen chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
+                  </motion.div>
+                )}
 
-            {currentMode === "teams-mode" && (
-              <motion.div key="teams-mode" {...routeProps("scale")}>
-                <TeamsModeGame chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
-              </motion.div>
-            )}
+                {currentMode === "speed-round" && (
+                  <motion.div key="speed-round" {...routeProps("scale")}>
+                    <SpeedRoundGame
+                      highScore={progress.speedRoundHighScore}
+                      highestWordsSolved={progress.speedRoundHighestWordsSolved}
+                      chapters={chaptersData}
+                      candleStyle={candleStyle}
+                      onGameFinished={session.handleSpeedRoundFinished}
+                      onBack={() => setCurrentMode("menu")}
+                    />
+                  </motion.div>
+                )}
 
-            {currentMode === "online-teams" && (
-              <motion.div key="online-teams" {...routeProps("y")}>
-                <OnlineTeamsScreen chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
-              </motion.div>
-            )}
+                {currentMode === "stats-help" && (
+                  <motion.div key="help" {...routeProps("y")}>
+                    <AboutStudyGuide chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
+                  </motion.div>
+                )}
 
-            {currentMode === "speed-round" && (
-              <motion.div key="speed-round" {...routeProps("scale")}>
-                <SpeedRoundGame
-                  highScore={progress.speedRoundHighScore}
-                  highestWordsSolved={progress.speedRoundHighestWordsSolved}
-                  chapters={chaptersData}
-                  candleStyle={candleStyle}
-                  onGameFinished={session.handleSpeedRoundFinished}
-                  onBack={() => setCurrentMode("menu")}
-                />
-              </motion.div>
-            )}
+                {currentMode === "badges" && (
+                  <motion.div key="badges" {...routeProps("y")}>
+                    <BadgesScreen
+                      progress={progress}
+                      onSelectCosmetic={handleSelectCosmetic}
+                      onBack={() => setCurrentMode("menu")}
+                    />
+                  </motion.div>
+                )}
 
-            {currentMode === "stats-help" && (
-              <motion.div key="help" {...routeProps("y")}>
-                <AboutStudyGuide chapters={chaptersData} onBack={() => setCurrentMode("menu")} />
-              </motion.div>
-            )}
+                {currentMode === "auth" && (
+                  <motion.div key="auth" {...routeProps("y")}>
+                    <AuthScreen
+                      onBack={() => setCurrentMode("menu")}
+                      onAuthed={(name) => saveProgress({ ...progress, displayName: name })}
+                    />
+                  </motion.div>
+                )}
 
-            {currentMode === "badges" && (
-              <motion.div key="badges" {...routeProps("y")}>
-                <BadgesScreen
-                  progress={progress}
-                  onSelectCosmetic={handleSelectCosmetic}
-                  onBack={() => setCurrentMode("menu")}
-                />
-              </motion.div>
-            )}
+                {currentMode === "leaderboard" && (
+                  <motion.div key="leaderboard" {...routeProps("y")}>
+                    <LeaderboardScreen onBack={() => setCurrentMode("menu")} />
+                  </motion.div>
+                )}
 
-            {currentMode === "auth" && (
-              <motion.div key="auth" {...routeProps("y")}>
-                <AuthScreen
-                  onBack={() => setCurrentMode("menu")}
-                  onAuthed={(name) => saveProgress({ ...progress, displayName: name })}
-                />
-              </motion.div>
-            )}
-
-            {currentMode === "leaderboard" && (
-              <motion.div key="leaderboard" {...routeProps("y")}>
-                <LeaderboardScreen onBack={() => setCurrentMode("menu")} />
-              </motion.div>
-            )}
-
-            {currentMode === "share-card" && (
-              <motion.div key="share" {...routeProps("y")}>
-                <ShareCardScreen progress={progress} onBack={() => setCurrentMode("menu")} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          </Suspense>
+                {currentMode === "share-card" && (
+                  <motion.div key="share" {...routeProps("y")}>
+                    <ShareCardScreen progress={progress} onBack={() => setCurrentMode("menu")} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Suspense>
           </ErrorBoundary>
         </main>
       </div>
 
-      <Suspense fallback={null}>
-      <AnimatePresence>
-        {session.solvedWordState && session.activeChapterObj && (
-          <VerseLinkBonusModal
-            word={session.solvedWordState.word}
-            mistakes={session.solvedWordState.mistakes}
-            hintsUsed={session.solvedWordState.hintsUsed}
-            chapterTitle={session.activeChapterObj.title}
-            isLastWord={session.currentWordIndex >= session.activeChapterObj.words.length - 1}
-            isDailyBonus={isDailyBonusWord(session.solvedWordState.word.id, todayKey, session.allWordsList)}
-            scriptureBonus={session.pendingScriptureBonus}
-            fragment={session.pendingFragment}
-            masteryUnlock={session.pendingMasteryUnlock}
-            onNext={handleProceedAfterSolve}
-            onRetry={session.clearSolveModal}
-          />
-        )}
-      </AnimatePresence>
-      </Suspense>
-
       <footer className="w-full text-center py-6 px-4 text-[11px] text-[#6b5537] border-t border-[#e2d2ac] bg-[#f3e8cf]/70 mt-6">
         <p className="font-scripture italic text-[15px] text-[#52412c] mb-1.5 leading-relaxed">
-          “Write the vision, and make it plain upon tables, that he may run that readeth it.” — Habakkuk 2:2
+          “Write the vision, and make it plain upon tables, that he may run that readeth it.” —
+          Habakkuk 2:2
         </p>
         <p className="font-sans font-medium text-[#6b5537]">
-          Last Day Words • Inspired by Biblical Prophecy &amp; Last Day Events • Sabbath Devotion Companion
+          Last Day Words • Prophetic Speed Arcade • Weekly Board
         </p>
       </footer>
     </div>
