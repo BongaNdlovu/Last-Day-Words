@@ -59,7 +59,7 @@ export const MIN_SPEED_SCORE_PER_WORD = computeSpeedSolveBonus(
 /** Upper bound on words_solved claims per round (30s base + time bonuses). */
 export const MAX_SPEED_WORDS_PER_ROUND = 80;
 
-/** Min gap between weekly score *increases* (client throttle; DB also enforces). */
+/** Min gap between weekly score *increases* — UX throttle only; DB trigger enforces 8s. */
 export const MIN_SCORE_SUBMIT_INTERVAL_MS = 8_000;
 
 export type SpeedScoreRejectReason =
@@ -125,7 +125,7 @@ export function isValidSpeedScore(score: number, wordsSolved: number): boolean {
   return validateSpeedScorePayload(score, wordsSolved).ok;
 }
 
-/** Client-side throttle so a scripted loop cannot hammer the board API. */
+/** UX throttle to avoid pointless edge calls; bypassable — not a security gate. */
 let lastSubmitAtMs = 0;
 
 export function resetSpeedSubmitThrottleForTests(): void {

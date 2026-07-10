@@ -2,6 +2,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { DEFAULT_CANDLE_ID } from "../data/cosmetics";
 import type { UserProgress } from "../types";
 import { extractGameState, type GameStateSnapshot } from "../utils/progressSync";
+import type { SpeedBoardMode } from "../utils/speedPools";
 import { rankForUser } from "../utils/leaderboard";
 import type { RemoteFetchResult, RemoteWriteResult } from "./syncResult";
 import { writeErr, writeOk } from "./syncResult";
@@ -173,6 +174,38 @@ export async function fetchWeeklyLeaderboardPlacements(
     placements[mode] = rankForUser(userId, data ?? []);
   }
   return placements;
+}
+
+/** Server-gated weekly speed score submit (edge function + DB trigger). */
+export async function submitSpeedScoreToEdge(params: {
+  weekKey: string;
+  mode: SpeedBoardMode;
+  score: number;
+  wordsSolved: number;
+}): Promise<RemoteWriteResult & { score?: number; wordsSolved?: number }> {
+  if (!supabase || !isSupabaseConfigured) return writeOk();
+  const { data, error } = await supabase.functions.invoke("submit-speed-score", {
+    body: {
+      week_key: params.weekKey,
+      mode: params.mode,
+      score: params.score,
+      words_solved: params.wordsSolved,
+    },
+  });
+  if (error) {
+    console.error("submitSpeedScoreToEdge failed:", error.message);
+    return writeErr(error.message);
+  }
+  const payload = data as { ok?: boolean; error?: string; message?: string; score?: number; words_solved?: number };
+  if (!payload?.ok) {
+    const msg = payload?.message ?? payload?.error ?? "submit_rejected";
+    return writeErr(msg);
+  }
+  return {
+    ...writeOk(),
+    score: payload.score,
+    wordsSolved: payload.words_solved,
+  };
 }
 
 export async function upsertUserProgress(row: {

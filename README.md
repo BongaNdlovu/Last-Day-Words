@@ -64,7 +64,7 @@ Local Supabase CLI is **not** required. Content and schema live on the remote pr
 2. For a full content snapshot matching the client catalog, run `supabase/seed_content.sql` (upserts chapters/words/seasons).
 3. See `docs/SUPABASE_REMOTE_WORKFLOW.md` for remote-only notes.
 
-Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `speed_scores` (columns include `mode`: `mixed` | `chapter`), `game_rooms`, `room_members` — all behind RLS.
+Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `speed_scores` (`mode`: `mixed` | `chapter`; **writes via edge `submit-speed-score` only**), `game_rooms`, `room_members` — RLS enabled. See `docs/SUPABASE_REMOTE_WORKFLOW.md`.
 
 ## Project layout (short)
 

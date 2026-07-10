@@ -84,7 +84,8 @@ create trigger on_auth_user_created
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
 
 -- Weekly speed leaderboard (dual boards: mixed | chapter)
--- Anti-cheat: see migrations 20260710210000 + 20260710220000 (validate_speed_score trigger).
+-- Anti-cheat: migrations 20260710210000–20260710230000 + edge submit-speed-score.
+-- Writes: service_role only (edge). Clients: SELECT only.
 create table if not exists public.speed_scores (
   id bigserial primary key,
   user_id uuid not null references auth.users (id) on delete cascade,
@@ -105,16 +106,11 @@ create policy "Speed scores readable by all"
   on public.speed_scores for select
   using (true);
 
+-- No INSERT/UPDATE/DELETE policies for authenticated/anon — use edge function.
 drop policy if exists "Users upsert own speed scores" on public.speed_scores;
-create policy "Users upsert own speed scores"
-  on public.speed_scores for insert
-  with check (auth.uid() = user_id);
-
 drop policy if exists "Users update own speed scores" on public.speed_scores;
-create policy "Users update own speed scores"
-  on public.speed_scores for update
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+revoke insert, update, delete on public.speed_scores from authenticated;
+revoke insert, update, delete on public.speed_scores from anon;
 
 -- Online teams rooms (room codes)
 create table if not exists public.game_rooms (

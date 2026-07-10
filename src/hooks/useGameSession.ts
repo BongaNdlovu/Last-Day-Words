@@ -7,7 +7,6 @@ import {
   markSpeedSubmitAttempt,
 } from "../utils/speedScoreLimits";
 import {
-  buildSpeedScoreUpsert,
   getLeaderboardWeekKey,
   rankForUser,
   syncLeaderboardPlacementForMode,
@@ -16,7 +15,11 @@ import {
   applySpeedRoundToProgress,
   type SpeedRoundResult,
 } from "../utils/speedRoundProgress";
-import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import {
+  isSupabaseConfigured,
+  submitSpeedScoreToEdge,
+  supabase,
+} from "../lib/supabase";
 import { logError, mapUserFacingError } from "../utils/errors";
 
 type SaveProgress = (p: UserProgress) => void;
@@ -25,7 +28,7 @@ type RemoteErrorHandler = (message: string) => void;
 export type { SpeedRoundResult };
 
 /**
- * Speed-arcade session helpers (progress + dual leaderboard upsert).
+ * Speed-arcade session helpers (progress + dual leaderboard submit via edge).
  */
 export function useGameSession(
   progress: UserProgress,
@@ -47,6 +50,7 @@ export function useGameSession(
 
       if (!supabase || !isSupabaseConfigured) return;
 
+      // Client checks are UX only; edge function + DB trigger are the real gate.
       const gate = canSubmitSpeedScore(finalScore, wordsSolved, mode);
       if (!gate.ok) {
         if (gate.reason !== "submit_too_soon") {
@@ -62,40 +66,19 @@ export function useGameSession(
       const week = getLeaderboardWeekKey();
       const userId = userData.user.id;
 
-      const { data: existing } = await supabase
-        .from("speed_scores")
-        .select("score, words_solved")
-        .eq("user_id", userId)
-        .eq("week_key", week)
-        .eq("mode", mode)
-        .maybeSingle();
-
-      // Never lower a weekly best (client); DB trigger also enforces this.
-      const upserted = buildSpeedScoreUpsert(
-        existing
-          ? {
-              score: existing.score as number,
-              words_solved: existing.words_solved as number,
-            }
-          : null,
-        { score: finalScore, words_solved: wordsSolved }
-      );
-
-      const { error } = await supabase.from("speed_scores").upsert(
-        {
-          user_id: userId,
-          week_key: week,
-          mode,
-          score: upserted.score,
-          words_solved: upserted.words_solved,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "user_id,week_key,mode" }
-      );
-      if (error) {
-        logError("speedScore.upsert", error);
+      const submit = await submitSpeedScoreToEdge({
+        weekKey: week,
+        mode,
+        score: finalScore,
+        wordsSolved,
+      });
+      if (!submit.ok) {
+        logError("speedScore.edge", new Error(submit.message));
         onRemoteError?.(
-          mapUserFacingError(error, "Speed score could not be saved to the leaderboard")
+          mapUserFacingError(
+            new Error(submit.message ?? "rejected"),
+            "Speed score could not be saved to the leaderboard"
+          )
         );
         return;
       }
