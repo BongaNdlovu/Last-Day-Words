@@ -49,6 +49,10 @@ interface DashboardProps {
   onEnableNotifications: () => void;
   onResetProgress: () => void;
   onSelectCosmetic?: (cosmeticId: string) => void;
+  /** Cloud account (Supabase) — optional offline play when false. */
+  authSignedIn?: boolean;
+  authDisplayName?: string | null;
+  authLoading?: boolean;
 }
 
 export default function Dashboard({
@@ -72,6 +76,9 @@ export default function Dashboard({
   onEnableNotifications,
   onResetProgress,
   onSelectCosmetic,
+  authSignedIn = false,
+  authDisplayName = null,
+  authLoading = false,
 }: DashboardProps) {
   const rm = useReducedMotion();
   const chaptersData = chapters;
@@ -355,6 +362,35 @@ export default function Dashboard({
         </div>
       )}
 
+      <button
+        type="button"
+        onClick={onViewAuth}
+        className="w-full pcard rounded-2xl p-4 flex items-center justify-between gap-3 cursor-pointer hover:border-[#b45309] text-left"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 rounded-full bg-[#2a2018] text-[#fbbf24] flex items-center justify-center shrink-0">
+            <LogIn className="w-4 h-4" aria-hidden="true" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm font-bold text-[#2a2018]">
+              {authLoading
+                ? "Checking account…"
+                : authSignedIn
+                  ? `Signed in as ${authDisplayName || "Player"}`
+                  : "Sign in or create an account"}
+            </p>
+            <p className="text-xs text-[#6b5537] leading-snug">
+              {authSignedIn
+                ? "Sync progress, leaderboards, and online teams"
+                : "Optional — play offline anytime; cloud unlocks sync & multiplayer"}
+            </p>
+          </div>
+        </div>
+        <span className="text-[10px] font-bold uppercase tracking-wider text-[#b45309] shrink-0">
+          {authSignedIn ? "Manage" : "Join"}
+        </span>
+      </button>
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <button onClick={onViewBadges} className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]">
           <Medal className="w-3.5 h-3.5" /> Badges
@@ -366,7 +402,7 @@ export default function Dashboard({
           <Trophy className="w-3.5 h-3.5" /> Board
         </button>
         <button onClick={onViewAuth} className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]">
-          <LogIn className="w-3.5 h-3.5" /> Account
+          <LogIn className="w-3.5 h-3.5" /> {authSignedIn ? "Account" : "Sign In"}
         </button>
       </div>
 

@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from "react";
-import { Volume2, VolumeX, Flame, BookOpen } from "lucide-react";
+import { Volume2, VolumeX, Flame, BookOpen, LogIn, UserRound } from "lucide-react";
 import { DEFAULT_CANDLE_ID } from "./data/cosmetics";
 import { GameMode, UserProgress } from "./types";
 import ScreenFlash from "./components/ScreenFlash";
@@ -12,6 +12,7 @@ import { useUserProgress } from "./hooks/useUserProgress";
 import { useContentCatalog } from "./hooks/useContentCatalog";
 import { useStreakReminder } from "./hooks/useStreakReminder";
 import { useGameSession } from "./hooks/useGameSession";
+import { useAuth } from "./hooks/useAuth";
 
 const Dashboard = lazy(() => import("./components/Dashboard"));
 const ChapterSelect = lazy(() => import("./components/ChapterSelect"));
@@ -59,6 +60,7 @@ export default function App() {
     todayKey
   );
   const { chaptersData, seasons, wordOfTheWeek, featuredAnnouncement } = useContentCatalog();
+  const auth = useAuth();
   useStreakReminder(progress, todayKey);
 
   const [currentMode, setCurrentMode] = useState<GameMode>("menu");
@@ -186,6 +188,21 @@ export default function App() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button
+              type="button"
+              onClick={() => setCurrentMode("auth")}
+              aria-label={auth.isSignedIn ? `Account: ${auth.user?.displayName}` : "Sign in or create account"}
+              className="flex items-center gap-1.5 text-xs font-semibold py-2 px-2.5 sm:px-3.5 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors max-w-[10rem] sm:max-w-none"
+            >
+              {auth.isSignedIn ? (
+                <UserRound className="w-3.5 h-3.5 shrink-0 text-[#b45309]" aria-hidden="true" />
+              ) : (
+                <LogIn className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              )}
+              <span className="hidden sm:inline truncate">
+                {auth.loading ? "…" : auth.isSignedIn ? auth.user?.displayName : "Sign In"}
+              </span>
+            </button>
+            <button
               onClick={handleToggleSound}
               aria-label={progress.soundEnabled ? "Mute interactive signals" : "Unmute interactive signals"}
               aria-pressed={progress.soundEnabled}
@@ -217,6 +234,9 @@ export default function App() {
                   wordOfTheWeek={wordOfTheWeek}
                   featuredAnnouncement={featuredAnnouncement}
                   seasons={seasons}
+                  authSignedIn={auth.isSignedIn}
+                  authDisplayName={auth.user?.displayName ?? null}
+                  authLoading={auth.loading}
                   onStartChapters={() => setCurrentMode("chapter-select")}
                   onStartDailyChallenge={handleStartDailyChallenge}
                   onStartSpeedRound={() => setCurrentMode("speed-round")}
