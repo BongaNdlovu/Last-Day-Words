@@ -216,10 +216,11 @@ export default function App() {
         muted
         loop
         playsInline
+        preload="auto"
+        disablePictureInPicture
         aria-hidden="true"
       />
       <div className="bg-video-veil" aria-hidden="true" />
-      <div className="bg-grain" aria-hidden="true" />
       <ScreenFlash />
       <AppNoticeStack notices={notices.notices} onDismiss={notices.dismissNotice} />
       <div className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">

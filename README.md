@@ -66,6 +66,12 @@ Local Supabase CLI is **not** required. Content and schema live on the remote pr
 
 Key tables: `profiles`, `user_progress`, `words`, `chapters`, `seasons`, `speed_scores` (`mode`: `mixed` | `chapter`; **writes via edge `submit-speed-score` only**), `game_rooms`, `room_members` — RLS enabled. See `docs/SUPABASE_REMOTE_WORKFLOW.md`.
 
+## Production
+
+**Live app:** [https://last-day-words.vercel.app/](https://last-day-words.vercel.app/)
+
+One-time Supabase auth setup (password reset / email confirm): [URL Configuration](https://supabase.com/dashboard/project/haoghddjcstxanrtggvb/auth/url-configuration) — set **Site URL** to `https://last-day-words.vercel.app` and add `https://last-day-words.vercel.app/**` to **Redirect URLs**. Details: `docs/SUPABASE_REMOTE_WORKFLOW.md` §7.
+
 ## Project layout (short)
 
 | Path | Role |

@@ -166,3 +166,38 @@ select has_table_privilege('authenticated', 'public.speed_scores', 'insert'); --
 - Temp `supabase/_*` MCP apply chunks are gitignored; delete if recreated.
 - Chunked MCP applies can leave **duplicate names** in Dashboard migration history; data is usually fine (`ON CONFLICT` upserts).
 - `tsconfig.json` excludes `supabase/functions` so Deno edge code is not typechecked by the Vite app.
+
+---
+
+## 7 · Production (Vercel)
+
+| Item | Value |
+|------|--------|
+| **Production URL** | [https://last-day-words.vercel.app/](https://last-day-words.vercel.app/) |
+| **Supabase project** | `haoghddjcstxanrtggvb` |
+
+### Auth redirect URLs (required once)
+
+**Dashboard:** [Authentication → URL Configuration](https://supabase.com/dashboard/project/haoghddjcstxanrtggvb/auth/url-configuration)
+
+| Field | Value |
+|-------|--------|
+| **Site URL** | `https://last-day-words.vercel.app` |
+| **Redirect URLs** | `https://last-day-words.vercel.app`, `https://last-day-words.vercel.app/**`, plus local dev (`http://localhost:3000/**`, `http://127.0.0.1:3000/**`) |
+
+Or from a machine logged in as the **project owner**:
+
+```bash
+node scripts/configure-production-auth.mjs
+```
+
+(`scripts/configure-production-auth.mjs` uses `SUPABASE_ACCESS_TOKEN` or `npx supabase login` session.)
+
+The app sends `emailRedirectTo` / `redirectTo` as `window.location.origin` (`AuthScreen.tsx`), so allowlisting production enables password-reset and confirm-email links on Vercel.
+
+### Vercel env (Production)
+
+- `VITE_SUPABASE_URL` = `https://haoghddjcstxanrtggvb.supabase.co`
+- `VITE_SUPABASE_ANON_KEY` = anon key from Dashboard → API
+
+Redeploy after env changes. PWA/theme updates on one refresh; background video caches after first visit (~4 MB).
