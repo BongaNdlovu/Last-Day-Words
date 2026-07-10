@@ -135,8 +135,9 @@ export default function SpeedRoundGame({
     }
   }, [startCountdown, loadNextWord]);
 
+  // Pause the clock while the player reads the post-solve scripture card.
   useEffect(() => {
-    if (!isPlaying || isGameOver) return;
+    if (!isPlaying || isGameOver || solvedReveal) return;
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -147,18 +148,21 @@ export default function SpeedRoundGame({
         return prev - 1;
       });
     }, 1000);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [isPlaying, isGameOver]);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPlaying, isGameOver, solvedReveal]);
 
   const wordText = currentWordObj ? normalizeWord(currentWordObj.word) : "";
   const solved = currentWordObj ? isWordSolved(wordText, guessedLetters) : false;
   const depthHint = currentWordObj ? getDepthHint(currentWordObj, mistakes, difficulty) : null;
   const chapter = currentWordObj ? getChapterForWordInChapters(currentWordObj.id, chapters) : undefined;
   const comboMult = getSpeedComboMultiplier(wordStreak);
+  const reviewingScripture = Boolean(solvedReveal);
 
   const makeGuess = useCallback(
     (letter: string) => {
-      if (!isPlaying || isGameOver || !currentWordObj) return;
+      if (!isPlaying || isGameOver || !currentWordObj || reviewingScripture) return;
       const upper = letter.toUpperCase();
       if (!isLetter(upper) || guessedLetters.includes(upper)) return;
 
@@ -191,11 +195,10 @@ export default function SpeedRoundGame({
         });
       }
     },
-    [isPlaying, isGameOver, currentWordObj, guessedLetters, wordText, loadNextWord, maxMistakes, comboMult, flashReaction, timeLeft]
+    [isPlaying, isGameOver, currentWordObj, guessedLetters, wordText, loadNextWord, maxMistakes, comboMult, flashReaction, timeLeft, reviewingScripture]
   );
 
-  // Credit a full solve once. Keep deps minimal: broader deps re-ran this effect,
-  // cleared the "load next word" timeout, and left solvedRef stuck true (timer ran out).
+  // Credit a full solve once, then wait for manual Continue after scripture.
   useEffect(() => {
     if (!solved || !currentWordObj || solvedRef.current) return;
     solvedRef.current = true;
@@ -223,26 +226,33 @@ export default function SpeedRoundGame({
     setSolvedReveal(currentWordObj);
 
     const fb = window.setTimeout(() => setTimeBonusFeedback(null), 1200);
-    // Longer pause so players can read the verse salvaged from the study catalog.
-    window.setTimeout(() => {
-      setSolvedReveal(null);
-      loadNextWordRef.current();
-    }, 1600);
     return () => {
       window.clearTimeout(fb);
     };
-    // Only re-fire when the solved flag or active word changes — not on score/streak updates.
   }, [solved, currentWordObj, maxMistakes, showFeedback]);
+
+  const continueAfterScripture = useCallback(() => {
+    if (!solvedReveal) return;
+    setSolvedReveal(null);
+    loadNextWordRef.current();
+  }, [solvedReveal]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isPlaying || isGameOver || showConfirmExit) return;
+      // Enter / Space advances after reading scripture
+      if (reviewingScripture && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        continueAfterScripture();
+        return;
+      }
+      if (reviewingScripture) return;
       const key = e.key.toUpperCase();
       if (isLetter(key) && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) makeGuess(key);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isPlaying, isGameOver, makeGuess, showConfirmExit]);
+  }, [isPlaying, isGameOver, makeGuess, showConfirmExit, reviewingScripture, continueAfterScripture]);
 
   useEffect(() => {
     if (isGameOver && !finishedRef.current) {
@@ -264,6 +274,7 @@ export default function SpeedRoundGame({
     setGuessedLetters([]);
     setMistakes(0);
     setIsGameOver(false);
+    setSolvedReveal(null);
     setStartCountdown(3);
     setIsPlaying(false);
     solvedRef.current = false;
@@ -352,14 +363,28 @@ export default function SpeedRoundGame({
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2 pt-3 border-t border-[#e2d2ac] space-y-1"
+              className="mt-2 pt-3 border-t border-[#e2d2ac] space-y-3"
             >
-              <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-800">Solved — Scripture</p>
-              <p className="text-sm font-semibold text-[#2a2018] font-mono tracking-wide">{solvedReveal.word}</p>
-              <p className="text-xs font-scripture italic text-[#5c4a33] leading-relaxed line-clamp-3">
+              <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-800">
+                Solved — read the Scripture
+              </p>
+              <p className="text-sm font-semibold text-[#2a2018] font-mono tracking-wide">
+                {solvedReveal.word}
+              </p>
+              <p className="text-xs sm:text-sm font-scripture italic text-[#5c4a33] leading-relaxed">
                 "{solvedReveal.scripture}"
               </p>
               <p className="text-[11px] text-[#6b5537] font-semibold">— {solvedReveal.verse}</p>
+              <p className="text-[10px] text-[#6b5537]">
+                Timer paused · press Continue or Enter when ready
+              </p>
+              <button
+                type="button"
+                onClick={continueAfterScripture}
+                className="w-full sm:w-auto mx-auto block py-2.5 px-6 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+              >
+                Continue
+              </button>
             </motion.div>
           )}
         </motion.div>
@@ -371,7 +396,7 @@ export default function SpeedRoundGame({
         <WordSlots wordText={wordText} guessedLetters={guessedLetters} mistakes={mistakes} maxMistakes={maxMistakes} size="compact" revealOnFailure={false} />
       )}
 
-      {currentWordObj && (
+      {currentWordObj && !reviewingScripture && (
         <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-end justify-center max-w-3xl mx-auto">
           {isPlaying && !isGameOver && (
             <div className="shrink-0 pointer-events-none order-2 sm:order-1">
@@ -383,7 +408,7 @@ export default function SpeedRoundGame({
               guessedLetters={guessedLetters}
               wordText={wordText}
               onGuess={makeGuess}
-              disabled={mistakes >= maxMistakes || solved || !isPlaying}
+              disabled={mistakes >= maxMistakes || solved || !isPlaying || reviewingScripture}
             />
           </div>
           {isPlaying && !isGameOver && (
