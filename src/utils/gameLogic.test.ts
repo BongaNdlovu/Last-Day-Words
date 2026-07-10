@@ -10,7 +10,9 @@ import {
   getDepthHint,
   isWordSolved,
   normalizeWord,
+  computeSpeedLetterPoints,
   computeSpeedSolveBonus,
+  computeSpeedWordTotalScore,
   isPerfectSpeedSolve,
   getSpeedComboMultiplier,
 } from "./gameLogic";
@@ -96,6 +98,16 @@ describe("speed round scoring", () => {
     expect(computeSpeedSolveBonus(0, 5, 5, 1)).toBe(4000);
     expect(computeSpeedSolveBonus(0, 5, 1, 2)).toBe(4000);
     expect(getSpeedComboMultiplier(5)).toBe(2);
+  });
+
+  it("letter points use same combo/golden mults as solve", () => {
+    expect(computeSpeedLetterPoints(1, 1)).toBe(100);
+    expect(computeSpeedLetterPoints(5, 1)).toBe(200);
+    expect(computeSpeedLetterPoints(1, 2, 3)).toBe(600);
+  });
+
+  it("word total = unique letters + solve bonus", () => {
+    expect(computeSpeedWordTotalScore(7, 0, 5, 1, 1)).toBe(700 + 2000);
   });
 
   it("accumulates multi-solve round totals accurately", () => {

@@ -12,6 +12,7 @@ import {
   shuffleArray,
   pickWeightedWord,
   getSpeedComboMultiplier,
+  computeSpeedLetterPoints,
   computeSpeedSolveBonus,
   getStreakLabel,
   vibrate,
@@ -185,7 +186,7 @@ export default function SpeedRoundGame({
 
       setGuessedLetters((prev) => [...prev, upper]);
       if (wordText.includes(upper)) {
-        setScore((p) => p + Math.round(100 * comboMult * eventMultRef.current));
+        setScore((p) => p + computeSpeedLetterPoints(wordStreak, eventMultRef.current));
         vibrate(40);
         flashScreen(true);
         flashReaction("correct");

@@ -227,6 +227,22 @@ export function getSpeedComboMultiplier(streak: number): number {
   return 1;
 }
 
+/** Base points per correct letter (before combo / golden multipliers). */
+export const SPEED_LETTER_BASE = 100;
+
+/**
+ * Points for one correct letter guess.
+ * Mirrors SpeedRoundGame: round(100 × combo × event).
+ */
+export function computeSpeedLetterPoints(
+  comboStreak: number,
+  eventMultiplier = 1,
+  letterCount = 1
+): number {
+  const mult = getSpeedComboMultiplier(comboStreak);
+  return Math.round(SPEED_LETTER_BASE * letterCount * mult * eventMultiplier);
+}
+
 /** Points awarded for one speed-round word solve (mirrors SpeedRoundGame). */
 export function computeSpeedSolveBonus(
   mistakes: number,
@@ -235,7 +251,26 @@ export function computeSpeedSolveBonus(
   eventMultiplier = 1
 ): number {
   const mult = getSpeedComboMultiplier(comboStreak);
-  return Math.round((1000 + (maxMistakes - mistakes) * 200) * mult * eventMultiplier);
+  const safeMistakes = Math.max(0, mistakes);
+  const safeMax = Math.max(safeMistakes, maxMistakes);
+  return Math.round((1000 + (safeMax - safeMistakes) * 200) * mult * eventMultiplier);
+}
+
+/**
+ * Full score for one solved word: unique correct-letter points + solve bonus.
+ * letterCount = distinct A–Z letters that appear in the word (each paid once).
+ */
+export function computeSpeedWordTotalScore(
+  uniqueCorrectLetters: number,
+  mistakes: number,
+  maxMistakes: number,
+  comboStreak: number,
+  eventMultiplier = 1
+): number {
+  return (
+    computeSpeedLetterPoints(comboStreak, eventMultiplier, Math.max(0, uniqueCorrectLetters)) +
+    computeSpeedSolveBonus(mistakes, maxMistakes, comboStreak, eventMultiplier)
+  );
 }
 
 export function isPerfectSpeedSolve(mistakes: number): boolean {
