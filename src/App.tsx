@@ -140,6 +140,11 @@ export default function App() {
     setGameSoundsEnabled(progress.soundEnabled !== false);
   }, [progress.soundEnabled]);
 
+  // Landing from a reset-password email must surface the set-new-password form.
+  useEffect(() => {
+    if (auth.passwordRecovery) setCurrentMode("auth");
+  }, [auth.passwordRecovery]);
+
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
       if (e.button !== 0) return;
@@ -203,7 +208,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen candlelit-page text-[#2a2018] font-sans flex flex-col justify-between">
+    <div className="min-h-screen candlelit-page text-[#f4f1ea] font-sans flex flex-col justify-between">
+      <video
+        className="bg-video"
+        src="/bg-loop.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+      <div className="bg-video-veil" aria-hidden="true" />
+      <div className="bg-grain" aria-hidden="true" />
       <ScreenFlash />
       <AppNoticeStack notices={notices.notices} onDismiss={notices.dismissNotice} />
       <div className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
@@ -221,14 +237,14 @@ export default function App() {
             }}
             className="flex items-center gap-3 cursor-pointer group rounded-lg"
           >
-            <div className="w-9 h-9 bg-[#2a2018] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 border border-[#b45309]/40 shadow-[0_0_14px_-2px_rgba(180,83,9,0.5)]">
+            <div className="w-9 h-9 bg-[#101014] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 border border-[#f5b301]/40 shadow-[0_0_14px_-2px_rgba(180,83,9,0.5)]">
               <Flame className="w-4 h-4 text-[#fbbf24]" aria-hidden="true" />
             </div>
             <div>
-              <span className="text-lg font-display font-bold tracking-[0.12em] text-[#2a2018]">
+              <span className="text-lg font-display font-bold tracking-[0.12em] text-[#f4f1ea]">
                 LAST DAY WORDS
               </span>
-              <p className="text-[9px] text-[#6b5537] uppercase tracking-[0.2em] font-semibold leading-none">
+              <p className="text-[9px] text-[#a49b8d] uppercase tracking-[0.2em] font-semibold leading-none">
                 Prophetic Speed Arcade
               </p>
             </div>
@@ -241,10 +257,10 @@ export default function App() {
               aria-label={
                 auth.isSignedIn ? `Account: ${auth.user?.displayName}` : "Sign in or create account"
               }
-              className="flex items-center gap-1.5 text-xs font-semibold py-2 px-2.5 sm:px-3.5 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors max-w-[10rem] sm:max-w-none"
+              className="flex items-center gap-1.5 text-xs font-semibold py-2 px-2.5 sm:px-3.5 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg border border-white/10 cursor-pointer transition-colors max-w-[10rem] sm:max-w-none"
             >
               {auth.isSignedIn ? (
-                <UserRound className="w-3.5 h-3.5 shrink-0 text-[#b45309]" aria-hidden="true" />
+                <UserRound className="w-3.5 h-3.5 shrink-0 text-[#f5b301]" aria-hidden="true" />
               ) : (
                 <LogIn className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               )}
@@ -258,18 +274,18 @@ export default function App() {
                 progress.soundEnabled ? "Mute interactive signals" : "Unmute interactive signals"
               }
               aria-pressed={progress.soundEnabled}
-              className="p-2 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors"
+              className="p-2 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg border border-white/10 cursor-pointer transition-colors"
             >
               {progress.soundEnabled ? (
                 <Volume2 className="w-4 h-4" aria-hidden="true" />
               ) : (
-                <VolumeX className="w-4 h-4 text-[#6b5537]" aria-hidden="true" />
+                <VolumeX className="w-4 h-4 text-[#a49b8d]" aria-hidden="true" />
               )}
             </button>
             {currentMode !== "stats-help" && (
               <button
                 onClick={handleViewStudyGuide}
-                className="flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg border border-[#e2d2ac] cursor-pointer transition-colors"
+                className="flex items-center gap-1.5 text-xs font-semibold py-2 px-3.5 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg border border-white/10 cursor-pointer transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
                 <span className="hidden sm:inline">Word Bank</span>
@@ -318,20 +334,20 @@ export default function App() {
                 {currentMode === "speed-chapter-select" && (
                   <motion.div key="speed-chapter-select" {...routeProps("y")}>
                     <div className="max-w-lg mx-auto space-y-4 py-2 px-2">
-                      <div className="flex items-center justify-between pb-3 border-b border-[#e2d2ac]">
+                      <div className="flex items-center justify-between pb-3 border-b border-white/10">
                         <button
                           type="button"
                           onClick={() => setCurrentMode("menu")}
-                          className="flex items-center gap-1.5 text-sm text-[#5c4a33] font-medium cursor-pointer"
+                          className="flex items-center gap-1.5 text-sm text-[#c9c2b4] font-medium cursor-pointer"
                         >
                           <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Back
                         </button>
-                        <h2 className="text-lg font-display font-bold tracking-[0.08em] text-[#2a2018]">
+                        <h2 className="text-lg font-display font-bold tracking-[0.08em] text-[#f4f1ea]">
                           CHAPTER SPEED
                         </h2>
                         <div className="w-12" />
                       </div>
-                      <p className="text-sm text-[#5c4a33] text-center">
+                      <p className="text-sm text-[#c9c2b4] text-center">
                         Core prophecy tracks only — separate from the Mixed pool.
                       </p>
                       <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
@@ -340,10 +356,10 @@ export default function App() {
                             key={ch.id}
                             type="button"
                             onClick={() => startChapterSpeed(ch.id)}
-                            className="w-full pcard rounded-xl px-4 py-3 text-left hover:border-[#b45309] cursor-pointer"
+                            className="w-full pcard rounded-xl px-4 py-3 text-left hover:border-[#f5b301] cursor-pointer"
                           >
-                            <div className="font-bold text-[#2a2018]">{ch.title}</div>
-                            <div className="text-xs text-[#6b5537] mt-0.5">
+                            <div className="font-bold text-[#f4f1ea]">{ch.title}</div>
+                            <div className="text-xs text-[#a49b8d] mt-0.5">
                               {ch.words.length} terms · {ch.description}
                             </div>
                           </button>
@@ -419,6 +435,8 @@ export default function App() {
                     <AuthScreen
                       onBack={() => setCurrentMode("menu")}
                       onAuthed={(name) => saveProgress({ ...progress, displayName: name })}
+                      recoveryMode={auth.passwordRecovery}
+                      onRecoveryDone={auth.clearPasswordRecovery}
                     />
                   </motion.div>
                 )}
@@ -440,12 +458,12 @@ export default function App() {
         </main>
       </div>
 
-      <footer className="w-full text-center py-6 px-4 text-[11px] text-[#6b5537] border-t border-[#e2d2ac] bg-[#f3e8cf]/70 mt-6">
-        <p className="font-scripture italic text-[15px] text-[#52412c] mb-1.5 leading-relaxed">
+      <footer className="w-full text-center py-6 px-4 text-[11px] text-[#a49b8d] border-t border-white/10 bg-black/45 mt-6">
+        <p className="font-scripture italic text-[15px] text-[#d7d1c5] mb-1.5 leading-relaxed">
           “Write the vision, and make it plain upon tables, that he may run that readeth it.” —
           Habakkuk 2:2
         </p>
-        <p className="font-sans font-medium text-[#6b5537]">
+        <p className="font-sans font-medium text-[#a49b8d]">
           Last Day Words • Prophetic Speed Arcade • Weekly Board
         </p>
       </footer>

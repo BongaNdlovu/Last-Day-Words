@@ -10,7 +10,7 @@ interface GameFeedbackProps {
 const toneStyles: Record<FeedbackTone, string> = {
   success: "bg-emerald-700 text-white border-emerald-500",
   danger: "bg-rose-700 text-white border-rose-500",
-  streak: "bg-[#b45309] text-white border-[#e0a94a]",
+  streak: "bg-[#b45309] text-white border-[#f5b301]/50",
   combo: "bg-violet-700 text-white border-violet-500",
 };
 

@@ -261,11 +261,11 @@ export default function OnlineTeamsScreen({ chapters, onBack }: OnlineTeamsScree
 
   return (
     <div className="max-w-lg mx-auto space-y-6 py-2 px-2">
-      <div className="flex items-center justify-between pb-4 border-b border-[#e2d2ac]">
-        <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-[#5c4a33] font-medium cursor-pointer">
+      <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-[#c9c2b4] font-medium cursor-pointer">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
-        <h2 className="text-lg font-display font-bold tracking-[0.1em] text-[#2a2018]">ONLINE TEAMS</h2>
+        <h2 className="text-lg font-display font-bold tracking-[0.1em] text-[#f4f1ea]">ONLINE TEAMS</h2>
         <div className="w-12" />
       </div>
 
@@ -289,14 +289,14 @@ export default function OnlineTeamsScreen({ chapters, onBack }: OnlineTeamsScree
       {status && !error && <InlineAlert tone="success" message={status} />}
 
       <div className="pcard rounded-2xl p-6 space-y-4">
-        <p className="text-sm text-[#5c4a33]">
+        <p className="text-sm text-[#c9c2b4]">
           Create a room for Friday youth group, or join with a 6-character code. When the host starts the match, everyone in the room sees the same synced pass-and-play board. Sign in under Account first.
         </p>
         <button
           type="button"
           onClick={createRoom}
           disabled={!isSupabaseConfigured}
-          className="w-full flex items-center justify-center gap-2 py-3 bg-[#2a2018] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 py-3 bg-[#101014] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer disabled:opacity-50"
         >
           <Users className="w-3.5 h-3.5" aria-hidden="true" /> Create Room
         </button>
@@ -308,13 +308,13 @@ export default function OnlineTeamsScreen({ chapters, onBack }: OnlineTeamsScree
             maxLength={6}
             placeholder="ROOM CODE"
             disabled={!isSupabaseConfigured}
-            className="flex-1 px-3 py-2 rounded-lg border border-[#e2d2ac] bg-[#fbf5e9] text-sm font-mono tracking-widest uppercase disabled:opacity-50"
+            className="flex-1 px-3 py-2 rounded-lg border border-white/10 bg-white/[0.06] text-sm font-mono tracking-widest uppercase disabled:opacity-50"
           />
           <button
             type="button"
             onClick={joinRoom}
             disabled={!isSupabaseConfigured}
-            className="px-4 py-2 bg-[#f0e3c8] border border-[#e2d2ac] rounded-lg text-xs font-bold uppercase cursor-pointer disabled:opacity-50"
+            className="px-4 py-2 bg-white/[0.08] border border-white/10 rounded-lg text-xs font-bold uppercase cursor-pointer disabled:opacity-50"
           >
             Join
           </button>
@@ -323,11 +323,11 @@ export default function OnlineTeamsScreen({ chapters, onBack }: OnlineTeamsScree
 
       {code && (
         <div className="pcard rounded-2xl p-6 text-center space-y-3">
-          <div className="text-[10px] uppercase tracking-wider font-bold text-[#6b5537]">Room Code</div>
-          <div className="text-4xl font-mono font-bold tracking-[0.3em] text-[#2a2018]">{code}</div>
+          <div className="text-[10px] uppercase tracking-wider font-bold text-[#a49b8d]">Room Code</div>
+          <div className="text-4xl font-mono font-bold tracking-[0.3em] text-[#f4f1ea]">{code}</div>
           <button
             onClick={copyCode}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#92400e] cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#fbbf24] cursor-pointer"
           >
             <Copy className="w-3.5 h-3.5" /> Copy code
           </button>
@@ -335,14 +335,14 @@ export default function OnlineTeamsScreen({ chapters, onBack }: OnlineTeamsScree
             <button
               onClick={handleStartGame}
               disabled={starting || members.length < 1}
-              className="w-full flex items-center justify-center gap-2 py-3 mt-2 bg-[#92400e] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-3 mt-2 bg-[#b45309] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer disabled:opacity-50"
             >
               <Play className="w-3.5 h-3.5" /> {starting ? "Starting…" : "Start Match"}
             </button>
           )}
           <div className="pt-2 space-y-1 text-left">
             {members.map((m, i) => (
-              <div key={i} className="text-sm text-[#5c4a33] flex justify-between">
+              <div key={i} className="text-sm text-[#c9c2b4] flex justify-between">
                 <span>{m.display_name}</span>
                 <span className="uppercase text-[10px] font-bold tracking-wider">{m.team}</span>
               </div>

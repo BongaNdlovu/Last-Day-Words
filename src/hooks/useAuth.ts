@@ -36,6 +36,8 @@ export function useAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(isSupabaseConfigured && !!supabase);
+  /** True after the user lands from a reset-password email until they set a new password. */
+  const [passwordRecovery, setPasswordRecovery] = useState(false);
 
   const applySession = useCallback(async (next: Session | null) => {
     setSession(next);
@@ -65,7 +67,8 @@ export function useAuth() {
       if (!cancelled) void applySession(data.session);
     });
 
-    const { data: sub } = client.auth.onAuthStateChange((_event, s) => {
+    const { data: sub } = client.auth.onAuthStateChange((event, s) => {
+      if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
       // Defer out of the auth callback: supabase queries inside
       // onAuthStateChange can deadlock on the client's auth lock.
       window.setTimeout(() => {
@@ -89,12 +92,16 @@ export function useAuth() {
     await supabase.auth.signOut();
   }, []);
 
+  const clearPasswordRecovery = useCallback(() => setPasswordRecovery(false), []);
+
   return {
     status,
     loading,
     session,
     user,
     isSignedIn: Boolean(user),
+    passwordRecovery,
+    clearPasswordRecovery,
     refreshProfile,
     signOut,
   };

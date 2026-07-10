@@ -20,8 +20,8 @@ export default defineConfig(() => {
           name: 'Last Day Words',
           short_name: 'Last Day Words',
           description: 'Prophetic speed arcade — Mixed and Chapter boards, weekly leaderboards, streaks.',
-          theme_color: '#2a2018',
-          background_color: '#f8f1e3',
+          theme_color: '#0b0b0e',
+          background_color: '#0b0b0e',
           display: 'standalone',
           start_url: '/',
           icons: [

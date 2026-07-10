@@ -11,10 +11,10 @@ interface InlineAlertProps {
 }
 
 const toneBox: Record<NonNullable<InlineAlertProps["tone"]>, string> = {
-  error: "bg-rose-50 border-rose-200 text-rose-900",
-  warning: "bg-[#fbeccb] border-[#e6c98a] text-[#92400e]",
-  info: "bg-[#fbf5e9] border-[#e2d2ac] text-[#5c4a33]",
-  success: "bg-emerald-50 border-emerald-200 text-emerald-900",
+  error: "bg-rose-500/10 border-rose-500/30 text-rose-200",
+  warning: "bg-[#f5b301]/10 border-[#f5b301]/30 text-[#fbbf24]",
+  info: "bg-white/[0.06] border-white/10 text-[#c9c2b4]",
+  success: "bg-emerald-500/10 border-emerald-500/30 text-emerald-200",
 };
 
 /** Compact in-form / in-screen alert. */
@@ -72,16 +72,16 @@ export function EmptyState({
   const Icon = icon === "wifi" ? WifiOff : icon === "alert" ? AlertCircle : Inbox;
   return (
     <div className="pcard rounded-2xl p-8 text-center space-y-3">
-      <div className="w-12 h-12 mx-auto rounded-full bg-[#f0e3c8] border border-[#e2d2ac] flex items-center justify-center text-[#6b5537]">
+      <div className="w-12 h-12 mx-auto rounded-full bg-white/[0.08] border border-white/10 flex items-center justify-center text-[#a49b8d]">
         <Icon className="w-5 h-5" aria-hidden="true" />
       </div>
-      <h3 className="text-base font-display font-bold text-[#2a2018]">{title}</h3>
-      <p className="text-sm text-[#5c4a33] leading-relaxed max-w-sm mx-auto">{message}</p>
+      <h3 className="text-base font-display font-bold text-[#f4f1ea]">{title}</h3>
+      <p className="text-sm text-[#c9c2b4] leading-relaxed max-w-sm mx-auto">{message}</p>
       {actionLabel && onAction && (
         <button
           type="button"
           onClick={onAction}
-          className="inline-flex items-center gap-1.5 mt-2 py-2 px-4 bg-[#2a2018] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+          className="inline-flex items-center gap-1.5 mt-2 py-2 px-4 bg-[#101014] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" />
           {actionLabel}
@@ -94,7 +94,7 @@ export function EmptyState({
 
 export function LoadingBlock({ label = "Loading…" }: { label?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-12 text-[#6b5537]" role="status">
+    <div className="flex flex-col items-center justify-center gap-3 py-12 text-[#a49b8d]" role="status">
       <Loader2 className="w-6 h-6 animate-spin" aria-hidden="true" />
       <p className="text-sm">{label}</p>
     </div>

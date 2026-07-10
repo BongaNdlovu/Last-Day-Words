@@ -129,7 +129,7 @@ function Candle({
 
       <div
         className={`relative rounded-t-sm transition-all duration-700 ${
-          lit ? `bg-gradient-to-b ${palette.bodyLit}` : "bg-[#d9c39a]"
+          lit ? `bg-gradient-to-b ${palette.bodyLit}` : "bg-white/20"
         }`}
         style={{ width: compact ? 10 : 12, height: compact ? 22 : 28 }}
       >
@@ -138,7 +138,7 @@ function Candle({
         )}
         <div
           className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 rounded-full ${
-            lit ? "bg-[#5c4326]" : "bg-[#b09468]"
+            lit ? "bg-white/20" : "bg-white/30"
           }`}
           style={{ width: compact ? 3 : 4, height: compact ? 3 : 4 }}
         />
@@ -146,7 +146,7 @@ function Candle({
 
       <div
         className={`rounded-b-md transition-colors duration-500 ${
-          lit ? `bg-gradient-to-b ${palette.baseLit}` : "bg-[#c9b184]"
+          lit ? `bg-gradient-to-b ${palette.baseLit}` : "bg-white/25"
         }`}
         style={{ width: w, height: compact ? 6 : 8 }}
       />
@@ -169,11 +169,11 @@ export default function PropheticCandles({
     <motion.div
       animate={isDanger && !rm ? { scale: [1, 1.01, 1] } : { scale: 1 }}
       transition={isDanger && !rm ? { repeat: Infinity, duration: 1.2 } : undefined}
-      className={`bg-gradient-to-b from-[#fbf5e9] to-[#f7e9c9] py-4 px-4 rounded-xl flex flex-col items-center justify-center gap-2.5 parchment-glow transition-colors duration-300 ${
-        isDanger ? "border-2 border-rose-300 danger-pulse" : "border border-[#e6d3a8]"
+      className={`bg-gradient-to-b from-[#1a1a20] to-[#232329] py-4 px-4 rounded-xl flex flex-col items-center justify-center gap-2.5 parchment-glow transition-colors duration-300 ${
+        isDanger ? "border-2 border-rose-300 danger-pulse" : "border border-white/15"
       }`}
     >
-      <span className="text-[10px] uppercase tracking-wider font-bold text-[#6b5537]">
+      <span className="text-[10px] uppercase tracking-wider font-bold text-[#a49b8d]">
         Prophetic Lamps
       </span>
       <div className={`flex items-end ${compact ? "gap-2" : "gap-3"}`}>
@@ -185,7 +185,7 @@ export default function PropheticCandles({
         <motion.span
           initial={rm ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`text-[10px] font-medium ${isDanger ? "text-rose-700 font-bold" : "text-[#92400e]"}`}
+          className={`text-[10px] font-medium ${isDanger ? "text-rose-700 font-bold" : "text-[#fbbf24]"}`}
         >
           {isDanger ? `Only ${remaining} lamp${remaining !== 1 ? "s" : ""} left!` : `${remaining} lamp${remaining !== 1 ? "s" : ""} remain lit`}
         </motion.span>

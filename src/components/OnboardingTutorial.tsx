@@ -38,7 +38,7 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-[#2a2018]/70 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="onboarding-title"
@@ -50,25 +50,25 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
         className="pcard rounded-2xl p-6 md:p-8 max-w-md w-full space-y-5 parchment-glow"
       >
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-[#2a2018] text-[#fbbf24] flex items-center justify-center border border-[#b45309]/40">
+          <div className="w-11 h-11 rounded-xl bg-[#101014] text-[#fbbf24] flex items-center justify-center border border-[#f5b301]/40">
             <Icon className="w-5 h-5" aria-hidden="true" />
           </div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#6b5537]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#a49b8d]">
             Quick start · {step + 1}/{STEPS.length}
           </div>
         </div>
 
-        <h2 id="onboarding-title" className="text-xl font-display font-bold text-[#2a2018] tracking-wide">
+        <h2 id="onboarding-title" className="text-xl font-display font-bold text-[#f4f1ea] tracking-wide">
           {current.title}
         </h2>
-        <p className="text-sm text-[#5c4a33] leading-relaxed">{current.body}</p>
+        <p className="text-sm text-[#c9c2b4] leading-relaxed">{current.body}</p>
 
         <div className="flex gap-1.5 justify-center pt-1">
           {STEPS.map((_, i) => (
             <span
               key={i}
               className={`h-1.5 rounded-full transition-all ${
-                i === step ? "w-6 bg-[#b45309]" : "w-1.5 bg-[#e2d2ac]"
+                i === step ? "w-6 bg-[#b45309]" : "w-1.5 bg-white/15"
               }`}
             />
           ))}
@@ -81,7 +81,7 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
               if (isLast) onComplete();
               else setStep((s) => s + 1);
             }}
-            className="w-full py-3 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-xl text-sm font-bold uppercase tracking-wider cursor-pointer"
+            className="w-full py-3 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-xl text-sm font-bold uppercase tracking-wider cursor-pointer"
           >
             {isLast ? "Let’s play" : "Next"}
           </button>
@@ -89,7 +89,7 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
             <button
               type="button"
               onClick={onComplete}
-              className="w-full py-2 text-xs font-semibold text-[#6b5537] hover:text-[#2a2018] cursor-pointer"
+              className="w-full py-2 text-xs font-semibold text-[#a49b8d] hover:text-[#f4f1ea] cursor-pointer"
             >
               Skip tutorial
             </button>

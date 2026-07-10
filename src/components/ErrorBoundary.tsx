@@ -47,16 +47,16 @@ export default class ErrorBoundary extends Component<Props, State> {
         aria-live="assertive"
       >
         <div className="pcard max-w-md w-full rounded-2xl p-8 text-center space-y-4 shadow-xl">
-          <div className="w-12 h-12 mx-auto rounded-full bg-rose-50 border border-rose-200 text-rose-800 flex items-center justify-center text-xl font-bold">
+          <div className="w-12 h-12 mx-auto rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-800 flex items-center justify-center text-xl font-bold">
             !
           </div>
-          <h2 className="text-xl font-display font-bold text-[#2a2018]">Something went wrong</h2>
-          <p className="text-sm text-[#5c4a33] leading-relaxed">
+          <h2 className="text-xl font-display font-bold text-[#f4f1ea]">Something went wrong</h2>
+          <p className="text-sm text-[#c9c2b4] leading-relaxed">
             This screen hit an unexpected error. Your local progress is usually still saved in this
             browser — try again or reload the app.
           </p>
           {this.state.message && (
-            <p className="text-[11px] font-mono text-[#6b5537] bg-[#fbf5e9] border border-[#e2d2ac] rounded-lg px-3 py-2 break-words">
+            <p className="text-[11px] font-mono text-[#a49b8d] bg-white/[0.06] border border-white/10 rounded-lg px-3 py-2 break-words">
               {this.state.message}
             </p>
           )}
@@ -64,14 +64,14 @@ export default class ErrorBoundary extends Component<Props, State> {
             <button
               type="button"
               onClick={this.handleReset}
-              className="flex-1 py-2.5 border border-[#e2d2ac] bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg text-xs font-semibold cursor-pointer"
+              className="flex-1 py-2.5 border border-white/10 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg text-xs font-semibold cursor-pointer"
             >
               Try again
             </button>
             <button
               type="button"
               onClick={this.handleReload}
-              className="flex-1 py-2.5 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+              className="flex-1 py-2.5 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
               Reload app
             </button>

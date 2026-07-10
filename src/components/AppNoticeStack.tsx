@@ -2,10 +2,10 @@ import type { AppNotice } from "../hooks/useNoticeQueue";
 import type { ErrorTone } from "../utils/errors";
 
 const toneClass: Record<ErrorTone, string> = {
-  error: "border-rose-300 bg-rose-50 text-rose-900",
-  warning: "border-amber-300 bg-[#fbeccb] text-[#92400e]",
-  info: "border-[#e2d2ac] bg-[#fbf5e9] text-[#5c4a33]",
-  success: "border-emerald-300 bg-emerald-50 text-emerald-900",
+  error: "border-rose-300 bg-rose-500/10 text-rose-200",
+  warning: "border-amber-300 bg-[#f5b301]/10 text-[#fbbf24]",
+  info: "border-white/10 bg-white/[0.06] text-[#c9c2b4]",
+  success: "border-emerald-300 bg-emerald-500/10 text-emerald-200",
 };
 
 interface AppNoticeStackProps {

@@ -333,11 +333,11 @@ export default function SpeedRoundGame({
   if (allWordsList.length === 0) {
     return (
       <div className="max-w-md mx-auto py-8 px-4 text-center space-y-4">
-        <p className="text-sm text-[#5c4a33]">No words in this speed pool.</p>
+        <p className="text-sm text-[#c9c2b4]">No words in this speed pool.</p>
         <button
           type="button"
           onClick={onBack}
-          className="py-2.5 px-5 bg-[#2a2018] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+          className="py-2.5 px-5 bg-[#101014] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
         >
           Back to menu
         </button>
@@ -348,16 +348,16 @@ export default function SpeedRoundGame({
   if (startCountdown > 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-6">
-        <span className="text-sm font-bold tracking-[0.2em] text-[#6b5537] uppercase">
+        <span className="text-sm font-bold tracking-[0.2em] text-[#a49b8d] uppercase">
           {introMode ? "Practice round" : mode === "mixed" ? "Mixed Speed" : "Chapter Speed"} ·{" "}
           {poolLabel}
         </span>
-        <h2 className="text-xl font-display font-bold text-[#2a2018] max-w-sm tracking-wide leading-relaxed">
+        <h2 className="text-xl font-display font-bold text-[#f4f1ea] max-w-sm tracking-wide leading-relaxed">
           {roundTime}s · +time on solves · perfect word = +25 XP · pool: {allWordsList.length} terms
           {introMode ? " · shorter words" : ""}
         </h2>
         <motion.div key={startCountdown} initial={rm ? false : { scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-          className="w-28 h-28 rounded-full psunken flex items-center justify-center text-4xl font-extrabold font-mono text-[#2a2018]">
+          className="w-28 h-28 rounded-full psunken flex items-center justify-center text-4xl font-extrabold font-mono text-[#f4f1ea]">
           {startCountdown}
         </motion.div>
       </div>
@@ -378,7 +378,7 @@ export default function SpeedRoundGame({
     <div className="space-y-5 max-w-4xl mx-auto py-2 px-2 select-none relative">
       <GameFeedback text={feedback?.text ?? null} tone={feedback?.tone} />
 
-      <div className="grid grid-cols-3 gap-2 pb-3 border-b border-[#e2d2ac] items-center">
+      <div className="grid grid-cols-3 gap-2 pb-3 border-b border-white/10 items-center">
         <button
           type="button"
           onClick={() => {
@@ -392,21 +392,21 @@ export default function SpeedRoundGame({
             }
             onBack();
           }}
-          className="flex items-center gap-1 text-xs text-[#5c4a33] hover:text-[#2a2018] py-1 px-2.5 hover:bg-[#f0e3c8] rounded-lg cursor-pointer justify-self-start"
+          className="flex items-center gap-1 text-xs text-[#c9c2b4] hover:text-[#f4f1ea] py-1 px-2.5 hover:bg-white/10 rounded-lg cursor-pointer justify-self-start"
         >
           <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" /> Quit
         </button>
         <div className={`flex items-center gap-1.5 justify-center px-3 py-1.5 rounded-lg border max-w-[130px] mx-auto transition-colors ${
-          timeLeft <= 10 ? "bg-rose-50 border-rose-300 danger-pulse" : "pcard"
+          timeLeft <= 10 ? "bg-rose-500/10 border-rose-300 danger-pulse" : "pcard"
         }`}>
-          <Clock className={`w-4 h-4 ${timeLeft <= 10 ? "text-rose-700 animate-pulse" : "text-[#6b5537]"}`} aria-hidden="true" />
-          <span className={`font-mono text-sm font-extrabold ${timeLeft <= 10 ? "text-rose-700" : "text-[#2a2018]"}`}>
+          <Clock className={`w-4 h-4 ${timeLeft <= 10 ? "text-rose-700 animate-pulse" : "text-[#a49b8d]"}`} aria-hidden="true" />
+          <span className={`font-mono text-sm font-extrabold ${timeLeft <= 10 ? "text-rose-700" : "text-[#f4f1ea]"}`}>
             0:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}
           </span>
         </div>
         <div className="text-right justify-self-end">
-          <div className="text-[10px] text-[#6b5537] uppercase font-bold">Score</div>
-          <div className="text-lg font-extrabold font-mono text-[#2a2018]">{score}</div>
+          <div className="text-[10px] text-[#a49b8d] uppercase font-bold">Score</div>
+          <div className="text-lg font-extrabold font-mono text-[#f4f1ea]">{score}</div>
         </div>
       </div>
 
@@ -420,61 +420,61 @@ export default function SpeedRoundGame({
       </AnimatePresence>
 
       {introMode && (
-        <div className="text-center text-[11px] font-semibold text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded-xl px-3 py-2">
+        <div className="text-center text-[11px] font-semibold text-[#fbbf24] bg-[#f5b301]/10 border border-[#f5b301]/30 rounded-xl px-3 py-2">
           Practice round — {roundTime}s, shorter terms, no golden events. Next run is full speed.
         </div>
       )}
 
-      <div className="flex justify-between items-center text-[10px] uppercase font-bold text-[#6b5537] psunken py-1.5 px-3 rounded-lg">
-        <span>Solved: <strong className="font-mono text-[#2a2018]">{wordsSolved}</strong></span>
+      <div className="flex justify-between items-center text-[10px] uppercase font-bold text-[#a49b8d] psunken py-1.5 px-3 rounded-lg">
+        <span>Solved: <strong className="font-mono text-[#f4f1ea]">{wordsSolved}</strong></span>
         {wordStreak >= 2 && (
           <span className="flex items-center gap-1 text-violet-700">
             <Zap className="w-3 h-3" aria-hidden="true" /> Combo ×{comboMult}
           </span>
         )}
-        <span>Mistakes: <strong className="font-mono text-[#2a2018]">{mistakes}/{maxMistakes}</strong></span>
+        <span>Mistakes: <strong className="font-mono text-[#f4f1ea]">{mistakes}/{maxMistakes}</strong></span>
       </div>
 
       {currentWordObj && (
         <motion.div key={currentWordObj.id} initial={rm ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
           className="pcard rounded-2xl p-5 text-center space-y-2 parchment-glow">
           <div className="flex items-center justify-center gap-2 flex-wrap">
-            <span className="text-[9px] uppercase font-bold text-[#6b5537]">{poolLabel}</span>
+            <span className="text-[9px] uppercase font-bold text-[#a49b8d]">{poolLabel}</span>
             <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
-              mode === "mixed" ? "bg-blue-50 text-blue-800" : "bg-[#fbeccb] text-[#92400e]"
+              mode === "mixed" ? "bg-blue-50 text-blue-800" : "bg-[#f5b301]/10 text-[#fbbf24]"
             }`}>{mode === "mixed" ? "Mixed board" : "Chapter board"}</span>
             <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
-              difficulty === "hard" ? "bg-rose-50 text-rose-800" : difficulty === "medium" ? "bg-amber-100 text-[#92400e]" : "bg-emerald-50 text-emerald-800"
+              difficulty === "hard" ? "bg-rose-500/10 text-rose-800" : difficulty === "medium" ? "bg-amber-100 text-[#fbbf24]" : "bg-emerald-500/10 text-emerald-800"
             }`}>{difficulty}</span>
           </div>
-          <p className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#6b5537]">Clue</p>
-          <p className="text-lg sm:text-xl font-light leading-relaxed text-[#2a2018]">"{currentWordObj.clue}"</p>
+          <p className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#a49b8d]">Clue</p>
+          <p className="text-lg sm:text-xl font-light leading-relaxed text-[#f4f1ea]">"{currentWordObj.clue}"</p>
           {depthHint && !solvedReveal && (
-            <p className="text-xs text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded px-3 py-2">{depthHint}</p>
+            <p className="text-xs text-[#fbbf24] bg-[#f5b301]/10 border border-[#f5b301]/30 rounded px-3 py-2">{depthHint}</p>
           )}
           {solvedReveal && solvedReveal.id === currentWordObj.id && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2 pt-3 border-t border-[#e2d2ac] space-y-3"
+              className="mt-2 pt-3 border-t border-white/10 space-y-3"
             >
               <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-800">
                 Solved — read the Scripture
               </p>
-              <p className="text-sm font-semibold text-[#2a2018] font-mono tracking-wide">
+              <p className="text-sm font-semibold text-[#f4f1ea] font-mono tracking-wide">
                 {solvedReveal.word}
               </p>
-              <p className="text-xs sm:text-sm font-scripture italic text-[#5c4a33] leading-relaxed">
+              <p className="text-xs sm:text-sm font-scripture italic text-[#c9c2b4] leading-relaxed">
                 "{solvedReveal.scripture}"
               </p>
-              <p className="text-[11px] text-[#6b5537] font-semibold">— {solvedReveal.verse}</p>
-              <p className="text-[10px] text-[#6b5537]">
+              <p className="text-[11px] text-[#a49b8d] font-semibold">— {solvedReveal.verse}</p>
+              <p className="text-[10px] text-[#a49b8d]">
                 Timer paused · press Continue or Enter when ready
               </p>
               <button
                 type="button"
                 onClick={continueAfterScripture}
-                className="w-full sm:w-auto mx-auto block py-2.5 px-6 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+                className="w-full sm:w-auto mx-auto block py-2.5 px-6 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
               >
                 Continue
               </button>
@@ -514,11 +514,11 @@ export default function SpeedRoundGame({
 
       <AnimatePresence>
         {showConfirmExit && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-[#2a2018]/55 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-black/55 backdrop-blur-xs flex items-center justify-center p-4 z-50">
             <div className="pcard rounded-2xl p-6 max-w-sm w-full text-center space-y-4">
-              <h4 className="font-display font-bold text-[#2a2018]">Exit Speed Round?</h4>
+              <h4 className="font-display font-bold text-[#f4f1ea]">Exit Speed Round?</h4>
               <div className="flex gap-3">
-                <button onClick={() => setShowConfirmExit(false)} className="flex-1 py-2 border border-[#e2d2ac] bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg text-xs cursor-pointer">Resume</button>
+                <button onClick={() => setShowConfirmExit(false)} className="flex-1 py-2 border border-white/10 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg text-xs cursor-pointer">Resume</button>
                 <button onClick={onBack} className="flex-1 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs cursor-pointer">Exit</button>
               </div>
             </div>
@@ -528,39 +528,39 @@ export default function SpeedRoundGame({
 
       <AnimatePresence>
         {isGameOver && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-[#2a2018]/65 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-black/65 backdrop-blur-xs flex items-center justify-center p-4 z-50">
             <motion.div initial={rm ? false : { scale: 0.95, y: 15 }} animate={{ scale: 1, y: 0 }}
               className="pcard rounded-2xl p-8 max-w-md w-full text-center space-y-6">
-              <Clock className="w-10 h-10 mx-auto text-[#b45309]" aria-hidden="true" />
-              <h3 className="text-xl font-display font-bold text-[#2a2018]">Time's Up!</h3>
-              <p className="text-xs text-[#6b5537]">Your run score — review it, then continue to bank XP.</p>
+              <Clock className="w-10 h-10 mx-auto text-[#f5b301]" aria-hidden="true" />
+              <h3 className="text-xl font-display font-bold text-[#f4f1ea]">Time's Up!</h3>
+              <p className="text-xs text-[#a49b8d]">Your run score — review it, then continue to bank XP.</p>
               <div className="grid grid-cols-2 gap-4 psunken p-4 rounded-xl">
-                <div><div className="text-2xl font-mono font-bold text-[#2a2018]">{score}</div><div className="text-[10px] text-[#6b5537] uppercase">Score</div></div>
-                <div><div className="text-2xl font-mono font-bold text-[#2a2018]">{wordsSolved}</div><div className="text-[10px] text-[#6b5537] uppercase">Solved</div></div>
-                <div className="col-span-2 text-xs text-[#6b5537]">
-                  Perfect (0 miss): <strong className="text-[#2a2018] font-mono">{perfectCount}</strong>
+                <div><div className="text-2xl font-mono font-bold text-[#f4f1ea]">{score}</div><div className="text-[10px] text-[#a49b8d] uppercase">Score</div></div>
+                <div><div className="text-2xl font-mono font-bold text-[#f4f1ea]">{wordsSolved}</div><div className="text-[10px] text-[#a49b8d] uppercase">Solved</div></div>
+                <div className="col-span-2 text-xs text-[#a49b8d]">
+                  Perfect (0 miss): <strong className="text-[#f4f1ea] font-mono">{perfectCount}</strong>
                   {" · "}+{perfectCount * 25} XP · board: {mode}
                 </div>
               </div>
               {score > highScore ? (
-                <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg text-emerald-800 text-sm font-bold">🏆 New High Score!</div>
+                <div className="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-lg text-emerald-800 text-sm font-bold">🏆 New High Score!</div>
               ) : nearMiss ? (
-                <div className="bg-[#fbeccb] border border-[#e6c98a] p-2.5 rounded-lg text-[#92400e] text-xs font-bold">{nearMiss}</div>
+                <div className="bg-[#f5b301]/10 border border-[#f5b301]/30 p-2.5 rounded-lg text-[#fbbf24] text-xs font-bold">{nearMiss}</div>
               ) : (
-                <div className="text-[11px] text-[#6b5537]">Your best: {highScore} pts · {highestWordsSolved} words</div>
+                <div className="text-[11px] text-[#a49b8d]">Your best: {highScore} pts · {highestWordsSolved} words</div>
               )}
               <div className="flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={handleContinue}
-                  className="w-full py-3 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-sm font-bold uppercase tracking-wider cursor-pointer"
+                  className="w-full py-3 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-sm font-bold uppercase tracking-wider cursor-pointer"
                 >
                   Continue · bank XP
                 </button>
                 <button
                   type="button"
                   onClick={handleRestart}
-                  className="w-full py-2 border border-[#e2d2ac] bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg text-xs cursor-pointer"
+                  className="w-full py-2 border border-white/10 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg text-xs cursor-pointer"
                 >
                   ↻ Rematch
                 </button>

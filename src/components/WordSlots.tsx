@@ -44,10 +44,10 @@ export default function WordSlots({
                 transition={rm ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 20 }}
                 className={`${slotClass} flex items-center justify-center font-semibold font-mono transition-colors duration-300 ${
                   !letterMatch
-                    ? "text-[#3a2c1e] w-3 bg-transparent"
+                    ? "text-[#e8e3d8] w-3 bg-transparent"
                     : isGuessed
-                    ? "border-b-4 border-[#2a2018] text-[#2a2018]"
-                    : "border-b-4 border-[#cbb487] text-transparent"
+                    ? "border-b-4 border-[#f5b301]/60 text-[#f4f1ea]"
+                    : "border-b-4 border-white/20 text-transparent"
                 }`}
               >
                 {letterMatch ? (isGuessed ? char : "") : char}

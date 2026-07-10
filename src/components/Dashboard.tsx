@@ -84,46 +84,68 @@ export default function Dashboard({
       <motion.div
         initial={rm ? false : { opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-3xl pcard text-[#2a2018] p-6 md:p-10 amber-glow text-center"
+        className="relative overflow-hidden rounded-3xl pcard text-[#f4f1ea] p-6 md:p-10 amber-glow text-center"
       >
         <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.28),transparent_70%)]" />
         <EllenWhiteAvatar reaction="idle" size={160} className="relative mx-auto mb-4" />
-        <div className="relative inline-flex items-center gap-2 px-3 py-1 psunken rounded-full text-[#6b5537] text-xs tracking-[0.15em] uppercase font-semibold mb-3">
-          <Zap className="w-3.5 h-3.5 text-[#b45309]" aria-hidden="true" />
+        <div className="relative inline-flex items-center gap-2 px-3 py-1 psunken rounded-full text-[#a49b8d] text-xs tracking-[0.15em] uppercase font-semibold mb-3">
+          <Zap className="w-3.5 h-3.5 text-[#f5b301]" aria-hidden="true" />
           Prophetic Speed Arcade
         </div>
-        <h1 className="relative text-3xl md:text-5xl font-display font-bold tracking-[0.08em] text-[#2a2018] mb-3">
+        <h1 className="relative text-3xl md:text-5xl font-display font-bold tracking-[0.08em] text-[#f4f1ea] mb-3">
           LAST DAY WORDS
         </h1>
-        <p className="relative text-[#52412c] max-w-xl mx-auto text-base md:text-lg font-scripture italic mb-6 leading-relaxed">
+        <p className="relative text-[#d7d1c5] max-w-xl mx-auto text-base md:text-lg font-scripture italic mb-6 leading-relaxed">
           Race the clock. Guess prophetic terms from the clue. Climb the weekly board.
         </p>
 
-        <div className="relative mx-auto mb-4 max-w-md w-full pcard rounded-2xl p-4 text-left border border-[#e6c98a]">
+        <div className="relative mx-auto mb-4 max-w-md w-full pcard rounded-2xl p-4 text-left border border-[#f5b301]/30">
           <div className="flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
-              <Star className="w-4 h-4 text-[#b45309] fill-[#b45309]" aria-hidden="true" />
-              <span className="text-sm font-bold text-[#2a2018]">{rankProgress.current.title}</span>
+              <Star className="w-4 h-4 text-[#f5b301] fill-[#f5b301]" aria-hidden="true" />
+              <span className="text-sm font-bold text-[#f4f1ea]">{rankProgress.current.title}</span>
             </div>
-            <span className="font-mono text-sm font-bold text-[#92400e]">{xp} XP</span>
+            <span className="font-mono text-sm font-bold text-[#fbbf24]">{xp} XP</span>
           </div>
-          <div className="w-full bg-[#e7d6b0] h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
             <div
               className="bg-gradient-to-r from-[#b45309] to-[#f59e0b] h-full rounded-full transition-all"
               style={{ width: `${Math.round(rankProgress.ratio * 100)}%` }}
             />
           </div>
-          <p className="text-[10px] text-[#6b5537] mt-1.5 font-medium">
+          <p className="text-[10px] text-[#a49b8d] mt-1.5 font-medium">
             {rankProgress.next
               ? `${rankProgress.xpInto} / ${rankProgress.xpNeeded} XP to ${rankProgress.next.title}`
               : "Max rank — Prophetic Scholar"}
           </p>
         </div>
 
-        <div className="relative mx-auto mb-6 inline-flex flex-col items-center gap-1 px-6 py-4 rounded-2xl bg-[#2a2018] text-[#fbbf24] parchment-glow">
-          <span className="text-4xl leading-none" aria-hidden="true">
+        <div className="relative mx-auto mb-6 inline-flex flex-col items-center gap-1 px-6 py-4 rounded-2xl bg-[#101014] text-[#fbbf24] parchment-glow">
+          <motion.span
+            className="inline-block text-4xl leading-none origin-bottom transition-[filter] duration-700"
+            aria-hidden="true"
+            style={
+              streakAtRisk
+                ? { filter: "hue-rotate(185deg) saturate(1.7) brightness(1.05)" }
+                : undefined
+            }
+            animate={
+              rm
+                ? undefined
+                : {
+                    scale: [1, 1.08, 0.95, 1.06, 1],
+                    rotate: [-2, 2, -1, 2.5, -2],
+                    y: [0, -1.5, 0.5, -1, 0],
+                  }
+            }
+            transition={{
+              duration: streakAtRisk ? 0.9 : 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
             🔥
-          </span>
+          </motion.span>
           <span className="text-3xl font-extrabold font-mono">{dailyStreak}</span>
           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#f4dca6]">
             Day Lamp Streak
@@ -141,7 +163,7 @@ export default function Dashboard({
           )}
         </div>
 
-        <p className="relative text-[#5c4a33] text-sm max-w-xl mx-auto leading-relaxed mb-4">
+        <p className="relative text-[#c9c2b4] text-sm max-w-xl mx-auto leading-relaxed mb-4">
           {totalWords} KJV-grounded terms · Mixed best{" "}
           <strong className="font-mono">
             {progress.speedMixedHighScore ?? progress.speedRoundHighScore}
@@ -154,7 +176,7 @@ export default function Dashboard({
           <button
             type="button"
             onClick={onStartMixedSpeed}
-            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#b45309]/40"
+            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#f5b301]/40"
           >
             <Play className="w-5 h-5 fill-[#fbbf24] text-[#fbbf24]" aria-hidden="true" />
             Mixed Speed
@@ -167,7 +189,7 @@ export default function Dashboard({
           <button
             type="button"
             onClick={onStartChapterSpeed}
-            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-[#3d2e1f] hover:bg-[#2a2018] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#e6c98a]/50"
+            className="flex flex-col items-center justify-center gap-1.5 py-4 px-4 bg-white/10 hover:bg-[#101014] text-[#f8f1e3] rounded-2xl text-sm font-bold uppercase tracking-[0.12em] cursor-pointer shadow-lg border border-[#f5b301]/20"
           >
             <BookOpen className="w-5 h-5 text-[#fbbf24]" aria-hidden="true" />
             Chapter Speed
@@ -178,7 +200,7 @@ export default function Dashboard({
             </span>
           </button>
         </div>
-        <p className="relative text-[11px] text-[#6b5537] mt-2">
+        <p className="relative text-[11px] text-[#a49b8d] mt-2">
           30s · combos · perfect word = +25 XP · disjoint pools
         </p>
       </motion.div>
@@ -187,7 +209,7 @@ export default function Dashboard({
         <motion.div
           initial={rm ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full text-left bg-gradient-to-r from-[#e8f0fe] to-[#fbf5e9] border border-[#b8c9e8] rounded-2xl p-5 parchment-glow"
+          className="w-full text-left bg-gradient-to-r from-[#141a28] to-[#1a1a20] border border-[#5577bb]/40 rounded-2xl p-5 parchment-glow"
         >
           <div className="flex items-start gap-4">
             <div className="p-3 bg-blue-100 rounded-xl text-blue-800 border border-blue-200">
@@ -197,11 +219,11 @@ export default function Dashboard({
               <div className="text-[10px] uppercase font-bold tracking-[0.15em] text-blue-800 mb-1">
                 Featured term (in the speed pool)
               </div>
-              <h3 className="text-lg font-bold text-[#2a2018] font-display tracking-wide">
+              <h3 className="text-lg font-bold text-[#f4f1ea] font-display tracking-wide">
                 {wordOfTheWeek.word}
               </h3>
-              <p className="text-sm text-[#5c4a33] mt-1 line-clamp-2">{wordOfTheWeek.clue}</p>
-              <p className="text-[11px] text-[#6b5537] mt-1 font-scripture italic">
+              <p className="text-sm text-[#c9c2b4] mt-1 line-clamp-2">{wordOfTheWeek.clue}</p>
+              <p className="text-[11px] text-[#a49b8d] mt-1 font-scripture italic">
                 {wordOfTheWeek.verse}
               </p>
               {featuredAnnouncement && (
@@ -216,48 +238,48 @@ export default function Dashboard({
         <button
           type="button"
           onClick={onViewLeaderboard}
-          className="pcard rounded-2xl p-5 text-left hover:border-[#b45309] cursor-pointer parchment-glow"
+          className="pcard rounded-2xl p-5 text-left hover:border-[#f5b301] cursor-pointer parchment-glow"
         >
-          <Trophy className="w-6 h-6 text-[#b45309] mb-2" aria-hidden="true" />
-          <h3 className="font-bold text-[#2a2018]">Weekly Boards</h3>
-          <p className="text-xs text-[#6b5537] mt-1">Mixed + Chapter boards · sign in to post</p>
+          <Trophy className="w-6 h-6 text-[#f5b301] mb-2" aria-hidden="true" />
+          <h3 className="font-bold text-[#f4f1ea]">Weekly Boards</h3>
+          <p className="text-xs text-[#a49b8d] mt-1">Mixed + Chapter boards · sign in to post</p>
         </button>
         <button
           type="button"
           onClick={onViewStudyGuide}
-          className="pcard rounded-2xl p-5 text-left hover:border-[#b45309] cursor-pointer"
+          className="pcard rounded-2xl p-5 text-left hover:border-[#f5b301] cursor-pointer"
         >
-          <BookOpen className="w-6 h-6 text-[#92400e] mb-2" aria-hidden="true" />
-          <h3 className="font-bold text-[#2a2018]">Word Bank</h3>
-          <p className="text-xs text-[#6b5537] mt-1">Browse clues &amp; verses offline</p>
+          <BookOpen className="w-6 h-6 text-[#fbbf24] mb-2" aria-hidden="true" />
+          <h3 className="font-bold text-[#f4f1ea]">Word Bank</h3>
+          <p className="text-xs text-[#a49b8d] mt-1">Browse clues &amp; verses offline</p>
         </button>
       </div>
 
       <button
         type="button"
         onClick={onViewAuth}
-        className="w-full pcard rounded-2xl p-4 flex items-center justify-between gap-3 cursor-pointer hover:border-[#b45309] text-left"
+        className="w-full pcard rounded-2xl p-4 flex items-center justify-between gap-3 cursor-pointer hover:border-[#f5b301] text-left"
       >
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-10 h-10 rounded-full bg-[#2a2018] text-[#fbbf24] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[#101014] text-[#fbbf24] flex items-center justify-center shrink-0">
             <LogIn className="w-4 h-4" aria-hidden="true" />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-bold text-[#2a2018]">
+            <p className="text-sm font-bold text-[#f4f1ea]">
               {authLoading
                 ? "Checking account…"
                 : authSignedIn
                   ? `Signed in as ${authDisplayName || "Player"}`
                   : "Sign in or create an account"}
             </p>
-            <p className="text-xs text-[#6b5537] leading-snug">
+            <p className="text-xs text-[#a49b8d] leading-snug">
               {authSignedIn
                 ? "Sync progress and appear on the weekly board"
                 : "Optional — play offline; cloud unlocks the leaderboard"}
             </p>
           </div>
         </div>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-[#b45309] shrink-0">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-[#f5b301] shrink-0">
           {authSignedIn ? "Manage" : "Join"}
         </span>
       </button>
@@ -266,28 +288,28 @@ export default function Dashboard({
         <button
           type="button"
           onClick={onViewBadges}
-          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]"
+          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#f5b301]"
         >
           <Medal className="w-3.5 h-3.5" aria-hidden="true" /> Badges
         </button>
         <button
           type="button"
           onClick={onViewShareCard}
-          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]"
+          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#f5b301]"
         >
           <Share2 className="w-3.5 h-3.5" aria-hidden="true" /> Share
         </button>
         <button
           type="button"
           onClick={onStartTeamsMode}
-          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]"
+          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#f5b301]"
         >
           <Users className="w-3.5 h-3.5" aria-hidden="true" /> Teams
         </button>
         <button
           type="button"
           onClick={onStartOnlineTeams}
-          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#b45309]"
+          className="pcard rounded-xl p-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#f5b301]"
         >
           <Flame className="w-3.5 h-3.5" aria-hidden="true" /> Online
         </button>
@@ -297,7 +319,7 @@ export default function Dashboard({
         <button
           type="button"
           onClick={onEnableNotifications}
-          className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-[#e6c98a] rounded-xl text-xs font-semibold text-[#92400e] cursor-pointer hover:bg-[#fbeccb]"
+          className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-[#f5b301]/30 rounded-xl text-xs font-semibold text-[#fbbf24] cursor-pointer hover:bg-[#f5b301]/15"
         >
           <Bell className="w-4 h-4" aria-hidden="true" /> Enable streak-at-risk notifications
         </button>
@@ -305,7 +327,7 @@ export default function Dashboard({
 
       {onSelectCosmetic && (
         <div className="pcard rounded-2xl p-4">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#6b5537] mb-3">Candle style</h3>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#a49b8d] mb-3">Candle style</h3>
           <div className="flex flex-wrap gap-2">
             {candleCosmetics.map((c) => {
               const locked = !unlocked.has(c.id);
@@ -318,8 +340,8 @@ export default function Dashboard({
                   onClick={() => onSelectCosmetic(c.id)}
                   className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border cursor-pointer disabled:opacity-40 ${
                     selected
-                      ? "bg-[#2a2018] text-[#f8f1e3] border-[#2a2018]"
-                      : "bg-[#fbf5e9] border-[#e2d2ac] text-[#5c4a33]"
+                      ? "bg-[#101014] text-[#f8f1e3] border-[#f5b301]/60"
+                      : "bg-white/[0.06] border-white/10 text-[#c9c2b4]"
                   }`}
                 >
                   {c.title}
@@ -333,7 +355,7 @@ export default function Dashboard({
       <button
         type="button"
         onClick={onResetProgress}
-        className="w-full text-[10px] text-[#a8926a] hover:text-red-800 uppercase tracking-wider font-semibold py-2 cursor-pointer"
+        className="w-full text-[10px] text-[#8d857a] hover:text-red-800 uppercase tracking-wider font-semibold py-2 cursor-pointer"
       >
         Reset all local progress
       </button>

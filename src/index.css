@@ -1,60 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Manrope", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --font-display: "Cinzel", serif;
   --font-scripture: "Cormorant Garamond", "Georgia", serif;
 }
 
 /* ============================================================
-   Candlelit parchment theme tokens
-   Text colors are chosen to meet WCAG AA (>= 4.5:1) on the
-   parchment surfaces below.
+   Cinematic charcoal theme tokens
+   Dark glass surfaces over a looping film backdrop; bright
+   amber-gold accents carry the premium contrast. Text colors
+   meet WCAG AA (>= 4.5:1) on the surfaces below.
    ============================================================ */
 :root {
-  --page: #e9dcbf;
-  --card: #fbf5e9;
-  --card-alt: #f6edda;
-  --sunken: #efe4cd;
-  --line: #e2d2ac;
-  --line-soft: #ecdfc2;
+  --page: #0b0b0e;
+  --card: rgba(22, 22, 28, 0.82);
+  --card-alt: rgba(15, 15, 19, 0.88);
+  --sunken: rgba(0, 0, 0, 0.38);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-soft: rgba(255, 255, 255, 0.05);
 
-  --ink: #2a2018;        /* primary text */
-  --ink-soft: #52412c;   /* secondary text */
-  --muted: #6b5537;      /* muted captions (AA-safe) */
-  --brass: #b45309;      /* accent / icon */
-  --brass-deep: #92400e; /* accent text (AA-safe) */
+  --ink: #f4f1ea;        /* primary text */
+  --ink-soft: #d7d1c5;   /* secondary text */
+  --muted: #a49b8d;      /* muted captions (AA-safe on dark glass) */
+  --brass: #f5b301;      /* accent / icon */
+  --brass-deep: #fbbf24; /* accent text (AA-safe on dark) */
 }
 
-/* Warm candlelit backdrop with an ambient amber glow */
+/* Charcoal on html only: a body background would paint OVER the
+   negative-z-index film layers and hide the video. */
+html {
+  background: var(--page);
+}
+body {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* Charcoal stage; the film layer beneath shows through */
 .candlelit-page {
-  background-color: var(--page);
+  background-color: transparent;
   background-image:
-    radial-gradient(1100px 620px at 50% -12%, rgba(251, 191, 36, 0.22), transparent 62%),
-    radial-gradient(820px 520px at 50% 115%, rgba(120, 53, 15, 0.12), transparent 60%),
-    linear-gradient(180deg, #efe3c8 0%, #e6d6b3 100%);
-  background-attachment: fixed;
+    radial-gradient(1100px 620px at 50% -12%, rgba(245, 179, 1, 0.07), transparent 62%),
+    radial-gradient(820px 520px at 50% 115%, rgba(245, 179, 1, 0.04), transparent 60%);
 }
 
-/* Reusable candlelit surfaces */
+/* ============================================================
+   Film backdrop: looping video + cinematic veil + animated grain
+   ============================================================ */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: saturate(0.85) contrast(1.08) brightness(0.72);
+}
+
+/* Vignette + charcoal wash so foreground text stays readable */
+.bg-video-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(11, 11, 14, 0.12) 0%, rgba(11, 11, 14, 0.55) 82%),
+    linear-gradient(180deg, rgba(11, 11, 14, 0.22) 0%, rgba(11, 11, 14, 0.55) 100%);
+}
+
+/* Animated film grain — the mystery layer */
+.bg-grain {
+  position: fixed;
+  inset: -120px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+  animation: grain-shift 0.9s steps(5) infinite;
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-34px, 22px); }
+  40%  { transform: translate(28px, -40px); }
+  60%  { transform: translate(-18px, -26px); }
+  80%  { transform: translate(40px, 30px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Reusable dark-glass surfaces */
 .pcard {
   background: linear-gradient(180deg, var(--card) 0%, var(--card-alt) 100%);
   border: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 .psunken {
   background: var(--sunken);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-soft);
 }
 
-/* Minimalist container shadows & borders */
+/* Cinematic container shadows & borders */
 .parchment-glow {
-  box-shadow: 0 1px 3px rgba(66, 42, 12, 0.10), 0 1px 2px rgba(66, 42, 12, 0.05);
+  box-shadow:
+    0 14px 44px -18px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .amber-glow {
-  box-shadow: 0 10px 30px -12px rgba(120, 53, 15, 0.35);
+  box-shadow:
+    0 24px 70px -24px rgba(245, 179, 1, 0.22),
+    0 14px 44px -18px rgba(0, 0, 0, 0.85);
 }
 
 /* Scrollbar styles for a clean appearance */
@@ -64,16 +123,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--page);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbb487;
+  background: #3a3a44;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b45309;
+  background: #f5b301;
 }
 
 @keyframes candle-flicker {
@@ -144,8 +203,11 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .candlelit-page {
-    background-attachment: scroll;
+  .bg-video {
+    display: none; /* static charcoal instead of motion */
+  }
+  .bg-grain {
+    animation: none !important;
   }
 }
 

@@ -105,31 +105,31 @@ export default function ShareCardScreen({ progress, onBack }: ShareCardScreenPro
 
   return (
     <div className="max-w-lg mx-auto space-y-6 py-2 px-2">
-      <div className="flex items-center justify-between pb-4 border-b border-[#e2d2ac]">
-        <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-[#5c4a33] font-medium cursor-pointer">
+      <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-[#c9c2b4] font-medium cursor-pointer">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
-        <h2 className="text-lg font-display font-bold tracking-[0.1em] text-[#2a2018]">SHARE CARD</h2>
+        <h2 className="text-lg font-display font-bold tracking-[0.1em] text-[#f4f1ea]">SHARE CARD</h2>
         <div className="w-12" />
       </div>
 
-      <canvas ref={canvasRef} className="w-full rounded-2xl border border-[#e2d2ac] shadow-lg" />
+      <canvas ref={canvasRef} className="w-full rounded-2xl border border-white/10 shadow-lg" />
 
       <div className="flex gap-3">
         <button
           onClick={handleDownload}
-          className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#2a2018] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+          className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#101014] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
         >
           <Download className="w-3.5 h-3.5" /> Download
         </button>
         <button
           onClick={handleShare}
-          className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#f0e3c8] border border-[#e2d2ac] text-[#2a2018] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
+          className="flex-1 flex items-center justify-center gap-2 py-3 bg-white/[0.08] border border-white/10 text-[#f4f1ea] rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer"
         >
           <Share2 className="w-3.5 h-3.5" /> Share
         </button>
       </div>
-      {status && <p className="text-center text-sm text-[#5c4a33]">{status}</p>}
+      {status && <p className="text-center text-sm text-[#c9c2b4]">{status}</p>}
     </div>
   );
 }

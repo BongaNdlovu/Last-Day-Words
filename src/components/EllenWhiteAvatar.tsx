@@ -25,7 +25,7 @@ export default function EllenWhiteAvatar({
 
   return (
     <div
-      className={`ellen-stage ${reactionClass} relative overflow-hidden rounded-2xl border border-[#e2d2ac] shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] ${className}`}
+      className={`ellen-stage ${reactionClass} relative overflow-hidden rounded-2xl border border-white/10 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] ${className}`}
       style={{ width: size, height: size, background: "#0f0a06" }}
       role="img"
       aria-label="Ellen White writing at her desk, illuminated by an oil lamp"

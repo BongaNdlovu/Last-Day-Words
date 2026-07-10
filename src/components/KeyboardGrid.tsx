@@ -26,11 +26,11 @@ function KeyButton({
   const isGuessed = guessedLetters.includes(letter);
   const isCorrect = isGuessed && upper.includes(letter);
 
-  let btnStyles = "bg-[#fbf5e9] hover:bg-[#2a2018] hover:text-[#f8f1e3] text-[#3a2c1e] border-[#e2d2ac]";
+  let btnStyles = "bg-white/[0.06] hover:bg-[#101014] hover:text-[#f8f1e3] text-[#e8e3d8] border-white/10";
   if (isGuessed) {
     btnStyles = isCorrect
-      ? "bg-[#2a2018] text-[#f8f1e3] border-[#2a2018] font-semibold cursor-default hover:bg-[#2a2018]"
-      : "bg-[#ece0c6] text-[#a8926a] border-[#e2d2ac] cursor-default line-through hover:bg-[#ece0c6]";
+      ? "bg-[#101014] text-[#f8f1e3] border-[#f5b301]/60 font-semibold cursor-default hover:bg-[#101014]"
+      : "bg-white/[0.08] text-[#8d857a] border-white/10 cursor-default line-through hover:bg-white/10";
   }
 
   const stateLabel = isGuessed ? (isCorrect ? ", correct" : ", not in word") : "";
@@ -71,7 +71,7 @@ export default function KeyboardGrid({ guessedLetters, wordText, onGuess, disabl
           <KeyButton key={letter} letter={letter} guessedLetters={guessedLetters} wordText={wordText} onClick={onGuess} disabled={disabled} />
         ))}
       </div>
-      <div className="text-center text-[10px] text-[#6b5537] pt-1">
+      <div className="text-center text-[10px] text-[#a49b8d] pt-1">
         Type letters on your keyboard
       </div>
     </div>

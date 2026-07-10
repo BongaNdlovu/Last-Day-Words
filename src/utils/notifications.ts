@@ -2,6 +2,8 @@
 
 const STREAK_REMINDER_TAG = "streak-at-risk";
 const STREAK_REMINDER_DELAY_MS = 2 * 60 * 60 * 1000;
+/** Fire no later than this long before local midnight — after midnight the streak is already lost. */
+const LAST_CALL_BUFFER_MS = 30 * 60 * 1000;
 const REMINDER_STORAGE_KEY = "ldw-streak-reminder";
 
 type StoredReminder = { fireAt: number; dayCount: number };
@@ -77,19 +79,38 @@ export function checkDueStreakReminder(): void {
   void showStreakAtRiskNotification(stored.dayCount);
 }
 
+function endOfLocalDayMs(now = Date.now()): number {
+  const d = new Date(now);
+  d.setHours(23, 59, 59, 999);
+  return d.getTime();
+}
+
+function isSameLocalDay(ts: number, now = Date.now()): boolean {
+  return new Date(ts).toDateString() === new Date(now).toDateString();
+}
+
 /** Schedule a same-day reminder; persisted locally and shown via service worker when possible. */
 export function scheduleStreakReminder(dayCount: number, dailyDone: boolean): () => void {
   if (dailyDone || dayCount <= 0 || !canNotify()) {
     writeStoredReminder(null);
     return () => {};
   }
-  const fireAt = Date.now() + STREAK_REMINDER_DELAY_MS;
+  const now = Date.now();
+  // Clamp so the reminder lands before the day flips — a reminder after
+  // midnight arrives when the streak is already broken.
+  let fireAt = Math.min(now + STREAK_REMINDER_DELAY_MS, endOfLocalDayMs(now) - LAST_CALL_BUFFER_MS);
+  if (fireAt <= now) fireAt = now + 60 * 1000; // opened very late: last call in a minute
+  // Keep an earlier same-day deadline from a previous open — reopening the app
+  // must not restart the countdown.
+  const stored = readStoredReminder();
+  if (stored && stored.fireAt > now && stored.fireAt < fireAt && isSameLocalDay(stored.fireAt, now)) {
+    fireAt = stored.fireAt;
+  }
   writeStoredReminder({ fireAt, dayCount });
-  checkDueStreakReminder();
   const id = window.setTimeout(() => {
     writeStoredReminder(null);
     void showStreakAtRiskNotification(dayCount);
-  }, STREAK_REMINDER_DELAY_MS);
+  }, fireAt - now);
   return () => {
     window.clearTimeout(id);
     writeStoredReminder(null);

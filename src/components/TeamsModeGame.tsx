@@ -314,31 +314,31 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
   if (phase === "intro") {
     return (
       <div className="max-w-2xl mx-auto text-center space-y-6 py-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 psunken rounded-full text-xs font-bold uppercase tracking-wider text-[#5c4a33]">
-          <Users className="w-4 h-4 text-[#b45309]" aria-hidden="true" /> Teams Mode
+        <div className="inline-flex items-center gap-2 px-3 py-1 psunken rounded-full text-xs font-bold uppercase tracking-wider text-[#c9c2b4]">
+          <Users className="w-4 h-4 text-[#f5b301]" aria-hidden="true" /> Teams Mode
         </div>
-        <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2a2018] tracking-wide">White vs Black</h2>
-        <p className="text-[#5c4a33] text-sm leading-relaxed max-w-md mx-auto">
+        <h2 className="text-2xl md:text-3xl font-display font-bold text-[#f4f1ea] tracking-wide">White vs Black</h2>
+        <p className="text-[#c9c2b4] text-sm leading-relaxed max-w-md mx-auto">
           {TEAMS_QUESTIONS_PER_SIDE} questions per team — harder words, fewer lamps, hints cost a life. Build streaks for bonus points!
         </p>
         <div className="flex justify-center gap-6">
           <div className="flex flex-col items-center gap-2">
-            <div className="w-16 h-16 rounded-full bg-[#faf3e4] border-2 border-[#d8c391] shadow-md flex items-center justify-center font-bold text-[#2a2018]">W</div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6b5537]">White Team</span>
+            <div className="w-16 h-16 rounded-full bg-white/[0.05] border-2 border-[#f5b301]/35 shadow-md flex items-center justify-center font-bold text-[#f4f1ea]">W</div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#a49b8d]">White Team</span>
           </div>
-          <div className="text-2xl font-light text-[#b09468] self-center">vs</div>
+          <div className="text-2xl font-light text-[#8d857a] self-center">vs</div>
           <div className="flex flex-col items-center gap-2">
-            <div className="w-16 h-16 rounded-full bg-[#2a2018] border-2 border-[#4a3826] shadow-md flex items-center justify-center font-bold text-[#f8f1e3]">B</div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6b5537]">Black Team</span>
+            <div className="w-16 h-16 rounded-full bg-[#101014] border-2 border-white/15 shadow-md flex items-center justify-center font-bold text-[#f8f1e3]">B</div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#a49b8d]">Black Team</span>
           </div>
         </div>
         <button
           onClick={() => { resetTurn(); setPhase("playing"); }}
-          className="px-8 py-3 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-[0.15em] cursor-pointer parchment-glow"
+          className="px-8 py-3 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-[0.15em] cursor-pointer parchment-glow"
         >
           {controlled ? "Continue Match" : "Start Match"}
         </button>
-        <button onClick={onBack} className="block mx-auto text-xs text-[#6b5537] hover:text-[#2a2018] cursor-pointer">
+        <button onClick={onBack} className="block mx-auto text-xs text-[#a49b8d] hover:text-[#f4f1ea] cursor-pointer">
           Back to Menu
         </button>
       </div>
@@ -350,22 +350,22 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
     const blackWins = scores.black > scores.white;
     return (
       <div className="max-w-lg mx-auto text-center space-y-6 py-8">
-        <Trophy className="w-12 h-12 mx-auto text-[#b45309]" aria-hidden="true" />
-        <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2a2018] tracking-wide">
+        <Trophy className="w-12 h-12 mx-auto text-[#f5b301]" aria-hidden="true" />
+        <h2 className="text-2xl md:text-3xl font-display font-bold text-[#f4f1ea] tracking-wide">
           {whiteWins ? "White Team Wins!" : blackWins ? "Black Team Wins!" : "It's a Tie!"}
         </h2>
         <div className="grid grid-cols-2 gap-4">
-          <div className={`p-4 rounded-xl border ${whiteWins ? "border-[#b45309] bg-[#fbeccb]" : "border-[#e2d2ac] bg-[#fbf5e9]"}`}>
-            <div className="text-xs uppercase font-bold text-[#6b5537] mb-1">White</div>
-            <div className="text-3xl font-mono font-bold text-[#2a2018]">{scores.white}</div>
+          <div className={`p-4 rounded-xl border ${whiteWins ? "border-[#f5b301] bg-[#f5b301]/10" : "border-white/10 bg-white/[0.06]"}`}>
+            <div className="text-xs uppercase font-bold text-[#a49b8d] mb-1">White</div>
+            <div className="text-3xl font-mono font-bold text-[#f4f1ea]">{scores.white}</div>
           </div>
-          <div className={`p-4 rounded-xl border ${blackWins ? "border-[#b45309] bg-[#fbeccb]" : "border-[#e2d2ac] bg-[#fbf5e9]"}`}>
-            <div className="text-xs uppercase font-bold text-[#6b5537] mb-1">Black</div>
-            <div className="text-3xl font-mono font-bold text-[#2a2018]">{scores.black}</div>
+          <div className={`p-4 rounded-xl border ${blackWins ? "border-[#f5b301] bg-[#f5b301]/10" : "border-white/10 bg-white/[0.06]"}`}>
+            <div className="text-xs uppercase font-bold text-[#a49b8d] mb-1">Black</div>
+            <div className="text-3xl font-mono font-bold text-[#f4f1ea]">{scores.black}</div>
           </div>
         </div>
         <div className="flex gap-3 justify-center">
-          <button onClick={onBack} className="px-6 py-2.5 border border-[#e2d2ac] bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg text-xs font-semibold cursor-pointer">
+          <button onClick={onBack} className="px-6 py-2.5 border border-white/10 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg text-xs font-semibold cursor-pointer">
             Menu
           </button>
           {!controlled && (
@@ -377,7 +377,7 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
               resetTurn();
               setPhase("intro");
             }}
-            className="px-6 py-2.5 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer"
+            className="px-6 py-2.5 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer"
           >
             Rematch
           </button>
@@ -390,20 +390,20 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
   return (
     <div className="space-y-5 max-w-4xl mx-auto py-2 px-2 select-none relative">
       <GameFeedback text={feedback?.text ?? null} tone={feedback?.tone} />
-      <div className="flex items-center justify-between pb-3 border-b border-[#e2d2ac]">
+      <div className="flex items-center justify-between pb-3 border-b border-white/10">
         <button
           onClick={() => setShowConfirmExit(true)}
-          className="flex items-center gap-1.5 text-xs text-[#5c4a33] hover:text-[#2a2018] font-medium py-1.5 px-3 hover:bg-[#f0e3c8] rounded-lg cursor-pointer"
+          className="flex items-center gap-1.5 text-xs text-[#c9c2b4] hover:text-[#f4f1ea] font-medium py-1.5 px-3 hover:bg-white/10 rounded-lg cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Exit
         </button>
         <div className="text-center">
-          <div className="text-[10px] text-[#6b5537] font-bold uppercase tracking-[0.15em]">Round {roundNumber} / {TEAMS_QUESTIONS_PER_SIDE}</div>
-          <div className="text-xs text-[#5c4a33]">Q{questionIndex + 1} of {roundWords.length}</div>
+          <div className="text-[10px] text-[#a49b8d] font-bold uppercase tracking-[0.15em]">Round {roundNumber} / {TEAMS_QUESTIONS_PER_SIDE}</div>
+          <div className="text-xs text-[#c9c2b4]">Q{questionIndex + 1} of {roundWords.length}</div>
         </div>
         <div className="flex gap-2 text-xs font-mono font-bold">
-          <span className="px-2 py-1 rounded bg-[#faf3e4] border border-[#d8c391] text-[#2a2018]">W {scores.white}</span>
-          <span className="px-2 py-1 rounded bg-[#2a2018] text-[#f8f1e3]">B {scores.black}</span>
+          <span className="px-2 py-1 rounded bg-white/[0.05] border border-[#f5b301]/35 text-[#f4f1ea]">W {scores.white}</span>
+          <span className="px-2 py-1 rounded bg-[#101014] text-[#f8f1e3]">B {scores.black}</span>
         </div>
       </div>
 
@@ -413,8 +413,8 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
         animate={{ opacity: 1, x: 0 }}
         className={`py-3 px-4 rounded-xl text-center font-bold text-sm uppercase tracking-widest ${
           activeTeam === "white"
-            ? "bg-[#faf3e4] border-2 border-[#d8c391] text-[#2a2018]"
-            : "bg-[#2a2018] text-[#f8f1e3]"
+            ? "bg-white/[0.05] border-2 border-[#f5b301]/35 text-[#f4f1ea]"
+            : "bg-[#101014] text-[#f8f1e3]"
         }`}
       >
         {activeTeam === "white" ? "White Team's Turn" : "Black Team's Turn"}
@@ -431,19 +431,19 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#2a2018]/55 backdrop-blur-xs flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-black/55 backdrop-blur-xs flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={rm ? false : { scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               className="pcard rounded-2xl p-6 max-w-sm w-full text-center space-y-4"
             >
-              <h3 className="text-lg font-display font-bold capitalize text-[#2a2018]">{activeTeam} Team — {lastTurnPoints > 0 ? `+${lastTurnPoints} pts` : "No points"}</h3>
-              <p className="text-sm text-[#5c4a33]">Answer: <strong className="font-mono text-[#2a2018]">{wordText}</strong></p>
-              <p className="text-sm font-scripture italic text-[#52412c]">"{currentWord.scripture.slice(0, 100)}…"</p>
+              <h3 className="text-lg font-display font-bold capitalize text-[#f4f1ea]">{activeTeam} Team — {lastTurnPoints > 0 ? `+${lastTurnPoints} pts` : "No points"}</h3>
+              <p className="text-sm text-[#c9c2b4]">Answer: <strong className="font-mono text-[#f4f1ea]">{wordText}</strong></p>
+              <p className="text-sm font-scripture italic text-[#d7d1c5]">"{currentWord.scripture.slice(0, 100)}…"</p>
               <button
                 onClick={advanceQuestion}
-                className="w-full py-2.5 bg-[#2a2018] hover:bg-[#1c140d] text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer"
+                className="w-full py-2.5 bg-[#101014] hover:bg-black text-[#f8f1e3] rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer"
               >
                 {questionIndex >= roundWords.length - 1 ? "See Results" : "Next Turn"}
               </button>
@@ -455,11 +455,11 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
       <AnimatePresence>
         {showConfirmExit && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#2a2018]/45 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+            className="fixed inset-0 bg-black/45 backdrop-blur-xs flex items-center justify-center p-4 z-50">
             <div className="pcard rounded-2xl p-6 max-w-sm w-full text-center space-y-4">
-              <h4 className="font-display font-bold text-[#2a2018]">Exit Teams Mode?</h4>
+              <h4 className="font-display font-bold text-[#f4f1ea]">Exit Teams Mode?</h4>
               <div className="flex gap-3">
-                <button onClick={() => setShowConfirmExit(false)} className="flex-1 py-2 border border-[#e2d2ac] bg-[#fbf5e9] hover:bg-[#f3e8cf] text-[#2a2018] rounded-lg text-xs cursor-pointer">Stay</button>
+                <button onClick={() => setShowConfirmExit(false)} className="flex-1 py-2 border border-white/10 bg-white/[0.06] hover:bg-white/10 text-[#f4f1ea] rounded-lg text-xs cursor-pointer">Stay</button>
                 <button onClick={onBack} className="flex-1 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs cursor-pointer">Exit</button>
               </div>
             </div>
@@ -470,18 +470,18 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
       <motion.div initial={rm ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="pcard rounded-2xl p-6 text-center space-y-3 parchment-glow">
         <div className="flex items-center justify-center gap-2 flex-wrap">
           {chapter && (
-            <span className="text-[9px] uppercase tracking-widest font-bold text-[#6b5537] psunken px-2 py-0.5 rounded">{chapter.title}</span>
+            <span className="text-[9px] uppercase tracking-widest font-bold text-[#a49b8d] psunken px-2 py-0.5 rounded">{chapter.title}</span>
           )}
           <span className={`text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded ${
-            difficulty === "easy" ? "bg-emerald-50 text-emerald-800" :
-            difficulty === "medium" ? "bg-amber-100 text-[#92400e]" : "bg-rose-50 text-rose-800"
+            difficulty === "easy" ? "bg-emerald-500/10 text-emerald-800" :
+            difficulty === "medium" ? "bg-amber-100 text-[#fbbf24]" : "bg-rose-500/10 text-rose-800"
           }`}>{difficulty}</span>
         </div>
-        <p className="text-lg md:text-xl font-light text-[#2a2018] leading-relaxed">"{currentWord.clue}"</p>
+        <p className="text-lg md:text-xl font-light text-[#f4f1ea] leading-relaxed">"{currentWord.clue}"</p>
         <AnimatePresence>
           {depthHint && (
             <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0 }}
-              className="text-xs text-[#92400e] bg-[#fbeccb] border border-[#e6c98a] rounded-lg px-3 py-2 leading-relaxed">
+              className="text-xs text-[#fbbf24] bg-[#f5b301]/10 border border-[#f5b301]/30 rounded-lg px-3 py-2 leading-relaxed">
               {depthHint}
             </motion.p>
           )}
@@ -495,11 +495,11 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
           <WordSlots wordText={wordText} guessedLetters={guessedLetters} mistakes={mistakes} maxMistakes={maxMistakes} />
           <div className="flex justify-center gap-3 flex-wrap">
             <button onClick={handleHint} disabled={solved || mistakes >= maxMistakes || hintsUsed >= MAX_HINTS_PER_WORD}
-              className="flex items-center gap-1.5 py-2 px-4 bg-[#f0e3c8] hover:bg-[#e8d7b3] disabled:opacity-50 rounded-lg text-xs font-semibold border border-[#e2d2ac] text-[#3a2c1e] cursor-pointer">
+              className="flex items-center gap-1.5 py-2 px-4 bg-white/[0.08] hover:bg-white/15 disabled:opacity-50 rounded-lg text-xs font-semibold border border-white/10 text-[#e8e3d8] cursor-pointer">
               <Lightbulb className="w-3.5 h-3.5" aria-hidden="true" /> Hint ({hintsUsed}/{MAX_HINTS_PER_WORD})
             </button>
             <button onClick={resetTurn}
-              className="flex items-center gap-1.5 py-2 px-4 bg-[#fbf5e9] hover:bg-[#f3e8cf] rounded-lg text-xs font-semibold border border-[#e2d2ac] text-[#3a2c1e] cursor-pointer">
+              className="flex items-center gap-1.5 py-2 px-4 bg-white/[0.06] hover:bg-white/10 rounded-lg text-xs font-semibold border border-white/10 text-[#e8e3d8] cursor-pointer">
               <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" /> Reset
             </button>
             <button onClick={() => setMistakes(maxMistakes)} disabled={mistakes >= maxMistakes || solved}

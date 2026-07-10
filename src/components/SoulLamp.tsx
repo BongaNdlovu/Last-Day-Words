@@ -90,7 +90,7 @@ export default function SoulLamp({ fuel, seconds, size = 120 }: SoulLampProps) {
         <rect x="40" y="150" width="40" height="8" rx="2" fill="url(#soulBrass)" />
         <rect x="46" y="158" width="28" height="6" rx="2" fill="#5c3415" />
       </svg>
-      <span className={`font-mono text-sm font-extrabold ${danger ? "text-rose-600" : "text-[#2a2018]"}`}>
+      <span className={`font-mono text-sm font-extrabold ${danger ? "text-rose-600" : "text-[#f4f1ea]"}`}>
         0:{seconds < 10 ? `0${seconds}` : seconds}
       </span>
     </div>
