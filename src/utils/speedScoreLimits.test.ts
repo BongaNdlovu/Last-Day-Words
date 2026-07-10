@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 import {
   computeSpeedLetterPoints,
   computeSpeedSolveBonus,
@@ -9,15 +9,26 @@ import {
 import { GOLDEN_WORD_SCORE_MULT } from "./rewards";
 import {
   assertSpeedScoreLimitConstants,
+  canSubmitSpeedScore,
   isValidSpeedScore,
+  markSpeedSubmitAttempt,
   maxAllowedSpeedScore,
+  minAllowedSpeedScore,
+  MIN_SPEED_SCORE_PER_WORD,
   MAX_SPEED_LETTER_POINTS_PER_WORD,
   MAX_SPEED_SCORE_PER_WORD,
   MAX_SPEED_SOLVE_POINTS_PER_WORD,
   MAX_UNIQUE_LETTERS_PER_WORD,
+  peekSpeedSubmitAllowed,
+  resetSpeedSubmitThrottleForTests,
+  validateSpeedScorePayload,
 } from "./speedScoreLimits";
 
 describe("speedScoreLimits — real scoring caps", () => {
+  beforeEach(() => {
+    resetSpeedSubmitThrottleForTests();
+  });
+
   it("derives per-word max from letter + solve formulas (not the old 400 cap)", () => {
     const expectedLetters = computeSpeedLetterPoints(5, GOLDEN_WORD_SCORE_MULT, MAX_UNIQUE_LETTERS_PER_WORD);
     const expectedSolve = computeSpeedSolveBonus(0, MAX_MISTAKES, 5, GOLDEN_WORD_SCORE_MULT);
@@ -25,7 +36,7 @@ describe("speedScoreLimits — real scoring caps", () => {
     expect(MAX_SPEED_SOLVE_POINTS_PER_WORD).toBe(expectedSolve);
     expect(MAX_SPEED_SCORE_PER_WORD).toBe(expectedLetters + expectedSolve);
     expect(MAX_SPEED_SCORE_PER_WORD).toBe(18400);
-    expect(MAX_SPEED_SCORE_PER_WORD).toBeGreaterThan(400);
+    expect(MIN_SPEED_SCORE_PER_WORD).toBe(1000);
   });
 
   it("allows legitimate high scores that the old 400× cap rejected", () => {
@@ -36,9 +47,12 @@ describe("speedScoreLimits — real scoring caps", () => {
     expect(isValidSpeedScore(maxAllowedSpeedScore(5), 5)).toBe(true);
   });
 
-  it("still rejects spoofed scores above the real ceiling", () => {
+  it("rejects spoofed scores above the real ceiling", () => {
     expect(isValidSpeedScore(MAX_SPEED_SCORE_PER_WORD + 1, 1)).toBe(false);
-    expect(isValidSpeedScore(999_999_999, 2)).toBe(false);
+    expect(validateSpeedScorePayload(MAX_SPEED_SCORE_PER_WORD + 1, 1)).toEqual({
+      ok: false,
+      reason: "score_above_max_for_words",
+    });
   });
 
   it("rejects negative or excessive word counts", () => {
@@ -46,11 +60,59 @@ describe("speedScoreLimits — real scoring caps", () => {
     expect(isValidSpeedScore(100, 81)).toBe(false);
   });
 
+  it("rejects non-integers and non-finite values", () => {
+    expect(validateSpeedScorePayload(2000.5, 1).ok).toBe(false);
+    expect(validateSpeedScorePayload(2000, 1.2).ok).toBe(false);
+    expect(validateSpeedScorePayload(Number.NaN, 1).ok).toBe(false);
+    expect(validateSpeedScorePayload(2000, Number.POSITIVE_INFINITY).ok).toBe(false);
+  });
+
+  it("rejects nonzero score with zero words", () => {
+    expect(validateSpeedScorePayload(500, 0)).toEqual({
+      ok: false,
+      reason: "zero_words_nonzero_score",
+    });
+    expect(validateSpeedScorePayload(0, 0).ok).toBe(true);
+  });
+
+  it("rejects score below min per solved word (1000)", () => {
+    expect(minAllowedSpeedScore(2)).toBe(2000);
+    expect(validateSpeedScorePayload(1999, 2)).toEqual({
+      ok: false,
+      reason: "score_below_min_for_words",
+    });
+    expect(validateSpeedScorePayload(2000, 2).ok).toBe(true);
+  });
+
+  it("rejects invalid board mode", () => {
+    expect(validateSpeedScorePayload(2000, 1, "mixed").ok).toBe(true);
+    expect(validateSpeedScorePayload(2000, 1, "chapter").ok).toBe(true);
+    expect(validateSpeedScorePayload(2000, 1, "hack")).toEqual({
+      ok: false,
+      reason: "invalid_mode",
+    });
+  });
+
+  it("throttles cloud submits within the min interval", () => {
+    const t0 = 1_000_000;
+    expect(canSubmitSpeedScore(2000, 1, "mixed", t0).ok).toBe(true);
+    markSpeedSubmitAttempt(t0);
+    expect(peekSpeedSubmitAllowed(t0 + 1000)).toBe(false);
+    expect(canSubmitSpeedScore(3000, 1, "mixed", t0 + 1000)).toEqual({
+      ok: false,
+      reason: "submit_too_soon",
+    });
+    expect(canSubmitSpeedScore(3000, 1, "mixed", t0 + 8_000).ok).toBe(true);
+  });
+
   it("exports constants for SQL sync checks", () => {
     const c = assertSpeedScoreLimitConstants();
     expect(c.maxCombo).toBe(2);
     expect(c.maxEvent).toBe(2);
     expect(c.maxPerWord).toBe(18400);
+    expect(c.minPerWord).toBe(1000);
+    expect(c.maxWords).toBe(80);
+    expect(c.minSubmitIntervalMs).toBe(8000);
   });
 });
 
@@ -62,14 +124,10 @@ describe("speed letter + solve total (single-word accuracy)", () => {
   });
 
   it("word total = letters + solve under same mults", () => {
-    // 8 unique letters, 0 mistakes, maxMistakes 5, streak 1, no golden
-    // letters: 8*100 = 800; solve: 2000; total 2800
     expect(computeSpeedWordTotalScore(8, 0, 5, 1, 1)).toBe(2800);
   });
 
   it("word total applies golden and combo to both parts", () => {
-    // streak 5 → 2×, golden 2× → letter mult 4, solve (2000)*4 = 8000
-    // 5 unique letters → 5*100*4 = 2000; total 10000
     expect(getSpeedComboMultiplier(5)).toBe(2);
     expect(computeSpeedWordTotalScore(5, 0, 5, 5, 2)).toBe(10_000);
   });
@@ -85,9 +143,6 @@ describe("speed letter + solve total (single-word accuracy)", () => {
         sum + computeSpeedWordTotalScore(w.letters, w.mistakes, w.maxM, w.streak, w.evt),
       0
     );
-    // w1: 600 + 2000 = 2600
-    // w2: 4*100*1.25 + (1000+800)*1.25 = 500 + 2250 = 2750
-    // w3: 10*100*1.5*2 + 2000*1.5*2 = 3000 + 6000 = 9000
     expect(total).toBe(2600 + 2750 + 9000);
     expect(isValidSpeedScore(total, 3)).toBe(true);
   });

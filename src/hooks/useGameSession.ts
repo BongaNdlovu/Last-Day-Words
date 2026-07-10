@@ -2,7 +2,10 @@ import { useCallback, useMemo } from "react";
 import type { Chapter } from "../data/words";
 import type { UserProgress } from "../types";
 import { awardStudyGuideXp } from "../utils/progression";
-import { isValidSpeedScore } from "../utils/speedScoreLimits";
+import {
+  canSubmitSpeedScore,
+  markSpeedSubmitAttempt,
+} from "../utils/speedScoreLimits";
 import {
   buildSpeedScoreUpsert,
   getLeaderboardWeekKey,
@@ -42,69 +45,79 @@ export function useGameSession(
       const next = applySpeedRoundToProgress(progress, result, todayKey);
       saveProgress(next);
 
-      if (supabase && isSupabaseConfigured && isValidSpeedScore(finalScore, wordsSolved)) {
-        const { data: userData } = await supabase.auth.getUser();
-        if (userData.user) {
-          const week = getLeaderboardWeekKey();
-          const userId = userData.user.id;
+      if (!supabase || !isSupabaseConfigured) return;
 
-          const { data: existing } = await supabase
-            .from("speed_scores")
-            .select("score, words_solved")
-            .eq("user_id", userId)
-            .eq("week_key", week)
-            .eq("mode", mode)
-            .maybeSingle();
-
-          const upserted = buildSpeedScoreUpsert(
-            existing
-              ? {
-                  score: existing.score as number,
-                  words_solved: existing.words_solved as number,
-                }
-              : null,
-            { score: finalScore, words_solved: wordsSolved }
-          );
-
-          const { error } = await supabase.from("speed_scores").upsert(
-            {
-              user_id: userId,
-              week_key: week,
-              mode,
-              score: upserted.score,
-              words_solved: upserted.words_solved,
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: "user_id,week_key,mode" }
-          );
-          if (error) {
-            logError("speedScore.upsert", error);
-            onRemoteError?.(
-              mapUserFacingError(error, "Speed score could not be saved to the leaderboard")
-            );
-            return;
-          }
-
-          const { data: boardRows, error: boardErr } = await supabase
-            .from("speed_scores")
-            .select("user_id, score")
-            .eq("week_key", week)
-            .eq("mode", mode)
-            .order("score", { ascending: false });
-          if (boardErr) {
-            logError("speedScore.rank", boardErr);
-            return;
-          }
-
-          const rank = rankForUser(userId, boardRows ?? []);
-          const withBadges = syncLeaderboardPlacementForMode(next, week, mode, rank);
-          if (
-            JSON.stringify(withBadges.earnedBadgeIds) !== JSON.stringify(next.earnedBadgeIds) ||
-            JSON.stringify(withBadges.leaderboardRanks) !== JSON.stringify(next.leaderboardRanks)
-          ) {
-            saveProgress(withBadges);
-          }
+      const gate = canSubmitSpeedScore(finalScore, wordsSolved, mode);
+      if (!gate.ok) {
+        if (gate.reason !== "submit_too_soon") {
+          logError("speedScore.reject", new Error(gate.reason));
         }
+        return;
+      }
+      markSpeedSubmitAttempt();
+
+      const { data: userData } = await supabase.auth.getUser();
+      if (!userData.user) return;
+
+      const week = getLeaderboardWeekKey();
+      const userId = userData.user.id;
+
+      const { data: existing } = await supabase
+        .from("speed_scores")
+        .select("score, words_solved")
+        .eq("user_id", userId)
+        .eq("week_key", week)
+        .eq("mode", mode)
+        .maybeSingle();
+
+      // Never lower a weekly best (client); DB trigger also enforces this.
+      const upserted = buildSpeedScoreUpsert(
+        existing
+          ? {
+              score: existing.score as number,
+              words_solved: existing.words_solved as number,
+            }
+          : null,
+        { score: finalScore, words_solved: wordsSolved }
+      );
+
+      const { error } = await supabase.from("speed_scores").upsert(
+        {
+          user_id: userId,
+          week_key: week,
+          mode,
+          score: upserted.score,
+          words_solved: upserted.words_solved,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "user_id,week_key,mode" }
+      );
+      if (error) {
+        logError("speedScore.upsert", error);
+        onRemoteError?.(
+          mapUserFacingError(error, "Speed score could not be saved to the leaderboard")
+        );
+        return;
+      }
+
+      const { data: boardRows, error: boardErr } = await supabase
+        .from("speed_scores")
+        .select("user_id, score")
+        .eq("week_key", week)
+        .eq("mode", mode)
+        .order("score", { ascending: false });
+      if (boardErr) {
+        logError("speedScore.rank", boardErr);
+        return;
+      }
+
+      const rank = rankForUser(userId, boardRows ?? []);
+      const withBadges = syncLeaderboardPlacementForMode(next, week, mode, rank);
+      if (
+        JSON.stringify(withBadges.earnedBadgeIds) !== JSON.stringify(next.earnedBadgeIds) ||
+        JSON.stringify(withBadges.leaderboardRanks) !== JSON.stringify(next.leaderboardRanks)
+      ) {
+        saveProgress(withBadges);
       }
     },
     [progress, saveProgress, onRemoteError, todayKey]

@@ -84,15 +84,18 @@ create trigger on_auth_user_created
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
 
 -- Weekly speed leaderboard (dual boards: mixed | chapter)
+-- Anti-cheat: see migrations 20260710210000 + 20260710220000 (validate_speed_score trigger).
 create table if not exists public.speed_scores (
   id bigserial primary key,
   user_id uuid not null references auth.users (id) on delete cascade,
   week_key text not null,
   mode text not null default 'mixed' check (mode in ('mixed', 'chapter')),
   score integer not null check (score >= 0),
-  words_solved integer not null default 0 check (words_solved >= 0),
+  words_solved integer not null default 0 check (words_solved >= 0 and words_solved <= 80),
   updated_at timestamptz not null default now(),
-  unique (user_id, week_key, mode)
+  unique (user_id, week_key, mode),
+  check (score <= words_solved * 18400),
+  check (words_solved = 0 or score >= words_solved * 1000)
 );
 
 alter table public.speed_scores enable row level security;

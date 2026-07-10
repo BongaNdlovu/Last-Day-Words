@@ -13,6 +13,7 @@ Production content and schema live on the linked remote project.
   - `20260710193000_speed_scores_mode.sql` — dual Mixed/Chapter weekly boards
   - `20260710200000_drop_daily_scores.sql` — removes unused hangman daily board table
   - `20260710210000_speed_scores_validate_real_caps.sql` — score cap `words_solved * 18400` (matches client)
+  - `20260710220000_speed_scores_anticheat.sql` — min score/word, monotonic weekly best, 8s increase rate limit
 
 ## Housekeeping notes
 
