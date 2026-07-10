@@ -201,3 +201,21 @@ The app sends `emailRedirectTo` / `redirectTo` as `window.location.origin` (`Aut
 - `VITE_SUPABASE_ANON_KEY` = anon key from Dashboard → API
 
 Redeploy after env changes. PWA/theme updates on one refresh; background video caches after first visit (~4 MB).
+
+### Vercel deploy (GitHub → production)
+
+`main` pushes run **CI** only unless Vercel Git integration or GitHub Actions secrets are configured.
+
+**Symptom:** merge to `main` but [last-day-words.vercel.app](https://last-day-words.vercel.app/) stays on an old bundle — check Vercel **Deployments** for commit `30a8bbd` (or latest). If missing, the repo is not wired to auto-deploy.
+
+**Option A — reconnect Git (simplest):** Vercel Dashboard → Project → **Settings → Git** → connect `BongaNdlovu/Last-Day-Words`, production branch **`main`**, then **Redeploy** latest `main`.
+
+**Option B — GitHub Actions** (`.github/workflows/vercel-deploy.yml`): add repo secrets from Vercel → Project → Settings → General:
+
+| Secret | Where |
+|--------|--------|
+| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | Project Settings → General |
+| `VERCEL_PROJECT_ID` | Project Settings → General |
+
+Push to `main` triggers a production deploy after secrets exist.
