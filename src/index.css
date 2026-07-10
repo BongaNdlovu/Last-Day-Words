@@ -74,17 +74,6 @@ body {
     linear-gradient(180deg, rgba(11, 11, 14, 0.28) 0%, rgba(11, 11, 14, 0.62) 100%);
 }
 
-/* Static grain only — animated full-screen grain was hitching the decode */
-.bg-grain {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.18;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
-}
-
 /* Clear glass cards — transparent fill + light frost */
 .pcard {
   background:
@@ -218,9 +207,6 @@ body {
   }
   .bg-video {
     display: none; /* static charcoal instead of motion */
-  }
-  .bg-grain {
-    opacity: 0.08;
   }
 }
 
