@@ -4,7 +4,9 @@ import {
   playAnswerSfx,
   playButtonSfxForEventTarget,
   playRoundEndSound,
+  playTickSound,
   setGameSoundsEnabled,
+  stopTickSound,
 } from "./sounds";
 
 describe("sounds", () => {
@@ -40,8 +42,11 @@ describe("sounds", () => {
     expect(() => playAnswerSfx(true)).not.toThrow();
     expect(() => playAnswerSfx(false)).not.toThrow();
     expect(() => playRoundEndSound()).not.toThrow();
+    expect(() => playTickSound()).not.toThrow();
+    expect(() => stopTickSound()).not.toThrow();
     setGameSoundsEnabled(false);
     expect(() => playAnswerSfx(true)).not.toThrow();
+    expect(() => playTickSound()).not.toThrow();
     vi.unstubAllGlobals();
   });
 

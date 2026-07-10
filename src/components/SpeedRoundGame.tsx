@@ -29,7 +29,7 @@ import GameFeedback, { FeedbackTone } from "./GameFeedback";
 import SoulLamp from "./SoulLamp";
 import EllenWhiteAvatar, { AvatarReaction } from "./EllenWhiteAvatar";
 import { flashScreen } from "../utils/flash";
-import { playRoundEndSound } from "../utils/sounds";
+import { playRoundEndSound, playTickSound, stopTickSound } from "../utils/sounds";
 
 interface SpeedRoundGameProps {
   highScore: number;
@@ -147,13 +147,19 @@ export default function SpeedRoundGame({
   }, [startCountdown, loadNextWord]);
 
   // Pause the clock while the player reads the post-solve scripture card.
+  // Each second: decrement + one tick SFX (aligned to this interval, not free-running audio).
   useEffect(() => {
-    if (!isPlaying || isGameOver || solvedReveal) return;
+    if (!isPlaying || isGameOver || solvedReveal) {
+      stopTickSound();
+      return;
+    }
     timerRef.current = setInterval(() => {
+      playTickSound();
       setTimeLeft((prev) => {
         if (prev <= 1) {
           setIsGameOver(true);
           if (timerRef.current) clearInterval(timerRef.current);
+          stopTickSound();
           return 0;
         }
         return prev - 1;
@@ -161,6 +167,7 @@ export default function SpeedRoundGame({
     }, 1000);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+      stopTickSound();
     };
   }, [isPlaying, isGameOver, solvedReveal]);
 

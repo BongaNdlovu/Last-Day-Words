@@ -4,15 +4,17 @@
  * - correct / wrong: letter guesses (via flashScreen)
  * - round-end: speed/teams round complete
  * - button: general UI button presses (not letter keys)
+ * - tick: one timer-second pulse (sliced from clock track)
  */
 
-type SfxKind = "correct" | "wrong" | "round-end" | "button";
+type SfxKind = "correct" | "wrong" | "round-end" | "button" | "tick";
 
 const SOURCES: Record<SfxKind, string> = {
   correct: "/sounds/correct.mp3",
   wrong: "/sounds/wrong.mp3",
   "round-end": "/sounds/round-end.mp3",
   button: "/sounds/button.mp3",
+  tick: "/sounds/tick.mp3",
 };
 
 const VOLUMES: Record<SfxKind, number> = {
@@ -20,10 +22,16 @@ const VOLUMES: Record<SfxKind, number> = {
   wrong: 0.75,
   "round-end": 0.8,
   button: 0.45,
+  /** Soft so it can fire every second without drowning guesses. */
+  tick: 0.4,
 };
+
+/** Clock source is a multi-second bed; only play the leading tick. */
+const TICK_SLICE_MS = 280;
 
 let soundsEnabled = true;
 const cache: Partial<Record<SfxKind, HTMLAudioElement>> = {};
+let tickStopTimer: ReturnType<typeof setTimeout> | null = null;
 
 function getAudio(kind: SfxKind): HTMLAudioElement | null {
   if (typeof Audio === "undefined") return null;
@@ -39,6 +47,9 @@ function getAudio(kind: SfxKind): HTMLAudioElement | null {
 /** Keep in sync with UserProgress.soundEnabled from App. */
 export function setGameSoundsEnabled(enabled: boolean): void {
   soundsEnabled = enabled;
+  if (!enabled) {
+    stopTickSound();
+  }
 }
 
 export function areGameSoundsEnabled(): boolean {
@@ -77,6 +88,53 @@ export function playRoundEndSound(): void {
 
 export function playButtonSound(): void {
   play("button");
+}
+
+/** One second of the speed timer — play leading tick only. */
+export function playTickSound(): void {
+  if (!soundsEnabled) return;
+  const audio = getAudio("tick");
+  if (!audio) return;
+  try {
+    if (tickStopTimer) {
+      clearTimeout(tickStopTimer);
+      tickStopTimer = null;
+    }
+    audio.pause();
+    audio.currentTime = 0;
+    const p = audio.play();
+    if (p && typeof p.catch === "function") {
+      p.catch(() => {
+        /* ignore */
+      });
+    }
+    tickStopTimer = setTimeout(() => {
+      tickStopTimer = null;
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+    }, TICK_SLICE_MS);
+  } catch {
+    /* ignore */
+  }
+}
+
+export function stopTickSound(): void {
+  if (tickStopTimer) {
+    clearTimeout(tickStopTimer);
+    tickStopTimer = null;
+  }
+  const audio = cache.tick;
+  if (!audio) return;
+  try {
+    audio.pause();
+    audio.currentTime = 0;
+  } catch {
+    /* ignore */
+  }
 }
 
 /** Convenience for letter-guess feedback. */
