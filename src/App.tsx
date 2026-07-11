@@ -32,6 +32,7 @@ import {
   setGameSoundsEnabled,
   unlockBackgroundMusic,
 } from "./utils/sounds";
+import { getMusicVolumeUpdate, shouldUnlockBackgroundMusicForKey } from "./utils/musicControls";
 import {
   getChapterSpeedChapters,
   getChapterSpeedWords,
@@ -175,7 +176,8 @@ export default function App() {
       unlockBackgroundMusic();
       playButtonSfxForEventTarget(e.target);
     };
-    const onKeyDown = () => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!shouldUnlockBackgroundMusicForKey(e)) return;
       unlockBackgroundMusic();
     };
     document.addEventListener("pointerdown", onPointerDown, true);
@@ -195,12 +197,10 @@ export default function App() {
   };
 
   const handleMusicVolume = (value: number) => {
-    const next = Math.min(1, Math.max(0, value));
     saveProgress({
       ...progress,
-      musicVolume: next,
-      // Dragging volume up from 0 re-enables music; mute stays independent via the button.
-      musicEnabled: next > 0 ? true : progress.musicEnabled,
+      // Dragging to 0 mutes music; dragging above 0 re-enables it.
+      ...getMusicVolumeUpdate(value),
     });
   };
 
