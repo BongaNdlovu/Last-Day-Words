@@ -42,6 +42,10 @@ export interface UserProgress {
   speedChapterHighestWordsSolved?: number;
   totalTimePlayedSec: number;
   soundEnabled: boolean;
+  /** Background soundtrack on/off (independent of SFX). Default true when unset. */
+  musicEnabled?: boolean;
+  /** Background music volume 0–1. Default ~0.28 when unset. */
+  musicVolume?: number;
   dailyChallengeCompletedDate?: string;
   dailyChallengeStreak?: number;
   /** ISO date of last day the streak was successfully maintained (play or freeze). */

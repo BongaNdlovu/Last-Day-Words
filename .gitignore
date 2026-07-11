@@ -31,3 +31,6 @@ scripts/prepare_mcp_exec.py
 # Local Supabase CLI runtime (remote-only workflow; no config.toml)
 supabase/.branches
 supabase/.temp
+
+.vercel
+.env*

@@ -1,5 +1,14 @@
 import { useState, useEffect, useMemo, Suspense } from "react";
-import { Volume2, VolumeX, Flame, BookOpen, LogIn, UserRound, ArrowLeft } from "lucide-react";
+import {
+  Volume2,
+  VolumeX,
+  Music2,
+  Flame,
+  BookOpen,
+  LogIn,
+  UserRound,
+  ArrowLeft,
+} from "lucide-react";
 import { DEFAULT_CANDLE_ID } from "./data/cosmetics";
 import { GameMode, UserProgress } from "./types";
 import ScreenFlash from "./components/ScreenFlash";
@@ -16,7 +25,13 @@ import { useStreakReminder } from "./hooks/useStreakReminder";
 import { useGameSession } from "./hooks/useGameSession";
 import { useAuth } from "./hooks/useAuth";
 import { useNoticeQueue } from "./hooks/useNoticeQueue";
-import { playButtonSfxForEventTarget, setGameSoundsEnabled } from "./utils/sounds";
+import {
+  DEFAULT_MUSIC_VOLUME,
+  playButtonSfxForEventTarget,
+  setBackgroundMusicPrefs,
+  setGameSoundsEnabled,
+  unlockBackgroundMusic,
+} from "./utils/sounds";
 import {
   getChapterSpeedChapters,
   getChapterSpeedWords,
@@ -48,6 +63,8 @@ const DEFAULT_PROGRESS: UserProgress = {
   speedRoundHighestWordsSolved: 0,
   totalTimePlayedSec: 0,
   soundEnabled: true,
+  musicEnabled: true,
+  musicVolume: DEFAULT_MUSIC_VOLUME,
   wordStats: {},
   streakFreezes: 0,
   earnedBadgeIds: [],
@@ -136,9 +153,16 @@ export default function App() {
     setCurrentMode("speed-round");
   };
 
+  const musicOn = progress.musicEnabled !== false;
+  const musicVol = progress.musicVolume ?? DEFAULT_MUSIC_VOLUME;
+
   useEffect(() => {
     setGameSoundsEnabled(progress.soundEnabled !== false);
   }, [progress.soundEnabled]);
+
+  useEffect(() => {
+    setBackgroundMusicPrefs(musicOn, musicVol);
+  }, [musicOn, musicVol]);
 
   // Landing from a reset-password email must surface the set-new-password form.
   useEffect(() => {
@@ -148,14 +172,36 @@ export default function App() {
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
       if (e.button !== 0) return;
+      unlockBackgroundMusic();
       playButtonSfxForEventTarget(e.target);
     };
+    const onKeyDown = () => {
+      unlockBackgroundMusic();
+    };
     document.addEventListener("pointerdown", onPointerDown, true);
-    return () => document.removeEventListener("pointerdown", onPointerDown, true);
+    document.addEventListener("keydown", onKeyDown, true);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown, true);
+      document.removeEventListener("keydown", onKeyDown, true);
+    };
   }, []);
 
   const handleToggleSound = () => {
     saveProgress({ ...progress, soundEnabled: !progress.soundEnabled });
+  };
+
+  const handleToggleMusic = () => {
+    saveProgress({ ...progress, musicEnabled: !musicOn });
+  };
+
+  const handleMusicVolume = (value: number) => {
+    const next = Math.min(1, Math.max(0, value));
+    saveProgress({
+      ...progress,
+      musicVolume: next,
+      // Dragging volume up from 0 re-enables music; mute stays independent via the button.
+      musicEnabled: next > 0 ? true : progress.musicEnabled,
+    });
   };
 
   const handleEnableNotifications = async () => {
@@ -283,6 +329,39 @@ export default function App() {
                 <VolumeX className="w-4 h-4 text-[#a49b8d]" aria-hidden="true" />
               )}
             </button>
+            <div
+              className="flex items-center gap-1.5 py-1 px-1.5 sm:px-2 bg-white/[0.06] rounded-lg border border-white/10"
+              data-no-button-sfx
+            >
+              <button
+                type="button"
+                onClick={handleToggleMusic}
+                aria-label={musicOn ? "Mute background music" : "Unmute background music"}
+                aria-pressed={musicOn}
+                className="p-1.5 text-[#f4f1ea] rounded-md hover:bg-white/10 cursor-pointer transition-colors"
+              >
+                <Music2
+                  className={`w-4 h-4 ${musicOn ? "" : "text-[#a49b8d]"}`}
+                  aria-hidden="true"
+                />
+              </button>
+              <label className="flex items-center gap-1.5 min-w-0">
+                <span className="sr-only">Background music volume</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={musicOn ? musicVol : 0}
+                  onChange={(e) => handleMusicVolume(Number(e.target.value))}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round((musicOn ? musicVol : 0) * 100)}
+                  aria-label="Background music volume"
+                  className="w-14 sm:w-16 md:w-20 accent-[#f5b301] cursor-pointer"
+                />
+              </label>
+            </div>
             {currentMode !== "stats-help" && (
               <button
                 onClick={handleViewStudyGuide}
