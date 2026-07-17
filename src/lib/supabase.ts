@@ -7,10 +7,16 @@ import { rankForUser } from "../utils/leaderboard";
 import type { RemoteFetchResult, RemoteWriteResult } from "./syncResult";
 import { writeErr, writeOk } from "./syncResult";
 
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+function readViteEnv(value: string | undefined): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim().replace(/^["']|["']$/g, "");
+  return trimmed || undefined;
+}
 
-export const isSupabaseConfigured = Boolean(url && anon);
+const url = readViteEnv(import.meta.env.VITE_SUPABASE_URL);
+const anon = readViteEnv(import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+export const isSupabaseConfigured = Boolean(url && anon && /^https?:\/\/.+/i.test(url));
 
 export const supabase: SupabaseClient | null = isSupabaseConfigured
   ? createClient(url!, anon!, {

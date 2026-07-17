@@ -50,8 +50,27 @@ jobs:
       - name: Pull Vercel env
         run: npx vercel pull --yes --environment=production
 
+      - name: Verify Vite env pulled
+        run: |
+          set -a
+          [ -f .vercel/.env.production.local ] && . ./.vercel/.env.production.local
+          set +a
+          if [ -z "$VITE_SUPABASE_URL" ] || ! echo "$VITE_SUPABASE_URL" | grep -qE '^https://.*\.supabase\.co/?$'; then
+            echo "::error::VITE_SUPABASE_URL missing or invalid after vercel pull"
+            exit 1
+          fi
+          if [ -z "$VITE_SUPABASE_ANON_KEY" ]; then
+            echo "::error::VITE_SUPABASE_ANON_KEY missing after vercel pull"
+            exit 1
+          fi
+          echo "Vite Supabase env present."
+
       - name: Build
-        run: npx vercel build --prod
+        run: |
+          set -a
+          [ -f .vercel/.env.production.local ] && . ./.vercel/.env.production.local
+          set +a
+          npm run build
 
       - name: Deploy
         run: npx vercel deploy --prebuilt --prod
