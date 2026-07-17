@@ -65,7 +65,7 @@ jobs:
           echo "Vite Supabase env present."
 
       - name: Build
-        run: npm run build
+        run: npx vercel build --prod
 
       - name: Deploy
         run: npx vercel deploy --prebuilt --prod
