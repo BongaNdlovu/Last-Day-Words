@@ -26,7 +26,7 @@ import KeyboardGrid from "./KeyboardGrid";
 import WordSlots from "./WordSlots";
 import GameFeedback, { FeedbackTone } from "./GameFeedback";
 import { flashScreen } from "../utils/flash";
-import { playRoundEndSound } from "../utils/sounds";
+import { playRoundEndSound, playSolveSound } from "../utils/sounds";
 import { Chapter } from "../data/words";
 import type { OnlineTeamsPayload } from "../utils/onlineTeams";
 
@@ -288,6 +288,7 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
   useEffect(() => {
     if (solved && !solvedRef.current && phase === "playing") {
       solvedRef.current = true;
+      playSolveSound();
       const timer = setTimeout(() => finishTurn(true), 800);
       return () => clearTimeout(timer);
     }

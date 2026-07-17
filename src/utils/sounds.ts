@@ -3,6 +3,7 @@
  *
  * SFX (gated by soundEnabled):
  * - correct / wrong: letter guesses (via flashScreen)
+ * - solve: applause when a word is fully solved (the final correct answer)
  * - round-end: speed/teams round complete
  * - button: general UI button presses (not letter keys)
  * - tick: one timer-second pulse (sliced from clock track)
@@ -10,11 +11,12 @@
  * Background music (gated by musicEnabled + musicVolume, independent of SFX).
  */
 
-type SfxKind = "correct" | "wrong" | "round-end" | "button" | "tick";
+type SfxKind = "correct" | "wrong" | "solve" | "round-end" | "button" | "tick";
 
 const SOURCES: Record<SfxKind, string> = {
   correct: "/sounds/correct.mp3",
   wrong: "/sounds/wrong.mp3",
+  solve: "/sounds/applause.mp3",
   "round-end": "/sounds/round-end.mp3",
   button: "/sounds/button.mp3",
   tick: "/sounds/tick.mp3",
@@ -23,6 +25,8 @@ const SOURCES: Record<SfxKind, string> = {
 const VOLUMES: Record<SfxKind, number> = {
   correct: 0.85,
   wrong: 0.75,
+  /** Applause reward on a full solve — celebratory but not overwhelming. */
+  solve: 0.9,
   "round-end": 0.8,
   button: 0.45,
   /** Soft so it can fire every second without drowning guesses. */
@@ -175,6 +179,11 @@ function play(kind: SfxKind): void {
 
 export function playCorrectSound(): void {
   play("correct");
+}
+
+/** Applause for the final correct answer — a fully solved word. */
+export function playSolveSound(): void {
+  play("solve");
 }
 
 export function playWrongSound(): void {

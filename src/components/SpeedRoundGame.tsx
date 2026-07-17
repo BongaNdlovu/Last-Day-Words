@@ -32,7 +32,7 @@ import GameFeedback, { FeedbackTone } from "./GameFeedback";
 import SoulLamp from "./SoulLamp";
 import EllenWhiteAvatar, { AvatarReaction } from "./EllenWhiteAvatar";
 import { flashScreen } from "../utils/flash";
-import { playRoundEndSound, playTickSound, stopTickSound } from "../utils/sounds";
+import { playRoundEndSound, playSolveSound, playTickSound, stopTickSound } from "../utils/sounds";
 
 interface SpeedRoundGameProps {
   highScore: number;
@@ -230,6 +230,7 @@ export default function SpeedRoundGame({
   useEffect(() => {
     if (!solved || !currentWordObj || solvedRef.current) return;
     solvedRef.current = true;
+    playSolveSound();
 
     const evt = speedEventRef.current;
     const multAtSolve = eventMultRef.current;
