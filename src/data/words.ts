@@ -10,6 +10,14 @@ export interface WordTerm {
   verse: string;
   scripture: string;
   summary: string;
+  /**
+   * Explicit override for "complete the verse" classification. When omitted the
+   * game auto-detects it (answer is a verbatim phrase inside `scripture`). Set to
+   * `false` to suppress the verse-reference anchor even when the answer happens to
+   * appear in the text; set to `true` to force it when the stored scripture is a
+   * truncated fragment that doesn't contain the full answer.
+   */
+  quoteRecall?: boolean;
 }
 
 export interface Chapter {
@@ -53,6 +61,7 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "signs-4",
+        quoteRecall: false,
         word: "PREACHING THE GOSPEL",
         clue: "The ultimate gospel task that must be finished in all the world as a witness before the end.",
         verse: "Matthew 24:14",
@@ -64,7 +73,7 @@ const rawChaptersData: Chapter[] = [
         word: "NATION SHALL RISE AGAINST NATION",
         clue: "Jesus lists international conflict among signs of the end in the Olivet discourse.",
         verse: "Matthew 24:7",
-        scripture: "For nation shall rise against nation, and kingdom against kingdom: and there shall be famines, and pestilences, and earthquakes, in divers places. 8 All these are the beginning of sorrows. 9 Then shall they deliver you up to be afflicted, and sha",
+        scripture: "For nation shall rise against nation, and kingdom against kingdom: and there shall be famines, and pestilences, and earthquakes, in divers places.",
         summary: "Global unrest is a solemn reminder that history moves toward the promised return of Christ."
       },
     ]
@@ -76,6 +85,7 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "shaking-1",
+        quoteRecall: false,
         word: "SHAKING",
         clue: "A testing time among God's people where the superficial are separated from the faithful.",
         verse: "Hebrews 12:27",
@@ -84,6 +94,7 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "shaking-2",
+        quoteRecall: false,
         word: "STRAIGHT TESTIMONY",
         clue: "The direct counsel to the Laodiceans that rouses the church and causes the shaking.",
         verse: "Revelation 3:19",
@@ -92,6 +103,7 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "shaking-3",
+        quoteRecall: false,
         word: "REJECTION OF TRUTH",
         clue: "The choice to compromise or turn away from Bible doctrines, leading to spiritual darkness during sifting.",
         verse: "2 Thessalonians 2:10",
@@ -100,6 +112,7 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "shaking-4",
+        quoteRecall: false,
         word: "SIFTING",
         clue: "The purification process where the chaff of worldly members is blown away from the wheat of God's church.",
         verse: "Amos 9:9",
@@ -111,7 +124,7 @@ const rawChaptersData: Chapter[] = [
         word: "THINGS WHICH CANNOT BE SHAKEN",
         clue: "What remains after God removes what can be shaken.",
         verse: "Hebrews 12:27",
-        scripture: "Things which cannot be shaken may remain. 28 Wherefore we receiving a kingdom which cannot be moved, let us have grace, whereby we may serve God acceptably with reverence and godly fear: 29 For our God is a consuming fire. 2654 Hebrews 12",
+        scripture: "And this word, Yet once more, signifieth the removing of those things that are shaken, as of things that are made, that those things which cannot be shaken may remain.",
         summary: "Only truth rooted in God endures the final shaking of church and world."
       },
     ]
@@ -134,7 +147,7 @@ const rawChaptersData: Chapter[] = [
         word: "DAY OF PENTECOST",
         clue: "The historical outpouring of the Holy Spirit that empowered the early Christian church.",
         verse: "Acts 2:1",
-        scripture: "And when the day of Pentecost was fully come, they were all with one accord in one place. And suddenly there came a sound from heaven as of a rushing mighty wind, and it filled all the house where they were sitting.",
+        scripture: "And when the day of Pentecost was fully come, they were all with one accord in one place.",
         summary: "Pentecost was the 'early rain' of the Spirit. The latter rain will be even more abundant, covering the whole earth with the glory of God."
       },
       {
@@ -142,7 +155,7 @@ const rawChaptersData: Chapter[] = [
         word: "REFRESHING",
         clue: "Times of spiritual reviving and preparation that come from the presence of the Lord.",
         verse: "Acts 3:19",
-        scripture: "Repent ye therefore, and be converted, that your sins may be blotted out, when the times of refreshing shall come from the presence of the Lord.",
+        scripture: "Repent ye therefore, and be converted, that your sins may be blotted out, when the times of refreshing shall come from the presence of the Lord;",
         summary: "Before we can receive the fullness of the Holy Spirit, we must experience personal revival, repentance, and the blotting out of sins."
       },
       {
@@ -158,7 +171,7 @@ const rawChaptersData: Chapter[] = [
         word: "YOUR SONS AND YOUR DAUGHTERS SHALL PROPHESY",
         clue: "Joel’s promise of Spirit on all flesh before the great day.",
         verse: "Joel 2:28",
-        scripture: "sons and your daughters shall prophesy, your old men shall dream dreams, your young men shall see visions: 29 And also upon the servants and upon the handmaids in those days will I pour out my spirit. 30 And I will shew wonders in the he",
+        scripture: "And it shall come to pass afterward, that I will pour out my spirit upon all flesh; and your sons and your daughters shall prophesy, your old men shall dream dreams, your young men shall see visions:",
         summary: "The latter rain empowers the final gospel witness as Pentecost empowered the first."
       },
     ]
@@ -170,6 +183,7 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "loud-cry-1",
+        quoteRecall: false,
         word: "LOUD CRY",
         clue: "The final worldwide warning message that swells from the third angel's message.",
         verse: "Revelation 18:1",
@@ -178,10 +192,11 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "loud-cry-2",
+        quoteRecall: false,
         word: "THREE ANGELS",
         clue: "The special three-fold message of Revelation 14 containing God's final warning of judgment and worship.",
         verse: "Revelation 14:6-7",
-        scripture: "And I saw another angel fly in the midst of heaven, having the everlasting gospel to preach unto them that dwell on the earth... Saying with a loud voice, Fear God, and give glory to him; for the hour of his judgment is come...",
+        scripture: "And I saw another angel fly in the midst of heaven, having the everlasting gospel to preach unto them that dwell on the earth, and to every nation, and kindred, and tongue, and people, Saying with a loud voice, Fear God, and give glory to him; for the hour of his judgment is come: and worship him that made heaven, and earth, and the sea, and the fountains of waters.",
         summary: "This message calls humanity back to worshipping the Creator, warns against false worship, and identifies the faithful who keep God's commandments."
       },
       {
@@ -205,7 +220,7 @@ const rawChaptersData: Chapter[] = [
         word: "EARTH WAS LIGHTENED WITH HIS GLORY",
         clue: "Revelation 18 angel fills the world with radiant heavenly light.",
         verse: "Revelation 18:1",
-        scripture: "earth was lightened with his glory. 2 And he cried mightily with a strong voice, saying, Babylon the great is fallen, is fallen, and is become the habitation of devils, and the hold of every foul spirit, and a cage of every unclean and h",
+        scripture: "And after these things I saw another angel come down from heaven, having great power; and the earth was lightened with his glory.",
         summary: "The loud cry is not mere volume but global revelation of God’s character and warning."
       },
     ]
@@ -217,6 +232,7 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "seal-of-god-1",
+        quoteRecall: false,
         word: "SEAL OF GOD",
         clue: "God's sign of authority, ownership, and protection placed upon the foreheads of the faithful.",
         verse: "Revelation 7:3",
@@ -233,14 +249,16 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "seal-of-god-3",
+        quoteRecall: false,
         word: "SUNDAY LAW",
         clue: "The legislative decree that enforces false worship, establishing the Mark of the Beast in contrast to God's Sabbath.",
         verse: "Revelation 13:16",
-        scripture: "And he causeth all, both small and great, rich and poor, free and bond, to receive a mark in their right hand, or in their foreheads.",
+        scripture: "And he causeth all, both small and great, rich and poor, free and bond, to receive a mark in their right hand, or in their foreheads:",
         summary: "A legislative decree that forces individuals to choose between obeying human laws or the immutable, holy law of God."
       },
       {
         id: "seal-of-god-4",
+        quoteRecall: false,
         word: "MARK OF THE BEAST",
         clue: "The sign of allegiance to the beast power, received when one knowingly rejects God's Sabbath for a human substitute.",
         verse: "Revelation 13:17",
@@ -252,7 +270,7 @@ const rawChaptersData: Chapter[] = [
         word: "SEAL THE LAW AMONG MY DISCIPLES",
         clue: "Isaiah links sealing God’s law among those who wait for Him.",
         verse: "Isaiah 8:16",
-        scripture: "Bind up the testimony, seal the law among my disciples. 17 And I will wait upon the Lord, that hideth his face from the house of Jacob, and I will look for him. 18 Behold, I and the children whom the Lord hath given me are for signs and for w",
+        scripture: "Bind up the testimony, seal the law among my disciples.",
         summary: "God’s seal involves loyalty to His law written in heart and life."
       },
     ]
@@ -264,6 +282,7 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "time-of-trouble-1",
+        quoteRecall: false,
         word: "CLOSE OF PROBATION",
         clue: "The solemn moment when Christ finishes His intercessory sanctuary ministry and the destiny of all is fixed.",
         verse: "Revelation 22:11",
@@ -275,19 +294,20 @@ const rawChaptersData: Chapter[] = [
         word: "TIME OF TROUBLE",
         clue: "A period of unprecedented global crisis and distress that occurs after probation closes.",
         verse: "Daniel 12:1",
-        scripture: "And at that time shall Michael stand up, the great prince which standeth for the children of thy people: and there shall be a time of trouble, such as never was since there was a nation...",
+        scripture: "And at that time shall Michael stand up, the great prince which standeth for the children of thy people: and there shall be a time of trouble, such as never was since there was a nation even to that same time: and at that time thy people shall be delivered, every one that shall be found written in the book.",
         summary: "Without an intercessor, the earth experiences the full weight of human rebellion and plagues, but God preserves His faithful ones."
       },
       {
         id: "time-of-trouble-3",
-        word: "TIME OF JACOBS TROUBLE",
+        word: "TIME OF JACOB'S TROUBLE",
         clue: "The intense spiritual wrestling and anguish experienced by the saints as they plead for deliverance.",
         verse: "Jeremiah 30:7",
-        scripture: "Alas! for that day is great, so that none is like it: it is even the time of Jacob's trouble, but he shall be saved out of it.",
+        scripture: "Alas! for that day is great, so that none is like it: it is even the time of Jacob’s trouble, but he shall be saved out of it.",
         summary: "Believers will review their lives, deeply repenting of any sin, and holding on to God by faith alone, refusing to let Him go."
       },
       {
         id: "time-of-trouble-4",
+        quoteRecall: false,
         word: "DEATH DECREE",
         clue: "The final earthly decree dictating that those who refuse to worship the image of the beast should be killed.",
         verse: "Revelation 13:15",
@@ -296,10 +316,11 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "time-of-trouble-5",
+        quoteRecall: false,
         word: "MICHAEL SHALL STAND UP",
         clue: "Daniel’s great prince stands for his people in unprecedented trouble.",
         verse: "Daniel 12:1",
-        scripture: "And at that time shall Michael stand up, the great prince which standeth for the children of thy people: and there shall be a time of trouble, such as never was since there was a nation even to that same time: and at that time thy people shall be delivered, every",
+        scripture: "And at that time shall Michael stand up, the great prince which standeth for the children of thy people: and there shall be a time of trouble, such as never was since there was a nation even to that same time: and at that time thy people shall be delivered, every one that shall be found written in the book.",
         summary: "Deliverance is personal and divine when human mediation is finished."
       },
     ]
@@ -311,16 +332,19 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "second-coming-1",
+        quoteRecall: false,
         word: "SECOND COMING",
         clue: "The glorious, literal, and visible return of Jesus Christ in the clouds of heaven.",
         verse: "Titus 2:13",
-        scripture: "Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ.",
+        scripture: "Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ;",
         summary: "The climax of the Christian hope. Jesus returns not in secret, but in supreme majesty, visible to every eye."
       },
       {
         id: "second-coming-2",
+        quoteRecall: false,
         word: "EASTERN SKY",
-        clue: "The direction where a small cloud, about half the size of a man's hand, first appears to the waiting saints.",
+        clue: "The quarter of heaven Christ likens His coming to — lightning shining from the east even unto the west.",
+        expertClue: "Great Controversy imagery: a small cloud, about half a man's hand, first appears to the waiting saints.",
         verse: "Matthew 24:30",
         scripture: "And then shall appear the sign of the Son of man in heaven: and then shall all the tribes of the earth mourn, and they shall see the Son of man coming in the clouds of heaven with power and great glory.",
         summary: "A small, dark cloud in the east is the sign of Christ's approach. As it draws near, it becomes a great, brilliant cloud of glory."
@@ -330,11 +354,12 @@ const rawChaptersData: Chapter[] = [
         word: "RESURRECTION",
         clue: "The miraculous awakening of the dead in Christ at the sound of the trumpet.",
         verse: "1 Corinthians 15:42",
-        scripture: "So also is the resurrection of the dead. It is sown in corruption; it is raised in incorruption: It is sown in dishonour; it is raised in glory: it is sown in weakness; it is raised in power:",
+        scripture: "So also is the resurrection of the dead. It is sown in corruption; it is raised in incorruption:",
         summary: "Graves are opened worldwide, and the sleeping saints are raised with immortal bodies, reunited with their loved ones."
       },
       {
         id: "second-coming-4",
+        quoteRecall: false,
         word: "TRANSLATION",
         clue: "The instantaneous change of the living righteous from mortality to immortality, caught up to meet the Lord.",
         verse: "1 Thessalonians 4:17",
@@ -346,7 +371,7 @@ const rawChaptersData: Chapter[] = [
         word: "EVERY EYE SHALL SEE HIM",
         clue: "John’s description of the public, visible return of Christ.",
         verse: "Revelation 1:7",
-        scripture: "Behold, he cometh with clouds; and every eye shall see him, and they also which pierced him: and all kindreds of the earth shall wail because of him. Even so, Amen. 8 I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to",
+        scripture: "Behold, he cometh with clouds; and every eye shall see him, and they also which pierced him: and all kindreds of the earth shall wail because of him. Even so, Amen.",
         summary: "The Advent is not secret; the whole world will know when the King returns."
       },
     ]
@@ -393,7 +418,7 @@ const rawChaptersData: Chapter[] = [
         word: "FORMER THINGS ARE PASSED AWAY",
         clue: "God’s promise after tears and death are gone from the new creation.",
         verse: "Revelation 21:4",
-        scripture: "the former things are passed away. 5 And he that sat upon the throne said, Behold, I make all things new. And he said unto me, Write: for these words are true and faithful. 6 And he said unto me, It is done. I am Alpha and Omega, the begi",
+        scripture: "And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away.",
         summary: "Sin’s history ends; the redeemed inherit a world where pain is only a memory."
       },
     ]
@@ -405,15 +430,17 @@ const rawChaptersData: Chapter[] = [
     words: [
       {
         id: "judgment-1",
+        quoteRecall: false,
         word: "INVESTIGATIVE JUDGMENT",
         clue: "The heavenly tribunal where records are examined before Christ's return to earth.",
         expertClue: "Daniel 7:9-10 — books opened; the Ancient of days presides.",
         verse: "Daniel 7:9-10",
-        scripture: "I beheld till the thrones were cast down, and the Ancient of days did sit... thousand thousands ministered unto him, and ten thousand times ten thousand stood before him: the judgment was set, and the books were opened.",
+        scripture: "I beheld till the thrones were cast down, and the Ancient of days did sit, whose garment was white as snow, and the hair of his head like the pure wool: his throne was like the fiery flame, and his wheels as burning fire. A fiery stream issued and came forth from before him: thousand thousands ministered unto him, and ten thousand times ten thousand stood before him: the judgment was set, and the books were opened.",
         summary: "Before Christ returns as King, heaven conducts a review of every life. This judgment vindicates God's character and confirms who is ready for eternity."
       },
       {
         id: "judgment-2",
+        quoteRecall: false,
         word: "PRE ADVENT JUDGMENT",
         clue: "Divine review that must finish before the Second Coming, not after it.",
         expertClue: "2300-day prophecy of Daniel 8:14 points to this cleansing era.",
@@ -423,15 +450,17 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "judgment-3",
+        quoteRecall: false,
         word: "BLOT OUT SINS",
         clue: "The act of removing confessed transgressions from heavenly records during judgment.",
         expertClue: "Acts 3:19 links repentance with sins being blotted out.",
         verse: "Acts 3:19",
-        scripture: "Repent ye therefore, and be converted, that your sins may be blotted out, when the times of refreshing shall come from the presence of the Lord.",
+        scripture: "Repent ye therefore, and be converted, that your sins may be blotted out, when the times of refreshing shall come from the presence of the Lord;",
         summary: "Through faith in Christ, forgiven sins are erased from the books of heaven. This is the gospel assurance that motivates holy living."
       },
       {
         id: "judgment-4",
+        quoteRecall: false,
         word: "CLEANSING OF SANCTUARY",
         clue: "The antitypical Day of Atonement when the heavenly temple is purified from sin's record.",
         expertClue: "Hebrews 8:1-2 — Christ ministers in the true tabernacle pitched by the Lord.",
@@ -444,7 +473,7 @@ const rawChaptersData: Chapter[] = [
         word: "BOOKS WERE OPENED",
         clue: "Daniel’s court scene before the Ancient of days.",
         verse: "Daniel 7:10",
-        scripture: "judgment was set, and the books were opened. 11 I beheld then because of the voice of the great words which the horn spake: I beheld even till the beast was slain, and his body destroyed, and given to the burning flame. 12 As concerning t",
+        scripture: "A fiery stream issued and came forth from before him: thousand thousands ministered unto him, and ten thousand times ten thousand stood before him: the judgment was set, and the books were opened.",
         summary: "Heaven’s records undergird a fair judgment before the sentence of the ages."
       },
     ]
@@ -460,11 +489,12 @@ const rawChaptersData: Chapter[] = [
         clue: "God permits believing a lie when truth is rejected — a final test of loyalty.",
         expertClue: "2 Thessalonians 2:11 — sent because they received not the love of the truth.",
         verse: "2 Thessalonians 2:11",
-        scripture: "And for this cause God shall send them strong delusion, that they should believe a lie.",
+        scripture: "And for this cause God shall send them strong delusion, that they should believe a lie:",
         summary: "When humanity refuses to love truth, God withdraws restraining grace. The result is widespread deception that only Bible students will discern."
       },
       {
         id: "deceptions-2",
+        quoteRecall: false,
         word: "SPIRITUALISM",
         clue: "Satan's end-time masquerade through spirits and signs imitating the dead and divine.",
         expertClue: "Revelation 16:13-14 — three unclean spirits like frogs from dragon, beast, false prophet.",
@@ -495,7 +525,7 @@ const rawChaptersData: Chapter[] = [
         word: "LYING WONDERS",
         clue: "Paul warns of Satan’s power with deceptive signs after the working of the lawless one.",
         verse: "2 Thessalonians 2:9",
-        scripture: "power and signs and lying wonders, 10 And with all deceivableness of unrighteousness in them that perish; because they received not the love of the truth, that they might be saved. 11 And for this cause God shall send them strong delusion",
+        scripture: "Even him, whose coming is after the working of Satan with all power and signs and lying wonders,",
         summary: "Miracles alone never prove truth; the Word is the test of every wonder."
       },
     ]
@@ -526,9 +556,9 @@ const rawChaptersData: Chapter[] = [
       {
         id: "daniel-image-3",
         word: "HIS FEET PART OF IRON AND PART OF CLAY",
-        clue: "The divided toes of the image showing a mixed, unstable end-time political order.",
-        verse: "Daniel 2:41",
-        scripture: "And whereas thou sawest the feet and toes, part of potters' clay, and part of iron, the kingdom shall be divided; but there shall be in it of the strength of the iron, forasmuch as thou sawest the iron mixed with miry clay.",
+        clue: "The lowest members of the dream-image — a brittle mixture the interpretation calls a divided kingdom.",
+        verse: "Daniel 2:33",
+        scripture: "His legs of iron, his feet part of iron and part of clay.",
         summary: "The final phase of earthly power is strong yet brittle — never fully united until Christ returns."
       },
       {
@@ -544,7 +574,7 @@ const rawChaptersData: Chapter[] = [
         word: "GOD OF HEAVEN SET UP A KINGDOM",
         clue: "Daniel interprets the stone kingdom that fills the whole earth.",
         verse: "Daniel 2:44",
-        scripture: "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever. 45 Forasmuch as thou sawest that",
+        scripture: "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever.",
         summary: "Human empires fall; Christ’s kingdom alone is everlasting."
       },
     ]
@@ -568,7 +598,7 @@ const rawChaptersData: Chapter[] = [
         word: "THE FIRST WAS LIKE A LION",
         clue: "The first beast of Daniel 7, swift and royal, matching Babylon's golden head.",
         verse: "Daniel 7:4",
-        scripture: "The first was like a lion, and had eagle's wings: I beheld till the wings thereof were plucked, and it was lifted up from the earth, and made stand upon the feet as a man, and a man's heart was given to it.",
+        scripture: "The first was like a lion, and had eagle’s wings: I beheld till the wings thereof were plucked, and it was lifted up from the earth, and made stand upon the feet as a man, and a man’s heart was given to it.",
         summary: "Wings of speed give way to a humbled, humanized form — Babylon's pride is checked by the God of heaven."
       },
       {
@@ -592,7 +622,7 @@ const rawChaptersData: Chapter[] = [
         word: "FOUR KINGS WHICH SHALL ARISE",
         clue: "Angel’s plain interpretation of the four great beasts from the sea.",
         verse: "Daniel 7:17",
-        scripture: "These great beasts, which are four, are four kings, which shall arise out of the earth. 18 But the saints of the most High shall take the kingdom, and possess the kingdom for ever, even for ever and ever. 19 Then I would know the truth of the",
+        scripture: "These great beasts, which are four, are four kings, which shall arise out of the earth.",
         summary: "Prophecy decodes empire after empire until the saints receive the kingdom."
       },
     ]
@@ -640,7 +670,7 @@ const rawChaptersData: Chapter[] = [
         word: "WEAR OUT THE SAINTS",
         clue: "The little horn makes war on the holy ones for a prophetic time.",
         verse: "Daniel 7:25",
-        scripture: "And he shall speak great words against the most High, and shall wear out the saints of the most High, and think to change times and laws: and they shall be given into his hand until a time and times and the dividing of time. 26 But the judgment shall sit, and they shall take away his dominion, to c",
+        scripture: "And he shall speak great words against the most High, and shall wear out the saints of the most High, and think to change times and laws: and they shall be given into his hand until a time and times and the dividing of time.",
         summary: "Persecuting power is limited by heaven’s calendar; saints outlast the horn."
       },
     ]
@@ -677,8 +707,8 @@ const rawChaptersData: Chapter[] = [
       },
       {
         id: "daniel-sanctuary-4",
-        word: "EVENING AND MORNING",
-        clue: "The prophetic day unit used when the vision of the daily and the transgression is explained.",
+        word: "EVENING AND THE MORNING",
+        clue: "The prophetic day unit named when the angel affirms the vision is true and to be shut up.",
         verse: "Daniel 8:26",
         scripture: "And the vision of the evening and the morning which was told is true: wherefore shut thou up the vision; for it shall be for many days.",
         summary: "Evening-morning language marks prophetic days; the vision reaches far beyond Daniel's own lifetime."
@@ -688,7 +718,7 @@ const rawChaptersData: Chapter[] = [
         word: "HOW LONG SHALL BE THE VISION",
         clue: "The holy one’s question that introduces the 2300 days.",
         verse: "Daniel 8:13",
-        scripture: "How long shall be the vision concerning the daily sacrifice, and the transgression of desolation, to give both the sanctuary and the host to be trodden under foot? 14 And he said unto me, Unto two thousand and three hundred days; then shall",
+        scripture: "Then I heard one saint speaking, and another saint said unto that certain saint which spake, How long shall be the vision concerning the daily sacrifice, and the transgression of desolation, to give both the sanctuary and the host to be trodden under foot?",
         summary: "Longest prophetic timeline anchors hope in the cleansing of the sanctuary."
       },
     ]
@@ -736,7 +766,7 @@ const rawChaptersData: Chapter[] = [
         word: "KNOWLEDGE SHALL BE INCREASED",
         clue: "End-time running to and fro with increase of knowledge.",
         verse: "Daniel 12:4",
-        scripture: "Knowledge shall be increased. 5 Then I Daniel looked, and, behold, there stood other two, the one on this side of the bank of the river, and the other on that side of the bank of the river. 6 And one said to the man clothed in linen, which wa",
+        scripture: "But thou, O Daniel, shut up the words, and seal the book, even to the time of the end: many shall run to and fro, and knowledge shall be increased.",
         summary: "Sealed prophecy opens as the time of the end arrives."
       },
     ]
@@ -785,7 +815,7 @@ const rawChaptersData: Chapter[] = [
         word: "BE ZEALOUS THEREFORE AND REPENT",
         clue: "Christ’s counsel to lukewarm Laodicea.",
         verse: "Revelation 3:19",
-        scripture: "As many as I love, I rebuke and chasten: be zealous therefore, and repent. 20 Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in to him, and will sup with him, and he with me. 21 To him that overcometh will I grant to sit with me in m",
+        scripture: "As many as I love, I rebuke and chasten: be zealous therefore, and repent.",
         summary: "Love rebukes; repentance restores the end-time church to usefulness."
       },
     ]
@@ -833,7 +863,7 @@ const rawChaptersData: Chapter[] = [
         word: "HOW LONG O LORD HOLY AND TRUE",
         clue: "Cry of the fifth-seal martyrs under the altar.",
         verse: "Revelation 6:10",
-        scripture: "How long, O Lord, holy and true, dost thou not judge and avenge our blood on them that dwell on the earth? 11 And white robes were given unto every one of them; and it was said unto them, that they should rest yet for a little season, until",
+        scripture: "And they cried with a loud voice, saying, How long, O Lord, holy and true, dost thou not judge and avenge our blood on them that dwell on the earth?",
         summary: "Justice delayed is not justice denied; God answers in His time."
       },
     ]
@@ -857,7 +887,7 @@ const rawChaptersData: Chapter[] = [
         word: "PRAYERS OF THE SAINTS",
         clue: "What the angel offers with incense upon the golden altar before the throne.",
         verse: "Revelation 8:3",
-        scripture: "And another angel came and stood at the altar, having a golden censer; and there was given unto him much incense, that he should offer it with the prayers of all saints upon the golden altar which was before the throne.",
+        scripture: "And another angel came and stood at the altar, having a golden censer; and there was given unto him much incense, that he should offer it with the prayers of all saints upon the golden altar which was before the throne. And the smoke of the incense, which came with the prayers of the saints, ascended up before God out of the angel’s hand.",
         summary: "Before trumpets sound, intercession and prayer rise with incense — mercy still mingles with judgment."
       },
       {
@@ -881,7 +911,7 @@ const rawChaptersData: Chapter[] = [
         word: "SEVEN ANGELS WHICH HAD THE SEVEN TRUMPETS",
         clue: "Angels prepared to sound the judgments of the trumpets.",
         verse: "Revelation 8:6",
-        scripture: "And the seven angels which had the seven trumpets prepared themselves to sound. 7 The first angel sounded, and there followed hail and fire mingled with blood, and they were cast upon the earth: and the third part of trees was burnt up, and all gree",
+        scripture: "And the seven angels which had the seven trumpets prepared themselves to sound.",
         summary: "Trumpets warn the world while mercy still mingles with judgment."
       },
     ]
@@ -921,7 +951,7 @@ const rawChaptersData: Chapter[] = [
         word: "NUMBER OF HIS NAME",
         clue: "The number of a man associated with the beast — six hundred threescore and six.",
         verse: "Revelation 13:17",
-        scripture: "And that no man might buy or sell, save he that had the mark, or the name of the beast, or the number of his name. Here is wisdom. Let him that hath understanding count the number of the beast: for it is the number of a man; and his number is Six hundred threescore and six.",
+        scripture: "And that no man might buy or sell, save he that had the mark, or the name of the beast, or the number of his name.",
         summary: "Wisdom and understanding are required to identify the beast; Scripture invites careful, prayerful study — not superstition."
       },
       {
@@ -929,7 +959,7 @@ const rawChaptersData: Chapter[] = [
         word: "KEEP THE COMMANDMENTS OF GOD",
         clue: "Remnant mark with the faith of Jesus in Revelation 14.",
         verse: "Revelation 14:12",
-        scripture: "Here is the patience of the saints: here are they that keep the commandments of God, and the faith of Jesus. 13 And I heard a voice from heaven saying unto me, Write, Blessed are the dead which die in the Lord from henceforth: Yea, saith the Spirit, that they may rest from their labours; and the",
+        scripture: "Here is the patience of the saints: here are they that keep the commandments of God, and the faith of Jesus.",
         summary: "Commandments of God and faith of Jesus define those who endure."
       },
     ]
@@ -977,7 +1007,7 @@ const rawChaptersData: Chapter[] = [
         word: "THEY LIVED AND REIGNED WITH CHRIST",
         clue: "Those in the first resurrection share His rule for a thousand years.",
         verse: "Revelation 20:4",
-        scripture: "lived and reigned with Christ a thousand years. 5 But the rest of the dead lived not again until the thousand years were finished. This is the first resurrection. 6 Blessed and holy is he that hath part in the first resurrection: on such",
+        scripture: "And I saw thrones, and they sat upon them, and judgment was given unto them: and I saw the souls of them that were beheaded for the witness of Jesus, and for the word of God, and which had not worshipped the beast, neither his image, neither had received his mark upon their foreheads, or in their hands; and they lived and reigned with Christ a thousand years.",
         summary: "The millennium is victory for the redeemed and judgment review with Christ."
       },
     ]

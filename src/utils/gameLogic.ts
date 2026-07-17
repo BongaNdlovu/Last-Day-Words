@@ -25,6 +25,36 @@ export function normalizeWord(word: string): string {
   return word.toUpperCase();
 }
 
+/**
+ * Collapse a string to comparable tokens: uppercase, punctuation → single spaces,
+ * trimmed. Apostrophes and possessives are folded away so "JACOB'S" and "JACOBS"
+ * (and "MAN'S"/"MANS") compare equal.
+ */
+export function normalizeForCompare(text: string): string {
+  return text
+    .toUpperCase()
+    .replace(/['’]/g, "") // drop apostrophes so possessives fold together
+    .replace(/[^A-Z0-9]+/g, " ")
+    .trim();
+}
+
+/**
+ * True when the answer is a verbatim phrase found within its own scripture text.
+ * These are "complete the verse" items: the player is recalling exact wording, so
+ * the UI surfaces the verse reference and a "Complete the verse" badge as an anchor.
+ */
+export function answerInScripture(word: WordTerm): boolean {
+  const answer = normalizeForCompare(word.word);
+  if (!answer) return false;
+  const scripture = normalizeForCompare(word.scripture);
+  return scripture.includes(answer);
+}
+
+/** Whether a word should be presented as a "complete the verse" quote-recall item. */
+export function isQuoteRecall(word: WordTerm): boolean {
+  return word.quoteRecall ?? answerInScripture(word);
+}
+
 export function isWordSolved(wordText: string, guessedLetters: string[]): boolean {
   return wordText.split("").every((char) => !isLetter(char) || guessedLetters.includes(char));
 }

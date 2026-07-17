@@ -19,6 +19,7 @@ import {
   SPEED_ROUND_TIME,
   SPEED_SOLVE_BONUS,
   SPEED_SKIP_PENALTY,
+  isQuoteRecall,
 } from "../utils/gameLogic";
 import { rollSpeedEvent, SpeedEvent, DOUBLE_TIME_BONUS, GOLDEN_WORD_SCORE_MULT } from "../utils/rewards";
 import type { SpeedRoundResult } from "../hooks/useGameSession";
@@ -183,6 +184,7 @@ export default function SpeedRoundGame({
   const wordText = currentWordObj ? normalizeWord(currentWordObj.word) : "";
   const solved = currentWordObj ? isWordSolved(wordText, guessedLetters) : false;
   const depthHint = currentWordObj ? getDepthHint(currentWordObj, mistakes, difficulty) : null;
+  const quoteRecall = currentWordObj ? isQuoteRecall(currentWordObj) : false;
   const comboMult = getSpeedComboMultiplier(wordStreak);
   const reviewingScripture = Boolean(solvedReveal);
 
@@ -446,9 +448,17 @@ export default function SpeedRoundGame({
             <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
               difficulty === "hard" ? "bg-rose-500/10 text-rose-800" : difficulty === "medium" ? "bg-amber-100 text-[#fbbf24]" : "bg-emerald-500/10 text-emerald-800"
             }`}>{difficulty}</span>
+            {quoteRecall && (
+              <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded bg-[#f5b301]/15 text-[#fbbf24] border border-[#f5b301]/30">
+                Complete the verse
+              </span>
+            )}
           </div>
           <p className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#a49b8d]">Clue</p>
           <p className="text-lg sm:text-xl font-light leading-relaxed text-[#f4f1ea]">"{currentWordObj.clue}"</p>
+          {quoteRecall && (
+            <p className="text-[11px] font-semibold text-[#a49b8d]">— {currentWordObj.verse}</p>
+          )}
           {depthHint && !solvedReveal && (
             <p className="text-xs text-[#fbbf24] bg-[#f5b301]/10 border border-[#f5b301]/30 rounded px-3 py-2">{depthHint}</p>
           )}

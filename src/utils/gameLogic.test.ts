@@ -15,8 +15,12 @@ import {
   computeSpeedWordTotalScore,
   isPerfectSpeedSolve,
   getSpeedComboMultiplier,
+  normalizeForCompare,
+  answerInScripture,
+  isQuoteRecall,
 } from "./gameLogic";
 import { chaptersData } from "../data/words";
+import type { WordTerm } from "../data/words";
 
 describe("gameLogic", () => {
   it("calcStars returns 3 for perfect solve without hints", () => {
@@ -66,6 +70,45 @@ describe("gameLogic", () => {
     if (word.expertClue) {
       expect(getDepthHintTierText(word, 2)).toContain("Expert clue");
     }
+  });
+
+  it("normalizeForCompare folds apostrophes and punctuation", () => {
+    expect(normalizeForCompare("JACOB'S")).toBe(normalizeForCompare("JACOBS"));
+    expect(normalizeForCompare("A MAN'S HAND")).toBe("A MANS HAND");
+    expect(normalizeForCompare("  wars, and  rumours! ")).toBe("WARS AND RUMOURS");
+  });
+
+  const makeWord = (over: Partial<WordTerm>): WordTerm => ({
+    id: "t",
+    word: "",
+    clue: "",
+    verse: "",
+    scripture: "",
+    summary: "",
+    ...over,
+  });
+
+  it("answerInScripture detects verbatim verse phrases (apostrophe-insensitive)", () => {
+    expect(
+      answerInScripture(
+        makeWord({ word: "WARS AND RUMOURS OF WARS", scripture: "ye shall hear of wars and rumours of wars: see" })
+      )
+    ).toBe(true);
+    expect(
+      answerInScripture(makeWord({ word: "FINGERS OF A MAN'S HAND", scripture: "came forth fingers of a man's hand, and wrote" }))
+    ).toBe(true);
+    expect(
+      answerInScripture(makeWord({ word: "INVESTIGATIVE JUDGMENT", scripture: "the judgment was set, and the books were opened" }))
+    ).toBe(false);
+  });
+
+  it("isQuoteRecall respects the explicit override", () => {
+    const notInText = makeWord({ word: "SEVEN TIMES MORE", scripture: "times more than it was wont" });
+    expect(isQuoteRecall(notInText)).toBe(false);
+    expect(isQuoteRecall({ ...notInText, quoteRecall: true })).toBe(true);
+    const inText = makeWord({ word: "IMAGE OF GOLD", scripture: "made an image of gold, whose height" });
+    expect(isQuoteRecall(inText)).toBe(true);
+    expect(isQuoteRecall({ ...inText, quoteRecall: false })).toBe(false);
   });
 
   it("getDepthHint never exposes verse mid-game", () => {

@@ -12,6 +12,7 @@ import {
   getWordDifficulty,
   getMaxMistakes,
   getDepthHint,
+  isQuoteRecall,
   pickRandomHintLetter,
   getStreakLabel,
   vibrate,
@@ -158,6 +159,7 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
   const difficulty = getWordDifficulty(currentWord);
   const maxMistakes = getMaxMistakes(difficulty);
   const depthHint = getDepthHint(currentWord, mistakes, difficulty);
+  const quoteRecall = isQuoteRecall(currentWord);
   const solved = isWordSolved(wordText, guessedLetters);
   const streakLabel = getStreakLabel(letterStreak);
 
@@ -476,8 +478,16 @@ export default function TeamsModeGame({ chapters, onBack, controlled }: TeamsMod
             difficulty === "easy" ? "bg-emerald-500/10 text-emerald-800" :
             difficulty === "medium" ? "bg-amber-100 text-[#fbbf24]" : "bg-rose-500/10 text-rose-800"
           }`}>{difficulty}</span>
+          {quoteRecall && (
+            <span className="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded bg-[#f5b301]/15 text-[#fbbf24] border border-[#f5b301]/30">
+              Complete the verse
+            </span>
+          )}
         </div>
         <p className="text-lg md:text-xl font-light text-[#f4f1ea] leading-relaxed">"{currentWord.clue}"</p>
+        {quoteRecall && (
+          <p className="text-[11px] font-semibold text-[#a49b8d]">— {currentWord.verse}</p>
+        )}
         <AnimatePresence>
           {depthHint && (
             <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0 }}

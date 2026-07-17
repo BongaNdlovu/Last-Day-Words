@@ -12,7 +12,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IN THE BEGINNING GOD CREATED',
         clue: 'Opening line of Scripture establishing God as Creator.',
         verse: 'Genesis 1:1',
-        scripture: 'In the beginning God created the heaven and the earth. 2 And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. 3 And God said, Let there be light: and th',
+        scripture: "In the beginning God created the heaven and the earth.",
         summary: 'Creation anchors the Sabbath and the three angels’ call to worship the Maker.'
       },
       {
@@ -20,7 +20,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GOD BLESSED THE SEVENTH DAY',
         clue: 'The day God sanctified after finishing His work.',
         verse: 'Genesis 2:3',
-        scripture: 'And God blessed the seventh day, and sanctified it: because that in it he had rested from all his work which God created and made. 4 These are the generations of the heavens and of the earth when they were created, in the day that the Lord God m',
+        scripture: "And God blessed the seventh day, and sanctified it: because that in it he had rested from all his work which God created and made.",
         summary: 'Sabbath is a creation memorial, not a Jewish invention.'
       },
       {
@@ -28,7 +28,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'DUST THOU ART',
         clue: 'Sentence on Adam after the fall — mortality announced.',
         verse: 'Genesis 3:19',
-        scripture: 'thou art, and unto dust shalt thou return. 20 And Adam called his wife\'s name Eve; because she was the mother of all living. 21 Unto Adam also and to his wife did the Lord God make coats of skins, and clothed them. 22 And the Lord God sai',
+        scripture: "In the sweat of thy face shalt thou eat bread, till thou return unto the ground; for out of it wast thou taken: for dust thou art, and unto dust shalt thou return.",
         summary: 'Death is the wage of sin; resurrection is the gift of Christ.'
       },
       {
@@ -36,7 +36,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'ENMITY BETWEEN THEE AND THE WOMAN',
         clue: 'First gospel promise spoken to the serpent.',
         verse: 'Genesis 3:15',
-        scripture: 'Enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel. 16 Unto the woman he said, I will greatly multiply thy sorrow and thy conception; in sorrow thou shalt bring fort',
+        scripture: "And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel.",
         summary: 'The great controversy began in Eden and ends with the serpent crushed.'
       },
       {
@@ -44,7 +44,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'NOAH FOUND GRACE',
         clue: 'Why one man was spared when the earth was filled with violence.',
         verse: 'Genesis 6:8',
-        scripture: 'But Noah found grace in the eyes of the Lord. 9 These are the generations of Noah: Noah was a just man and perfect in his generations, and Noah walked with God. 10 And Noah begat three sons, Shem, Ham, and Japheth. 11 The earth also was corrupt be',
+        scripture: "But Noah found grace in the eyes of the LORD.",
         summary: 'As in Noah’s day, grace saves a remnant before judgment falls.'
       },
     ]
@@ -59,7 +59,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'REMEMBER THE SABBATH DAY',
         clue: 'Opening of the fourth commandment.',
         verse: 'Exodus 20:8',
-        scripture: 'Remember the sabbath day, to keep it holy. 9 Six days shalt thou labour, and do all thy work: 10 But the seventh day is the sabbath of the Lord thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, no',
+        scripture: "Remember the sabbath day, to keep it holy.",
         summary: 'Remembrance of creation and redemption meet in the Sabbath command.'
       },
       {
@@ -67,7 +67,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SIX DAYS SHALT THOU LABOUR',
         clue: 'Work week bounded by holy rest.',
         verse: 'Exodus 20:9',
-        scripture: 'Six days shalt thou labour, and do all thy work: 10 But the seventh day is the sabbath of the Lord thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy s',
+        scripture: "Six days shalt thou labour, and do all thy work:",
         summary: 'Sabbath blessing includes faithful labor and holy rest.'
       },
       {
@@ -75,7 +75,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE SEVENTH DAY IS THE SABBATH',
         clue: 'Plain identity of the day belonging to the LORD thy God.',
         verse: 'Exodus 20:10',
-        scripture: 'Six days shalt thou labour, and do all thy work: 10 But the seventh day is the sabbath of the Lord thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates: 11 For in six days the',
+        scripture: "But the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates:",
         summary: 'God names the day; human tradition cannot rename His holy time.'
       },
       {
@@ -83,7 +83,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'FOR IN SIX DAYS THE LORD',
         clue: 'Creation reason attached to the Sabbath command.',
         verse: 'Exodus 20:11',
-        scripture: 'For in six days the Lord made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the Lord blessed the sabbath day, and hallowed it. 12 Honour thy father and thy mother: that thy days may be long upon th',
+        scripture: "For in six days the LORD made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it.",
         summary: 'Creator worship is the issue of the final crisis.'
       },
       {
@@ -91,7 +91,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'TABLES OF STONE',
         clue: 'Material on which God wrote the Ten Commandments.',
         verse: 'Exodus 31:18',
-        scripture: 'Tables of stone, written with the finger of God. Exodus 31 194 Exodus 31',
+        scripture: "And he gave unto Moses, when he had made an end of communing with him upon mount Sinai, two tables of testimony, tables of stone, written with the finger of God.",
         summary: 'The law is as enduring as the finger that wrote it.'
       },
     ]
@@ -106,7 +106,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'CALL THE SABBATH A DELIGHT',
         clue: 'Isaiah’s description of true Sabbath joy.',
         verse: 'Isaiah 58:13',
-        scripture: 'the sabbath a delight, the holy of the Lord, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words: Isaiah 58 1400 Isaiah 58',
+        scripture: "If thou turn away thy foot from the sabbath, from doing thy pleasure on my holy day; and call the sabbath a delight, the holy of the LORD, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words:",
         summary: 'Sabbath is gift, not burden, when the heart loves the Giver.'
       },
       {
@@ -114,7 +114,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HOLY OF THE LORD HONOURABLE',
         clue: 'How the Sabbath is to be called by those who honor God.',
         verse: 'Isaiah 58:13',
-        scripture: 'holy of the Lord, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words: Isaiah 58 1400 Isaiah 58',
+        scripture: "If thou turn away thy foot from the sabbath, from doing thy pleasure on my holy day; and call the sabbath a delight, the holy of the LORD, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words:",
         summary: 'Reverence for God’s day reveals reverence for God’s character.'
       },
       {
@@ -122,7 +122,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'NOT DOING THINE OWN WAYS',
         clue: 'Sabbath restraint of self-seeking pleasure and speech.',
         verse: 'Isaiah 58:13',
-        scripture: 'doing thine own ways, nor finding thine own pleasure, nor speaking thine own words: Isaiah 58 1400 Isaiah 58',
+        scripture: "If thou turn away thy foot from the sabbath, from doing thy pleasure on my holy day; and call the sabbath a delight, the holy of the LORD, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words:",
         summary: 'Holy time frees us from self to serve God and neighbor.'
       },
       {
@@ -130,7 +130,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THEN SHALT THOU DELIGHT THYSELF',
         clue: 'Promise to those who keep Sabbath from polluting it.',
         verse: 'Isaiah 58:14',
-        scripture: 'Then shalt thou delight thyself in the Lord; and I will cause thee to ride upon the high places of the earth, and feed thee with the heritage of Jacob thy father: for the mouth of the Lord hath spoken it. 1401 Isaiah 58',
+        scripture: "Then shalt thou delight thyself in the LORD; and I will cause thee to ride upon the high places of the earth, and feed thee with the heritage of Jacob thy father: for the mouth of the LORD hath spoken it.",
         summary: 'Delight in God is the reward of true Sabbath rest.'
       },
       {
@@ -138,7 +138,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'RIDE UPON THE HIGH PLACES',
         clue: 'Isaiah’s promise of elevated privilege for Sabbath keepers.',
         verse: 'Isaiah 58:14',
-        scripture: 'I will cause thee to ride upon the high places of the earth, and feed thee with the heritage of Jacob thy father: for the mouth of the Lord hath spoken it. 1401 Isaiah 58',
+        scripture: "Then shalt thou delight thyself in the LORD; and I will cause thee to ride upon the high places of the earth, and feed thee with the heritage of Jacob thy father: for the mouth of the LORD hath spoken it.",
         summary: 'Faithful loyalty is honored even when the world despises it.'
       },
     ]
@@ -153,7 +153,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SON OF MAN I HAVE MADE THEE A WATCHMAN',
         clue: 'God’s commission to Ezekiel for the house of Israel.',
         verse: 'Ezekiel 3:17',
-        scripture: 'I have made thee a watchman unto the house of Israel: therefore hear the word at my mouth, and give them warning from me. Ezekiel 3 1541 Ezekiel 3',
+        scripture: "Son of man, I have made thee a watchman unto the house of Israel: therefore hear the word at my mouth, and give them warning from me.",
         summary: 'Last-day messengers share the watchman’s duty to warn.'
       },
       {
@@ -161,7 +161,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HEAR THE WORD AT MY MOUTH',
         clue: 'Source of the watchman’s message — not human opinion.',
         verse: 'Ezekiel 3:17',
-        scripture: 'the word at my mouth, and give them warning from me. Ezekiel 3 1541 Ezekiel 3',
+        scripture: "Son of man, I have made thee a watchman unto the house of Israel: therefore hear the word at my mouth, and give them warning from me.",
         summary: 'Authority rests in God’s word spoken in love.'
       },
       {
@@ -169,7 +169,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HIS BLOOD WILL I REQUIRE',
         clue: 'Consequence if the watchman fails to warn the wicked.',
         verse: 'Ezekiel 3:18',
-        scripture: 'blood will I require at thine hand. 19 Yet if thou warn the wicked, and he turn not from his wickedness, nor from his wicked way, he shall die in his iniquity; but thou hast delivered thy soul. 20 Again, When a righteous man doth turn fro',
+        scripture: "When I say unto the wicked, Thou shalt surely die; and thou givest him not warning, nor speakest to warn the wicked from his wicked way, to save his life; the same wicked man shall die in his iniquity; but his blood will I require at thine hand.",
         summary: 'Silence when truth is needed is not neutrality.'
       },
       {
@@ -177,7 +177,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THOU HAST DELIVERED THY SOUL',
         clue: 'Result when the watchman warns even if the hearer refuses.',
         verse: 'Ezekiel 3:19',
-        scripture: 'hast delivered thy soul. 20 Again, When a righteous man doth turn from his righteousness, and commit iniquity, and I lay a stumblingblock before him, he shall die: because thou hast not given him warning, he shall die in his sin, and hi',
+        scripture: "Yet if thou warn the wicked, and he turn not from his wickedness, nor from his wicked way, he shall die in his iniquity; but thou hast delivered thy soul.",
         summary: 'Faithful witness frees the messenger; hearers still choose.'
       },
       {
@@ -185,7 +185,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I HAVE NO PLEASURE IN THE DEATH',
         clue: 'God’s heart toward the wicked who turn from their way.',
         verse: 'Ezekiel 33:11',
-        scripture: 'I have no pleasure in the death of the wicked; but that the wicked turn from his way and live: turn ye, turn ye from your evil ways; for why will ye die, O house of Israel? 12 Therefore, thou son of man, say unto the children of thy people,',
+        scripture: "Say unto them, As I live, saith the Lord GOD, I have no pleasure in the death of the wicked; but that the wicked turn from his way and live: turn ye, turn ye from your evil ways; for why will ye die, O house of Israel?",
         summary: 'Judgment is real, yet God’s desire is repentance and life.'
       },
     ]
@@ -201,7 +201,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'DANIEL PURPOSED IN HIS HEART',
         clue: 'Daniel’s resolve not to defile himself with the king’s meat.',
         verse: 'Daniel 1:8',
-        scripture: 'But Daniel purposed in his heart that he would not defile himself with the portion of the king\'s meat, nor with the wine which he drank: therefore he requested of the prince of the eunuchs that he might not defile himself. 9 Now God had brought',
+        scripture: "But Daniel purposed in his heart that he would not defile himself with the portion of the king’s meat, nor with the wine which he drank: therefore he requested of the prince of the eunuchs that he might not defile himself.",
         summary: 'Character decisions made early sustain faithfulness later.'
       },
       {
@@ -209,7 +209,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PULSE TO EAT AND WATER TO DRINK',
         clue: 'The ten-day diet request of the four Hebrews.',
         verse: 'Daniel 1:12',
-        scripture: 'to eat, and water to drink. 13 Then let our countenances be looked upon before thee, and the countenance of the children that eat of the portion of the king\'s meat: and as thou seest, deal with thy servants. 14 So he consented to them i',
+        scripture: "Prove thy servants, I beseech thee, ten days; and let them give us pulse to eat, and water to drink.",
         summary: 'Temperance is part of last-day preparation for clear minds.'
       },
       {
@@ -217,7 +217,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'TEN TIMES BETTER',
         clue: 'How the four compared to magicians after God’s blessing.',
         verse: 'Daniel 1:20',
-        scripture: 'times better than all the magicians and astrologers that were in all his realm. 21 And Daniel continued even unto the first year of king Cyrus. 1640 Daniel 1',
+        scripture: "And in all matters of wisdom and understanding, that the king enquired of them, he found them ten times better than all the magicians and astrologers that were in all his realm.",
         summary: 'God honors those who honor Him in ordinary choices.'
       },
       {
@@ -225,7 +225,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GOD GAVE THEM KNOWLEDGE',
         clue: 'Source of the youths’ skill in learning and wisdom.',
         verse: 'Daniel 1:17',
-        scripture: 'God gave them knowledge and skill in all learning and wisdom: and Daniel had understanding in all visions and dreams. 18 Now at the end of the days that the king had said he should bring them in, then the prince of the eunuchs brought them i',
+        scripture: "As for these four children, God gave them knowledge and skill in all learning and wisdom: and Daniel had understanding in all visions and dreams.",
         summary: 'True education unites intellect with loyalty to God.'
       },
       {
@@ -233,7 +233,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'DANIEL CONTINUED EVEN UNTO',
         clue: 'Daniel’s long service spanning multiple empires.',
         verse: 'Daniel 1:21',
-        scripture: 'And Daniel continued even unto the first year of king Cyrus. 1640 Daniel 1',
+        scripture: "And Daniel continued even unto the first year of king Cyrus.",
         summary: 'Faithfulness is a lifetime race, not a single test.'
       },
     ]
@@ -248,7 +248,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WRITE THE VISION',
         clue: 'Command to make the vision plain upon tables.',
         verse: 'Habakkuk 2:2',
-        scripture: 'And the Lord answered me, and said, Write the vision, and make it plain upon tables, that he may run that readeth it. 3 For the vision is yet for an appointed time, but at the end it shall speak, and not lie: though it tarry, wait for it; because it will surely come, it will n',
+        scripture: "And the LORD answered me, and said, Write the vision, and make it plain upon tables, that he may run that readeth it.",
         summary: 'Prophetic truth must be clear enough to run with.'
       },
       {
@@ -256,7 +256,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THAT HE MAY RUN THAT READETH',
         clue: 'Purpose of writing the vision plainly.',
         verse: 'Habakkuk 2:2',
-        scripture: 'he may run that readeth it. 3 For the vision is yet for an appointed time, but at the end it shall speak, and not lie: though it tarry, wait for it; because it will surely come, it will not tarry. 4 Behold, his soul which is lifted up is',
+        scripture: "And the LORD answered me, and said, Write the vision, and make it plain upon tables, that he may run that readeth it.",
         summary: 'Understanding moves the feet of messengers.'
       },
       {
@@ -264,7 +264,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THOUGH IT TARRY WAIT FOR IT',
         clue: 'Counsel when the appointed time seems delayed.',
         verse: 'Habakkuk 2:3',
-        scripture: 'Though it tarry, wait for it; because it will surely come, it will not tarry. 4 Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith. 5 Yea also, because he transgresseth by wine, he is a proud man,',
+        scripture: "For the vision is yet for an appointed time, but at the end it shall speak, and not lie: though it tarry, wait for it; because it will surely come, it will not tarry.",
         summary: 'Delay is not denial; the vision is for an appointed time.'
       },
       {
@@ -272,7 +272,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IT WILL SURELY COME',
         clue: 'Certainty of the vision’s fulfillment.',
         verse: 'Habakkuk 2:3',
-        scripture: 'will surely come, it will not tarry. 4 Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith. 5 Yea also, because he transgresseth by wine, he is a proud man, neither keepeth at home, who enlargeth',
+        scripture: "For the vision is yet for an appointed time, but at the end it shall speak, and not lie: though it tarry, wait for it; because it will surely come, it will not tarry.",
         summary: 'Hope holds when calendars of men fail.'
       },
       {
@@ -280,7 +280,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE JUST SHALL LIVE BY HIS FAITH',
         clue: 'Habakkuk’s line later quoted by Paul.',
         verse: 'Habakkuk 2:4',
-        scripture: 'Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith. 5 Yea also, because he transgresseth by wine, he is a proud man, neither keepeth at home, who enlargeth his desire as hell, and is as death, and cannot be satisfied, but gathereth unto him all nations, and h',
+        scripture: "Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith.",
         summary: 'Righteousness by faith is the heartbeat of the remnant.'
       },
     ]
@@ -295,7 +295,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE GREAT DAY OF THE LORD',
         clue: 'Zephaniah’s description of a day near and hasting greatly.',
         verse: 'Zephaniah 1:14',
-        scripture: 'The great day of the Lord is near, it is near, and hasteth greatly, even the voice of the day of the Lord: the mighty man shall cry there bitterly. 15 That day is a day of wrath, a day of trouble and distress, a day of wasteness and desolati',
+        scripture: "The great day of the LORD is near, it is near, and hasteth greatly, even the voice of the day of the LORD: the mighty man shall cry there bitterly.",
         summary: 'The day of the Lord sobers every generation that hears.'
       },
       {
@@ -303,7 +303,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'A DAY OF WRATH',
         clue: 'Part of Zephaniah’s catalog of that day’s terrors.',
         verse: 'Zephaniah 1:15',
-        scripture: 'That day is a day of wrath, a day of trouble and distress, a day of wasteness and desolation, a day of darkness and gloominess, a day of clouds and thick darkness, 16 A day of the trumpet and alarm against the fenced cities, and against the',
+        scripture: "That day is a day of wrath, a day of trouble and distress, a day of wasteness and desolation, a day of darkness and gloominess, a day of clouds and thick darkness,",
         summary: 'Judgment is real; mercy invites us before it falls.'
       },
       {
@@ -311,7 +311,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SEEK YE THE LORD',
         clue: 'Call to the meek of the earth before the decree bring forth.',
         verse: 'Zephaniah 2:3',
-        scripture: 'Seek ye the Lord, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the Lord\'S anger. 4 For Gaza shall be forsaken, and Ashkelon a desolation: they shall dri',
+        scripture: "Seek ye the LORD, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the LORD’s anger.",
         summary: 'Seeking God is the only safe path as the day approaches.'
       },
       {
@@ -319,7 +319,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SEEK RIGHTEOUSNESS SEEK MEEKNESS',
         clue: 'Twin pursuits that may hide in the day of anger.',
         verse: 'Zephaniah 2:3',
-        scripture: 'Seek ye the Lord, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the Lord\'S anger. 4 For Gaza shall be forsaken, and Ashkelon a desolation: they shall drive out Ashdod at the noonday, and Ekron shall be rooted up. 5 Woe unto the inh',
+        scripture: "Seek ye the LORD, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the LORD’s anger.",
         summary: 'Character preparation cannot be borrowed at the last moment.'
       },
       {
@@ -327,7 +327,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IT MAY BE YE SHALL BE HID',
         clue: 'Conditional hope for those who seek in time.',
         verse: 'Zephaniah 2:3',
-        scripture: 'may be ye shall be hid in the day of the Lord\'S anger. 4 For Gaza shall be forsaken, and Ashkelon a desolation: they shall drive out Ashdod at the noonday, and Ekron shall be rooted up. 5 Woe unto the inhabitants of the sea coast, the nati',
+        scripture: "Seek ye the LORD, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the LORD’s anger.",
         summary: 'Hiding in Christ is the only shelter in the final storm.'
       },
     ]
@@ -342,7 +342,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THIS GOSPEL OF THE KINGDOM',
         clue: 'Must be preached in all the world before the end comes.',
         verse: 'Matthew 24:14',
-        scripture: 'And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come. 15 When ye therefore shall see the abomination of desolation, spoken of by Daniel the prophet, stand in the holy place',
+        scripture: "And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come.",
         summary: 'Mission finishes before history finishes.'
       },
       {
@@ -350,7 +350,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'FOR A WITNESS UNTO ALL NATIONS',
         clue: 'Purpose of the global gospel proclamation.',
         verse: 'Matthew 24:14',
-        scripture: 'And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come. 15 When ye therefore shall see the abomination of desolation, spoken of by Daniel the prophet, stand in the holy place, (whoso readeth, let him understand:) 16 Then let them which b',
+        scripture: "And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come.",
         summary: 'Every nation must hear a fair testimony of Christ.'
       },
       {
@@ -358,7 +358,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THEN SHALL THE END COME',
         clue: 'What follows the finished witness of the gospel.',
         verse: 'Matthew 24:14',
-        scripture: 'then shall the end come. 15 When ye therefore shall see the abomination of desolation, spoken of by Daniel the prophet, stand in the holy place, (whoso readeth, let him understand:) 16 Then let them which be in Judaea flee into the mounta',
+        scripture: "And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come.",
         summary: 'The end is tied to mission, not to human speculation alone.'
       },
       {
@@ -366,7 +366,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'AS THE DAYS OF NOE WERE',
         clue: 'Jesus’ comparison for the coming of the Son of man.',
         verse: 'Matthew 24:37',
-        scripture: 'But as the days of Noe were, so shall also the coming of the Son of man be. 38 For as in the days that were before the flood they were eating and drinking, marrying and giving in marriage, until the day that Noe entered into the ark, 39 And knew',
+        scripture: "But as the days of Noe were, so shall also the coming of the Son of man be.",
         summary: 'Ordinary life continues until judgment suddenly closes the door.'
       },
       {
@@ -374,7 +374,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WATCH THEREFORE',
         clue: 'Jesus’ command because you know not what hour your Lord comes.',
         verse: 'Matthew 24:42',
-        scripture: 'Watch therefore: for ye know not what hour your Lord doth come. 43 But know this, that if the goodman of the house had known in what watch the thief would come, he would have watched, and would not have suffered his house to be broken up. 44',
+        scripture: "Watch therefore: for ye know not what hour your Lord doth come.",
         summary: 'Watchfulness is love awake to the nearness of Christ.'
       },
     ]
@@ -389,7 +389,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I WILL PRAY THE FATHER',
         clue: 'Jesus’ promise to request another Comforter for the disciples.',
         verse: 'John 14:16',
-        scripture: 'And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever; 17 Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth',
+        scripture: "And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever;",
         summary: 'The Spirit’s presence continues Christ’s ministry until He returns.'
       },
       {
@@ -397,7 +397,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SPIRIT OF TRUTH',
         clue: 'Title of the Comforter the world cannot receive.',
         verse: 'John 14:17',
-        scripture: 'Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth with you, and shall be in you. 18 I will not leave you comfortless: I will come to you. 19 Yet a little w',
+        scripture: "Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth with you, and shall be in you.",
         summary: 'Truth is a Person’s guidance, not mere information.'
       },
       {
@@ -405,7 +405,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HE WILL GUIDE YOU INTO ALL TRUTH',
         clue: 'Promise of the Spirit’s teaching work.',
         verse: 'John 16:13',
-        scripture: 'Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come. 14 He shall glorify me: for he shall receive of mine, and shall shew it unto you. 15',
+        scripture: "Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come.",
         summary: 'Last-day light comes through Spirit-led Scripture.'
       },
       {
@@ -413,7 +413,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SANCTIFY THEM THROUGH THY TRUTH',
         clue: 'Jesus’ prayer for the disciples’ holiness.',
         verse: 'John 17:17',
-        scripture: 'Sanctify them through thy truth: thy word is truth. 18 As thou hast sent me into the world, even so have I also sent them into the world. 19 And for their sakes I sanctify myself, that they also might be sanctified through the truth. 20 Neithe',
+        scripture: "Sanctify them through thy truth: thy word is truth.",
         summary: 'Holiness is not emotion alone; the Word shapes character.'
       },
       {
@@ -421,7 +421,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THY WORD IS TRUTH',
         clue: 'Jesus’ definition of truth in His high-priestly prayer.',
         verse: 'John 17:17',
-        scripture: 'Sanctify them through thy truth: thy word is truth. 18 As thou hast sent me into the world, even so have I also sent them into the world. 19 And for their sakes I sanctify myself, that they also might be sanctified through the truth. 20 Neither pray I for these alone, but for',
+        scripture: "Sanctify them through thy truth: thy word is truth.",
         summary: 'Scripture remains the standard when voices multiply.'
       },
     ]
@@ -436,7 +436,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'YE SHALL RECEIVE POWER',
         clue: 'Promise after the Holy Ghost is come upon you.',
         verse: 'Acts 1:8',
-        scripture: 'But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth. 9 And when he had spoken these things, whil',
+        scripture: "But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth.",
         summary: 'Latter rain power finishes the Acts 1:8 commission.'
       },
       {
@@ -444,7 +444,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WITNESSES UNTO ME',
         clue: 'What the disciples become in Jerusalem, Judea, Samaria, and beyond.',
         verse: 'Acts 1:8',
-        scripture: 'But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth. 9 And when he had spoken these things, while they beheld, he was taken up; and a cloud received him out of their si',
+        scripture: "But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth.",
         summary: 'Witness is identity before it is strategy.'
       },
       {
@@ -452,7 +452,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'UNTO THE UTTERMOST PART OF THE EARTH',
         clue: 'Geographic reach of the Spirit-powered commission.',
         verse: 'Acts 1:8',
-        scripture: 'the uttermost part of the earth. 9 And when he had spoken these things, while they beheld, he was taken up; and a cloud received him out of their sight. 10 And while they looked stedfastly toward heaven as he went up, behold, two men sto',
+        scripture: "But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth.",
         summary: 'No corner of earth is exempt from the gospel claim.'
       },
       {
@@ -460,7 +460,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THIS SAME JESUS',
         clue: 'Angels’ assurance about the manner of Christ’s return.',
         verse: 'Acts 1:11',
-        scripture: 'same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven. 12 Then returned they unto Jerusalem from the mount called Olivet, which is from Jerusalem a sabbath day\'s journey. 13 A',
+        scripture: "Which also said, Ye men of Galilee, why stand ye gazing up into heaven? this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven.",
         summary: 'The returning Lord is the same Jesus who ascended.'
       },
       {
@@ -468,7 +468,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SHALL SO COME IN LIKE MANNER',
         clue: 'How Christ will return as the disciples watched Him go.',
         verse: 'Acts 1:11',
-        scripture: 'so come in like manner as ye have seen him go into heaven. 12 Then returned they unto Jerusalem from the mount called Olivet, which is from Jerusalem a sabbath day\'s journey. 13 And when they were come in, they went up into an upper roo',
+        scripture: "Which also said, Ye men of Galilee, why stand ye gazing up into heaven? this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven.",
         summary: 'Literal, visible, personal return — not a secret spiritualization only.'
       },
     ]
@@ -483,7 +483,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I AM NOT ASHAMED OF THE GOSPEL',
         clue: 'Paul’s bold confession of the gospel’s power.',
         verse: 'Romans 1:16',
-        scripture: 'For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek. 17 For therein is the righteousness of God revealed from faith to faith: as it is writt',
+        scripture: "For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek.",
         summary: 'End-time witness needs unashamed courage.'
       },
       {
@@ -491,7 +491,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IT IS THE POWER OF GOD UNTO SALVATION',
         clue: 'What the gospel is to everyone that believes.',
         verse: 'Romans 1:16',
-        scripture: 'For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek. 17 For therein is the righteousness of God revealed from faith to faith: as it is written, The just shall live by faith. 18 For the wr',
+        scripture: "For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek.",
         summary: 'Salvation is divine power applied to human need.'
       },
       {
@@ -499,7 +499,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THERE IS THEREFORE NOW NO CONDEMNATION',
         clue: 'Status of those in Christ Jesus.',
         verse: 'Romans 8:1',
-        scripture: 'There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit. 2 For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death. 3 For what the',
+        scripture: "There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit.",
         summary: 'Judgment has an answer for those who abide in Christ.'
       },
       {
@@ -507,7 +507,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE LAW IS HOLY',
         clue: 'Paul’s verdict on the commandment after the gospel is preached.',
         verse: 'Romans 7:12',
-        scripture: 'Wherefore the law is holy, and the commandment holy, and just, and good. 13 Was then that which is good made death unto me? God forbid. But sin, that it might appear sin, working death in me by that which is good; that sin by the commandment might bec',
+        scripture: "Wherefore the law is holy, and the commandment holy, and just, and good.",
         summary: 'Grace never makes the law sinful; it writes it on the heart.'
       },
       {
@@ -515,7 +515,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'DO WE THEN MAKE VOID THE LAW',
         clue: 'Paul’s rhetorical question after teaching justification by faith.',
         verse: 'Romans 3:31',
-        scripture: 'Do we then make void the law through faith? God forbid: yea, we establish the law. 2489 Romans 3',
+        scripture: "Do we then make void the law through faith? God forbid: yea, we establish the law.",
         summary: 'Faith establishes the law; it does not cancel it.'
       },
     ]
@@ -530,7 +530,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I AM CRUCIFIED WITH CHRIST',
         clue: 'Paul’s confession of union with the crucified Lord.',
         verse: 'Galatians 2:20',
-        scripture: 'I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me. 21 I do not frustrate the grace of',
+        scripture: "I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me.",
         summary: 'Self dies so that Christ may live out His life in us.'
       },
       {
@@ -538,7 +538,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'NEVERTHELESS I LIVE',
         clue: 'Paradox of the crucified believer who still lives.',
         verse: 'Galatians 2:20',
-        scripture: 'I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me. 21 I do not frustrate the grace of God: for if righteousness co',
+        scripture: "I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me.",
         summary: 'Christian life is Christ’s life reproduced by faith.'
       },
       {
@@ -546,7 +546,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE LIFE WHICH I NOW LIVE',
         clue: 'How Paul lives in the flesh — by faith of the Son of God.',
         verse: 'Galatians 2:20',
-        scripture: 'life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me. 21 I do not frustrate the grace of God: for if righteousness come by the law, then Christ is dead in vain. 2566 Galatians 2',
+        scripture: "I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me.",
         summary: 'Daily faith, not a past memory, sustains holiness.'
       },
       {
@@ -554,7 +554,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'STAND FAST THEREFORE IN THE LIBERTY',
         clue: 'Appeal not to be entangled again with the yoke of bondage.',
         verse: 'Galatians 5:1',
-        scripture: 'Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage. 2 Behold, I Paul say unto you, that if ye be circumcised, Christ shall profit you nothing. 3 For I testify again to e',
+        scripture: "Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage.",
         summary: 'Gospel liberty is freedom to obey from love, not license to sin.'
       },
       {
@@ -562,7 +562,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BY LOVE SERVE ONE ANOTHER',
         clue: 'How freedom expresses itself among believers.',
         verse: 'Galatians 5:13',
-        scripture: 'love serve one another. 14 For all the law is fulfilled in one word, even in this; Thou shalt love thy neighbour as thyself. 15 But if ye bite and devour one another, take heed that ye be not consumed one of another. 16 This I say then, Wal',
+        scripture: "For, brethren, ye have been called unto liberty; only use not liberty for an occasion to the flesh, but by love serve one another.",
         summary: 'True liberty kneels to serve.'
       },
     ]
@@ -577,7 +577,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'ONE LORD ONE FAITH ONE BAPTISM',
         clue: 'Threefold unity in Paul’s list for the church.',
         verse: 'Ephesians 4:5',
-        scripture: 'One Lord, one faith, one baptism, 6 One God and Father of all, who is above all, and through all, and in you all. 7 But unto every one of us is given grace according to the measure of the gift of Christ. 8 Wherefore he saith, When he ascended',
+        scripture: "One Lord, one faith, one baptism,",
         summary: 'Unity is grounded in Christ, not in compromise of truth.'
       },
       {
@@ -585,7 +585,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'ENDEAVOURING TO KEEP THE UNITY',
         clue: 'How believers preserve the Spirit’s unity.',
         verse: 'Ephesians 4:3',
-        scripture: 'Endeavouring to keep the unity of the Spirit in the bond of peace. 4 There is one body, and one Spirit, even as ye are called in one hope of your calling; 5 One Lord, one faith, one baptism, 6 One God and Father of all, who is above all, and t',
+        scripture: "Endeavouring to keep the unity of the Spirit in the bond of peace.",
         summary: 'Unity is kept by effort under the Spirit’s bond.'
       },
       {
@@ -593,7 +593,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SPEAKING THE TRUTH IN LOVE',
         clue: 'How the body grows up into Christ the head.',
         verse: 'Ephesians 4:15',
-        scripture: 'Speaking the truth in love, may grow up into him in all things, which is the head, even Christ: 16 From whom the whole body fitly joined together and compacted by that which every joint supplieth, according to the effectual working in the me',
+        scripture: "But speaking the truth in love, may grow up into him in all things, which is the head, even Christ:",
         summary: 'Last-day messages need both truth and love.'
       },
       {
@@ -601,7 +601,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GROW UP INTO HIM IN ALL THINGS',
         clue: 'Goal of church maturity under Christ the head.',
         verse: 'Ephesians 4:15',
-        scripture: 'grow up into him in all things, which is the head, even Christ: 16 From whom the whole body fitly joined together and compacted by that which every joint supplieth, according to the effectual working in the measure of every part, maketh',
+        scripture: "But speaking the truth in love, may grow up into him in all things, which is the head, even Christ:",
         summary: 'Maturity is measured by likeness to Christ.'
       },
       {
@@ -609,7 +609,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WE ARE HIS WORKMANSHIP',
         clue: 'Created in Christ Jesus unto good works.',
         verse: 'Ephesians 2:10',
-        scripture: 'For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them. 11 Wherefore remember, that ye being in time past Gentiles in the flesh, who are called Uncircumcision by that which',
+        scripture: "For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.",
         summary: 'Grace produces works; works never purchase grace.'
       },
     ]
@@ -624,7 +624,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'LET THIS MIND BE IN YOU',
         clue: 'Paul’s call to share the attitude of Christ Jesus.',
         verse: 'Philippians 2:5',
-        scripture: 'Let this mind be in you, which was also in Christ Jesus: 6 Who, being in the form of God, thought it not robbery to be equal with God: 7 But made himself of no reputation, and took upon him the form of a servant, and was made in the likeness',
+        scripture: "Let this mind be in you, which was also in Christ Jesus:",
         summary: 'The last generation needs the humility of the cross.'
       },
       {
@@ -632,7 +632,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HE HUMBLED HIMSELF',
         clue: 'Christ’s descent even to the death of the cross.',
         verse: 'Philippians 2:8',
-        scripture: 'humbled himself, and became obedient unto death, even the death of the cross. 9 Wherefore God also hath highly exalted him, and given him a name which is above every name: 10 That at the name of Jesus every knee should bow, of things in he',
+        scripture: "And being found in fashion as a man, he humbled himself, and became obedient unto death, even the death of the cross.",
         summary: 'Obedience unto death is the path of the Lamb.'
       },
       {
@@ -640,7 +640,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GOD ALSO HATH HIGHLY EXALTED HIM',
         clue: 'Father’s response to the Son’s humiliation.',
         verse: 'Philippians 2:9',
-        scripture: 'Wherefore God also hath highly exalted him, and given him a name which is above every name: 10 That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and things under the earth; 11 And that every tongue should confes',
+        scripture: "Wherefore God also hath highly exalted him, and given him a name which is above every name:",
         summary: 'The cross precedes the crown for Christ and His people.'
       },
       {
@@ -648,7 +648,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I PRESS TOWARD THE MARK',
         clue: 'Paul’s pursuit of the prize of the high calling.',
         verse: 'Philippians 3:14',
-        scripture: 'I press toward the mark for the prize of the high calling of God in Christ Jesus. 15 Let us therefore, as many as be perfect, be thus minded: and if in any thing ye be otherwise minded, God shall reveal even this unto you. 16 Nevertheless, wh',
+        scripture: "I press toward the mark for the prize of the high calling of God in Christ Jesus.",
         summary: 'Sanctification is forward motion, not past achievement.'
       },
       {
@@ -656,7 +656,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'MY GOD SHALL SUPPLY ALL YOUR NEED',
         clue: 'Promise through Christ Jesus according to His riches.',
         verse: 'Philippians 4:19',
-        scripture: 'But my God shall supply all your need according to his riches in glory by Christ Jesus. 20 Now unto God and our Father be glory for ever and ever. Amen. 21 Salute every saint in Christ Jesus. The brethren which are with me greet you. 22 All the sa',
+        scripture: "But my God shall supply all your need according to his riches in glory by Christ Jesus.",
         summary: 'Provision for mission comes from heaven’s treasury.'
       },
     ]
@@ -671,7 +671,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BY HIM WERE ALL THINGS CREATED',
         clue: 'Christ’s role in making heaven and earth.',
         verse: 'Colossians 1:16',
-        scripture: 'him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him: 17 And he is before all thing',
+        scripture: "For by him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him:",
         summary: 'Creator Christ is worthy of the first angel’s worship call.'
       },
       {
@@ -679,7 +679,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HE IS BEFORE ALL THINGS',
         clue: 'Christ’s preeminence over creation.',
         verse: 'Colossians 1:17',
-        scripture: 'is before all things, and by him all things consist. 18 And he is the head of the body, the church: who is the beginning, the firstborn from the dead; that in all things he might have the preeminence. 19 For it pleased the Father that in h',
+        scripture: "And he is before all things, and by him all things consist.",
         summary: 'History holds together only in Christ.'
       },
       {
@@ -687,7 +687,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IN HIM DWELLETH ALL THE FULNESS',
         clue: 'Fullness of the Godhead bodily in Christ.',
         verse: 'Colossians 2:9',
-        scripture: 'For in him dwelleth all the fulness of the Godhead bodily. 10 And ye are complete in him, which is the head of all principality and power: 11 In whom also ye are circumcised with the circumcision made without hands, in putting off the body of the',
+        scripture: "For in him dwelleth all the fulness of the Godhead bodily.",
         summary: 'We need no lesser mediator than the fullness of God in Christ.'
       },
       {
@@ -695,7 +695,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'YE ARE COMPLETE IN HIM',
         clue: 'Status of believers who are in the head of all principality.',
         verse: 'Colossians 2:10',
-        scripture: 'And ye are complete in him, which is the head of all principality and power: 11 In whom also ye are circumcised with the circumcision made without hands, in putting off the body of the sins of the flesh by the circumcision of Christ: 12 Buried wi',
+        scripture: "And ye are complete in him, which is the head of all principality and power:",
         summary: 'Completeness is in Christ, not in human additions to the gospel.'
       },
       {
@@ -703,7 +703,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'YOUR LIFE IS HID WITH CHRIST IN GOD',
         clue: 'Security of the risen life kept safe in heaven.',
         verse: 'Colossians 3:3',
-        scripture: 'For ye are dead, and your life is hid with Christ in God. 4 When Christ, who is our life, shall appear, then shall ye also appear with him in glory. 5 Mortify therefore your members which are upon the earth; fornication, uncleanness, inordinate affection, evil co',
+        scripture: "For ye are dead, and your life is hid with Christ in God.",
         summary: 'When Christ appears, the hidden life will be revealed in glory.'
       },
     ]
@@ -718,7 +718,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE LORD HIMSELF SHALL DESCEND',
         clue: 'Personal descent of the Lord from heaven with a shout.',
         verse: '1 Thessalonians 4:16',
-        scripture: 'For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first: 17 Then we which are alive and remain shall be caught up together with them in the',
+        scripture: "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first:",
         summary: 'The Advent is personal — the Lord Himself comes.'
       },
       {
@@ -726,7 +726,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE DEAD IN CHRIST SHALL RISE FIRST',
         clue: 'Order of events at the trumpet of God.',
         verse: '1 Thessalonians 4:16',
-        scripture: 'dead in Christ shall rise first: 17 Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord. 18 Wherefore comfort one another with these wo',
+        scripture: "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first:",
         summary: 'Graves cannot hold those who sleep in Jesus.'
       },
       {
@@ -734,7 +734,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'CAUGHT UP TOGETHER WITH THEM',
         clue: 'Living saints join the raised ones in the clouds.',
         verse: '1 Thessalonians 4:17',
-        scripture: 'Caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord. 18 Wherefore comfort one another with these words. 1 Thessalonians 4 2606 1 Thessalonians 4',
+        scripture: "Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord.",
         summary: 'Family reunion in the air with the Lord forever.'
       },
       {
@@ -742,7 +742,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SO SHALL WE EVER BE WITH THE LORD',
         clue: 'Eternal outcome after the catching up.',
         verse: '1 Thessalonians 4:17',
-        scripture: 'shall we ever be with the Lord. 18 Wherefore comfort one another with these words. 1 Thessalonians 4 2606 1 Thessalonians 4',
+        scripture: "Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord.",
         summary: 'Heaven’s joy is perpetual presence with Christ.'
       },
       {
@@ -750,7 +750,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'TO MEET THE LORD IN THE AIR',
         clue: 'Where living saints join the raised ones when Christ descends.',
         verse: '1 Thessalonians 4:17',
-        scripture: 'meet the Lord in the air: and so shall we ever be with the Lord. 18 Wherefore comfort one another with these words. 1 Thessalonians 4 2606 1 Thessalonians 4',
+        scripture: "Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord.",
         summary: 'Prophecy is for comfort as well as warning — reunion in the air with Christ forever.'
       },
     ]
@@ -765,7 +765,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'ALL SCRIPTURE IS GIVEN BY INSPIRATION',
         clue: 'Paul’s doctrine of how Scripture comes from God.',
         verse: '2 Timothy 3:16',
-        scripture: 'All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works. 2 Timothy 3 2626 2 T',
+        scripture: "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:",
         summary: 'Last-day faith rests on God-breathed Scripture.'
       },
       {
@@ -773,7 +773,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PROFITABLE FOR DOCTRINE',
         clue: 'First use Paul lists for inspired Scripture.',
         verse: '2 Timothy 3:16',
-        scripture: 'All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works. 2 Timothy 3 2626 2 Timothy 3',
+        scripture: "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:",
         summary: 'Doctrine must be Bible-derived, not tradition-driven.'
       },
       {
@@ -781,7 +781,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THAT THE MAN OF GOD MAY BE PERFECT',
         clue: 'Purpose of Scripture’s thorough equipment.',
         verse: '2 Timothy 3:17',
-        scripture: 'That the man of God may be perfect, throughly furnished unto all good works. 2 Timothy 3 2626 2 Timothy 3',
+        scripture: "That the man of God may be perfect, throughly furnished unto all good works.",
         summary: 'Scripture completes the worker for every good work.'
       },
       {
@@ -789,7 +789,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PREACH THE WORD',
         clue: 'Paul’s solemn charge to Timothy before God and Christ.',
         verse: '2 Timothy 4:2',
-        scripture: 'Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine. 3 For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves tea',
+        scripture: "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine.",
         summary: 'The loud cry is still the preached Word.'
       },
       {
@@ -797,7 +797,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THEY WILL NOT ENDURE SOUND DOCTRINE',
         clue: 'End-time itching ears that heap teachers to themselves.',
         verse: '2 Timothy 4:3',
-        scripture: 'For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears; 4 And they shall turn away their ears from the truth, and shall be turned unto fables. 5 But watch thou in all things,',
+        scripture: "For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears;",
         summary: 'Popularity is no test of truth in the last days.'
       },
     ]
@@ -812,7 +812,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'FAITH IS THE SUBSTANCE OF THINGS HOPED FOR',
         clue: 'Hebrews’ definition of faith.',
         verse: 'Hebrews 11:1',
-        scripture: 'Now faith is the substance of things hoped for, the evidence of things not seen. 2 For by it the elders obtained a good report. 3 Through faith we understand that the worlds were framed by the word of God, so that things which are seen were not m',
+        scripture: "Now faith is the substance of things hoped for, the evidence of things not seen.",
         summary: 'Faith treats God’s promises as present reality.'
       },
       {
@@ -820,7 +820,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE EVIDENCE OF THINGS NOT SEEN',
         clue: 'Second half of faith’s definition.',
         verse: 'Hebrews 11:1',
-        scripture: 'Now faith is the substance of things hoped for, the evidence of things not seen. 2 For by it the elders obtained a good report. 3 Through faith we understand that the worlds were framed by the word of God, so that things which are seen were not made of things which do appear. 4 By faith Abe',
+        scripture: "Now faith is the substance of things hoped for, the evidence of things not seen.",
         summary: 'Sight will confirm what faith already holds.'
       },
       {
@@ -828,7 +828,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WITHOUT FAITH IT IS IMPOSSIBLE TO PLEASE HIM',
         clue: 'Necessity of faith for anyone who comes to God.',
         verse: 'Hebrews 11:6',
-        scripture: 'But without faith it is impossible to please him: for he that cometh to God must believe that he is, and that he is a rewarder of them that diligently seek him. 7 By faith Noah, being warned of God of things not seen as yet, moved with fear, pre',
+        scripture: "But without faith it is impossible to please him: for he that cometh to God must believe that he is, and that he is a rewarder of them that diligently seek him.",
         summary: 'The remnant walks by faith when miracles multiply on both sides.'
       },
       {
@@ -836,7 +836,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'LOOKING UNTO JESUS',
         clue: 'Author and finisher of our faith.',
         verse: 'Hebrews 12:2',
-        scripture: 'Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the throne of God. 3 For consider him that endured such contradicti',
+        scripture: "Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the throne of God.",
         summary: 'Eyes on Jesus finish the race begun by grace.'
       },
       {
@@ -844,7 +844,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'LET US RUN WITH PATIENCE',
         clue: 'The race set before us, laid aside every weight.',
         verse: 'Hebrews 12:1',
-        scripture: 'us run with patience the race that is set before us, 2 Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the thro',
+        scripture: "Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us,",
         summary: 'Patience is the endurance of the saints in Revelation too.'
       },
     ]
@@ -859,7 +859,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BE YE DOERS OF THE WORD',
         clue: 'James’ appeal not to be hearers only.',
         verse: 'James 1:22',
-        scripture: 'But be ye doers of the word, and not hearers only, deceiving your own selves. 23 For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass: James 1 2658 James 1',
+        scripture: "But be ye doers of the word, and not hearers only, deceiving your own selves.",
         summary: 'Knowledge without obedience deceives the soul.'
       },
       {
@@ -867,7 +867,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'FAITH WITHOUT WORKS IS DEAD',
         clue: 'James’ verdict on claim-only religion.',
         verse: 'James 2:26',
-        scripture: 'without works is dead also. 2661 James 2',
+        scripture: "For as the body without the spirit is dead, so faith without works is dead also.",
         summary: 'Living faith acts; empty profession does not save.'
       },
       {
@@ -875,7 +875,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PURE RELIGION AND UNDEFILED',
         clue: 'Visiting orphans and widows; keeping unspotted from the world.',
         verse: 'James 1:27',
-        scripture: 'Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world. 2659 James 1',
+        scripture: "Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world.",
         summary: 'True piety serves the vulnerable and stays unspotted.'
       },
       {
@@ -883,7 +883,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'RESIST THE DEVIL',
         clue: 'James’ command so that the devil will flee.',
         verse: 'James 4:7',
-        scripture: 'Resist the devil, and he will flee from you. 8 Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners; and purify your hearts, ye double minded. 9 Be afflicted, and mourn, and weep: let your laughter be turned to mourn',
+        scripture: "Submit yourselves therefore to God. Resist the devil, and he will flee from you.",
         summary: 'Resistance under God’s submission ends Satan’s bluff.'
       },
       {
@@ -891,7 +891,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'DRAW NIGH TO GOD',
         clue: 'James promises reciprocal nearness when you approach the throne.',
         verse: 'James 4:8',
-        scripture: 'Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners; and purify your hearts, ye double minded. 9 Be afflicted, and mourn, and weep: let your laughter be turned to mourning, and your joy to heaviness. 10 Humble yours',
+        scripture: "Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners; and purify your hearts, ye double minded.",
         summary: 'Nearness to God is the safeguard of the last days.'
       },
     ]
@@ -906,7 +906,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'EXCEEDING GREAT AND PRECIOUS PROMISES',
         clue: 'Given that we might be partakers of the divine nature.',
         verse: '2 Peter 1:4',
-        scripture: 'Exceeding great and precious promises: that by these ye might be partakers of the divine nature, having escaped the corruption that is in the world through lust. 5 And beside this, giving all diligence, add to your faith virtue; and to virtu',
+        scripture: "Whereby are given unto us exceeding great and precious promises: that by these ye might be partakers of the divine nature, having escaped the corruption that is in the world through lust.",
         summary: 'Promises are the ladder of character growth.'
       },
       {
@@ -914,7 +914,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PARTAKERS OF THE DIVINE NATURE',
         clue: 'Result of claiming God’s promises by faith.',
         verse: '2 Peter 1:4',
-        scripture: 'Partakers of the divine nature, having escaped the corruption that is in the world through lust. 5 And beside this, giving all diligence, add to your faith virtue; and to virtue knowledge; 6 And to knowledge temperance; and to temperance pati',
+        scripture: "Whereby are given unto us exceeding great and precious promises: that by these ye might be partakers of the divine nature, having escaped the corruption that is in the world through lust.",
         summary: 'Sanctification is sharing God’s life, not mere self-improvement.'
       },
       {
@@ -922,7 +922,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'A MORE SURE WORD OF PROPHECY',
         clue: 'Peter’s confidence even above the mount of transfiguration vision.',
         verse: '2 Peter 1:19',
-        scripture: 'We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts: 20 Knowing this first, that no prophecy of the script',
+        scripture: "We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts:",
         summary: 'Prophetic Scripture outranks private experience.'
       },
       {
@@ -930,7 +930,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'AS UNTO A LIGHT THAT SHINETH',
         clue: 'How prophecy functions in a dark place.',
         verse: '2 Peter 1:19',
-        scripture: 'unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts: 20 Knowing this first, that no prophecy of the scripture is of any private interpretation. 21 For the prophecy came not in old time by th',
+        scripture: "We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts:",
         summary: 'Prophecy lights the path until the day dawn.'
       },
       {
@@ -938,7 +938,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'NO PROPHECY OF THE SCRIPTURE IS OF ANY PRIVATE INTERPRETATION',
         clue: 'Peter’s rule for handling prophetic Scripture.',
         verse: '2 Peter 1:20',
-        scripture: 'prophecy of the scripture is of any private interpretation. 21 For the prophecy came not in old time by the will of man: but holy men of God spake as they were moved by the Holy Ghost. 2676 2 Peter 1',
+        scripture: "Knowing this first, that no prophecy of the scripture is of any private interpretation.",
         summary: 'Humble, Spirit-led interpretation guards against speculation.'
       },
     ]
@@ -953,7 +953,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GOD IS LOVE',
         clue: 'John’s simple revelation of God’s essential nature.',
         verse: '1 John 4:8',
-        scripture: 'He that loveth not knoweth not God; for God is love. 9 In this was manifested the love of God toward us, because that God sent his only begotten Son into the world, that we might live through him. 10 Herein is love, not that we loved God, but that he loved us, and sent his Son',
+        scripture: "He that loveth not knoweth not God; for God is love.",
         summary: 'Every last-day doctrine must be read in the light of God’s love.'
       },
       {
@@ -961,7 +961,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'WE LOVE HIM BECAUSE HE FIRST LOVED US',
         clue: 'Source of Christian love.',
         verse: '1 John 4:19',
-        scripture: 'We love him, because he first loved us. 20 If a man say, I love God, and hateth his brother, he is a liar: for he that loveth not his brother whom he hath seen, how can he love God whom he hath not seen? 21 And this commandment have we from h',
+        scripture: "We love him, because he first loved us.",
         summary: 'Obedience is response to love already given.'
       },
       {
@@ -969,7 +969,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THIS IS THE LOVE OF GOD',
         clue: 'That we keep His commandments.',
         verse: '1 John 5:3',
-        scripture: 'For this is the love of God, that we keep his commandments: and his commandments are not grievous. 4 For whatsoever is born of God overcometh the world: and this is the victory that overcometh the world, even our faith. 5 Who is he that overcomet',
+        scripture: "For this is the love of God, that we keep his commandments: and his commandments are not grievous.",
         summary: 'Love and law are not enemies in Scripture.'
       },
       {
@@ -977,7 +977,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HIS COMMANDMENTS ARE NOT GRIEVOUS',
         clue: 'John’s testimony about the weight of God’s commands.',
         verse: '1 John 5:3',
-        scripture: 'For this is the love of God, that we keep his commandments: and his commandments are not grievous. 4 For whatsoever is born of God overcometh the world: and this is the victory that overcometh the world, even our faith. 5 Who is he that overcometh the world, but he that believeth that Jesus is the Son of',
+        scripture: "For this is the love of God, that we keep his commandments: and his commandments are not grievous.",
         summary: 'Grace makes the yoke easy and the burden light.'
       },
       {
@@ -985,7 +985,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HE THAT HATH THE SON HATH LIFE',
         clue: 'Eternal life defined by possession of the Son.',
         verse: '1 John 5:12',
-        scripture: 'He that hath the Son hath life; and he that hath not the Son of God hath not life. 13 These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life, and that ye may believe on the',
+        scripture: "He that hath the Son hath life; and he that hath not the Son of God hath not life.",
         summary: 'Life is a Person before it is a place.'
       },
     ]
@@ -1000,7 +1000,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'EARNESTLY CONTEND FOR THE FAITH',
         clue: 'Jude’s appeal for the faith once delivered unto the saints.',
         verse: 'Jude 1:3',
-        scripture: 'Earnestly contend for the faith which was once delivered unto the saints. 4 For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and',
+        scripture: "Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints.",
         summary: 'Truth is worth earnest, loving contention.'
       },
       {
@@ -1008,7 +1008,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'ONCE DELIVERED UNTO THE SAINTS',
         clue: 'The faith is not a modern invention.',
         verse: 'Jude 1:3',
-        scripture: 'faith which was once delivered unto the saints. 4 For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord',
+        scripture: "Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints.",
         summary: 'Apostolic faith is the standard for the end-time church.'
       },
       {
@@ -1016,7 +1016,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BUILDING UP YOURSELVES ON YOUR MOST HOLY FAITH',
         clue: 'How to keep in the love of God while contending.',
         verse: 'Jude 1:20',
-        scripture: 'But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost, 21 Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life. 22 And of some have compassion, making a difference: 23 And oth',
+        scripture: "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost,",
         summary: 'Defense of truth requires personal spiritual construction.'
       },
       {
@@ -1024,7 +1024,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'PRAYING IN THE HOLY GHOST',
         clue: 'Jude’s companion to building on holy faith.',
         verse: 'Jude 1:20',
-        scripture: 'But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost, 21 Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life. 22 And of some have compassion, making a difference: 23 And others save with fear, pulling them out of the fire',
+        scripture: "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost,",
         summary: 'Prayer in the Spirit fuels faithful contention.'
       },
       {
@@ -1032,7 +1032,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'KEEP YOURSELVES IN THE LOVE OF GOD',
         clue: 'Looking for the mercy of our Lord Jesus Christ unto eternal life.',
         verse: 'Jude 1:21',
-        scripture: 'Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life. 22 And of some have compassion, making a difference: 23 And others save with fear, pulling them out of the fire; hating even the garment spo',
+        scripture: "Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life.",
         summary: 'Stay in love while you stand for truth.'
       },
     ]
@@ -1048,7 +1048,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I KNOW THY WORKS',
         clue: 'Christ’s repeated knowledge of each church’s condition.',
         verse: 'Revelation 2:2',
-        scripture: 'I know thy works, and thy labour, and thy patience, and how thou canst not bear them which are evil: and thou hast tried them which say they are apostles, and are not, and hast found them liars: 3 And hast borne, and hast patience, and for m',
+        scripture: "I know thy works, and thy labour, and thy patience, and how thou canst not bear them which are evil: and thou hast tried them which say they are apostles, and are not, and hast found them liars:",
         summary: 'Nothing about the church is hidden from its Head.'
       },
       {
@@ -1056,7 +1056,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BE THOU FAITHFUL UNTO DEATH',
         clue: 'Promise of a crown of life to Smyrna’s sufferers.',
         verse: 'Revelation 2:10',
-        scripture: 'thou faithful unto death, and I will give thee a crown of life. 11 He that hath an ear, let him hear what the Spirit saith unto the churches; He that overcometh shall not be hurt of the second death. 12 And to the angel of the church in Pe',
+        scripture: "Fear none of those things which thou shalt suffer: behold, the devil shall cast some of you into prison, that ye may be tried; and ye shall have tribulation ten days: be thou faithful unto death, and I will give thee a crown of life.",
         summary: 'Faithfulness, not length of life, wins the crown.'
       },
       {
@@ -1064,7 +1064,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HOLD THAT FAST WHICH THOU HAST',
         clue: 'Counsel so that no man take thy crown.',
         verse: 'Revelation 3:11',
-        scripture: 'Behold, I come quickly: hold that fast which thou hast, that no man take thy crown. 12 Him that overcometh will I make a pillar in the temple of my God, and he shall go no more out: and I will write upon him the name of my God, and the name of the city of my God, w',
+        scripture: "Behold, I come quickly: hold that fast which thou hast, that no man take thy crown.",
         summary: 'Preserve present truth until Jesus comes.'
       },
       {
@@ -1072,7 +1072,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'I STAND AT THE DOOR AND KNOCK',
         clue: 'Christ’s appeal outside Laodicea’s door.',
         verse: 'Revelation 3:20',
-        scripture: 'Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in to him, and will sup with him, and he with me. 21 To him that overcometh will I grant to sit with me in my throne, even as I also overcame, a',
+        scripture: "Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in to him, and will sup with him, and he with me.",
         summary: 'Even lukewarm hearts hear a personal knock of mercy.'
       },
       {
@@ -1080,7 +1080,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'TO HIM THAT OVERCOMETH',
         clue: 'Repeated promise formula in the seven letters.',
         verse: 'Revelation 3:21',
-        scripture: 'To him that overcometh will I grant to sit with me in my throne, even as I also overcame, and am set down with my Father in his throne. 22 He that hath an ear, let him hear what the Spirit saith unto the churches. 2703 Revelation 3',
+        scripture: "To him that overcometh will I grant to sit with me in my throne, even as I also overcame, and am set down with my Father in his throne.",
         summary: 'Overcoming is possible in Christ for every church age.'
       },
     ]
@@ -1096,7 +1096,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BLESSED IS HE THAT READETH',
         clue: 'Opening beatitude of Revelation for readers and keepers.',
         verse: 'Revelation 1:3',
-        scripture: 'Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things which are written therein: for the time is at hand. 4 John to the seven churches which are in Asia: Grace be unto you, and peace, from him which',
+        scripture: "Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things which are written therein: for the time is at hand.",
         summary: 'Prophetic study is commanded and blessed.'
       },
       {
@@ -1104,7 +1104,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'KEEP THOSE THINGS WHICH ARE WRITTEN',
         clue: 'Blessing tied to keeping Revelation’s words.',
         verse: 'Revelation 1:3',
-        scripture: 'those things which are written therein: for the time is at hand. 4 John to the seven churches which are in Asia: Grace be unto you, and peace, from him which is, and which was, and which is to come; and from the seven Spirits which are',
+        scripture: "Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things which are written therein: for the time is at hand.",
         summary: 'Hearing without keeping forfeits the blessing.'
       },
       {
@@ -1112,7 +1112,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE TIME IS AT HAND',
         clue: 'Urgency attached to Revelation’s opening blessing.',
         verse: 'Revelation 1:3',
-        scripture: 'the time is at hand. 4 John to the seven churches which are in Asia: Grace be unto you, and peace, from him which is, and which was, and which is to come; and from the seven Spirits which are before his throne; 5 And from Jesus Christ, wh',
+        scripture: "Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things which are written therein: for the time is at hand.",
         summary: 'Urgency is part of the book’s message in every age.'
       },
       {
@@ -1120,7 +1120,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'SURELY I COME QUICKLY',
         clue: 'Jesus’ thrice-echoed closing promise.',
         verse: 'Revelation 22:20',
-        scripture: 'He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus. 21 The grace of our Lord Jesus Christ be with you all. Amen. 2734 Revelation 22',
+        scripture: "He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus.",
         summary: 'The last word of Jesus in Scripture is soon return.'
       },
       {
@@ -1128,7 +1128,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'EVEN SO COME LORD JESUS',
         clue: 'John’s response to the promise of soon coming.',
         verse: 'Revelation 22:20',
-        scripture: 'Even so, come, Lord Jesus. 21 The grace of our Lord Jesus Christ be with you all. Amen. 2734 Revelation 22',
+        scripture: "He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus.",
         summary: 'The remnant’s prayer matches heaven’s promise.'
       },
     ]
@@ -1143,7 +1143,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE LORD IS MY SHEPHERD',
         clue: 'Opening of the best-known psalm of trust.',
         verse: 'Psalm 23:1',
-        scripture: 'The Lord is my shepherd; I shall not want. 2 He maketh me to lie down in green pastures: he leadeth me beside the still waters. 3 He restoreth my soul: he leadeth me in the paths of righteousness for his name\'s sake. 4 Yea, though I walk throu',
+        scripture: "The LORD is my shepherd; I shall not want.",
         summary: 'Shepherd care continues through the valley of the shadow.'
       },
       {
@@ -1151,7 +1151,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'HE LEADETH ME BESIDE THE STILL WATERS',
         clue: 'Restoring path of the Shepherd for the soul.',
         verse: 'Psalm 23:2',
-        scripture: 'He maketh me to lie down in green pastures: he leadeth me beside the still waters. 3 He restoreth my soul: he leadeth me in the paths of righteousness for his name\'s sake. 4 Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod',
+        scripture: "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
         summary: 'God’s leading is restful even in crisis seasons.'
       },
       {
@@ -1159,7 +1159,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THY WORD IS A LAMP UNTO MY FEET',
         clue: 'How Scripture guides step by step.',
         verse: 'Psalm 119:105',
-        scripture: 'Thy word is a lamp unto my feet, and a light unto my path. 106 I have sworn, and I will perform it, that I will keep thy righteous judgments. 107 I am afflicted very much: quicken me, O Lord, according unto thy word. 108 Accept, I beseech thee',
+        scripture: "Thy word is a lamp unto my feet, and a light unto my path.",
         summary: 'Path light for the last days is still the Word.'
       },
       {
@@ -1167,7 +1167,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'GOD IS OUR REFUGE AND STRENGTH',
         clue: 'A very present help in trouble.',
         verse: 'Psalm 46:1',
-        scripture: 'God is our refuge and strength, a very present help in trouble. 2 Therefore will not we fear, though the earth be removed, and though the mountains be carried into the midst of the sea; 3 Though the waters thereof roar and be troubled, though',
+        scripture: "God is our refuge and strength, a very present help in trouble.",
         summary: 'Refuge is a Person when the earth is removed.'
       },
       {
@@ -1175,7 +1175,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'BE STILL AND KNOW THAT I AM GOD',
         clue: 'Command in the psalm of God’s exaltation among the nations.',
         verse: 'Psalm 46:10',
-        scripture: 'Be still, and know that I am God: I will be exalted among the heathen, I will be exalted in the earth. 11 The Lord of hosts is with us; the God of Jacob is our refuge. Selah. Psalm 46 1105 Psalm 46',
+        scripture: "Be still, and know that I am God: I will be exalted among the heathen, I will be exalted in the earth.",
         summary: 'Stillness before God steadies the end-time heart.'
       },
     ]
@@ -1190,7 +1190,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THE FEAR OF THE LORD IS THE BEGINNING OF WISDOM',
         clue: 'Foundation of true knowledge.',
         verse: 'Proverbs 9:10',
-        scripture: 'The fear of the Lord is the beginning of wisdom: a good understanding have all they that do his commandments: his praise endureth for ever. Psalm 111 1184 Psalm 111',
+        scripture: "The fear of the LORD is the beginning of wisdom: and the knowledge of the holy is understanding.",
         summary: 'Reverence for God is the first lesson of true education.'
       },
       {
@@ -1198,7 +1198,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'TRUST IN THE LORD WITH ALL THINE HEART',
         clue: 'Call not to lean on your own understanding.',
         verse: 'Proverbs 3:5',
-        scripture: 'Trust in the Lord with all thine heart; and lean not unto thine own understanding. 6 In all thy ways acknowledge him, and he shall direct thy paths. 7 Be not wise in thine own eyes: fear the Lord, and depart from evil. 8 It shall be health to',
+        scripture: "Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
         summary: 'Whole-heart trust is the remnant’s security system.'
       },
       {
@@ -1206,7 +1206,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'LEAN NOT UNTO THINE OWN UNDERSTANDING',
         clue: 'Companion command to whole-heart trust.',
         verse: 'Proverbs 3:5',
-        scripture: 'Trust in the Lord with all thine heart; and lean not unto thine own understanding. 6 In all thy ways acknowledge him, and he shall direct thy paths. 7 Be not wise in thine own eyes: fear the Lord, and depart from evil. 8 It shall be health to thy navel, and marrow to thy bones. 9 Honour',
+        scripture: "Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
         summary: 'Self-wisdom fails in the final crisis.'
       },
       {
@@ -1214,7 +1214,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'IN ALL THY WAYS ACKNOWLEDGE HIM',
         clue: 'Condition for God directing your paths.',
         verse: 'Proverbs 3:6',
-        scripture: 'In all thy ways acknowledge him, and he shall direct thy paths. 7 Be not wise in thine own eyes: fear the Lord, and depart from evil. 8 It shall be health to thy navel, and marrow to thy bones. 9 Honour the Lord with thy substance, and with th',
+        scripture: "In all thy ways acknowledge him, and he shall direct thy paths.",
         summary: 'Direction follows acknowledgment in every path.'
       },
       {
@@ -1222,7 +1222,7 @@ export const expansionChapters2: Chapter[] = [
         word: 'THERE IS A WAY WHICH SEEMETH RIGHT',
         clue: 'Warning that ends in death.',
         verse: 'Proverbs 14:12',
-        scripture: 'There is a way which seemeth right unto a man, but the end thereof are the ways of death. 13 Even in laughter the heart is sorrowful; and the end of that mirth is heaviness. 14 The backslider in heart shall be filled with his own ways: and a',
+        scripture: "There is a way which seemeth right unto a man, but the end thereof are the ways of death.",
         summary: 'Seeming right is not the same as being right.'
       },
     ]
